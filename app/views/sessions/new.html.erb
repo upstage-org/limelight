@@ -1,0 +1,32 @@
+<% @title = 'Login' %>
+
+<div class="col-lg-6 col-lg-offset-3">
+<%= form_tag do %>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h2 class="panel-title">Login</h2>
+  </div>
+  <div class="panel-body">
+      <div class="form-group">
+        <%= text_field_tag 'email', nil, :class => 'form-control', :placeholder => 'Email' %>
+      </div>
+      <div class="form-group">
+        <%= password_field_tag 'password', nil, :class => 'form-control', :placeholder => 'Password' %>
+      </div>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <%= check_box_tag 'remember_me', :class => 'form-control' %>
+            Remember me
+          </label>
+        </div>
+      </div>
+  </div>
+  <div class="panel-footer">
+      <%= submit_tag "Login", :class => 'pull-right btn btn-primary' %>
+      <div class="clearfix"></div>
+    </span>
+  </div>
+</div>
+<% end %>
+</div>

@@ -1,0 +1,11 @@
+<div class="page-header">
+  <h1>
+    <%= @user.nickname %>
+    <small class="pull-right">
+      <span class="btn-group">
+        <%= link_to 'Edit', edit_user_path(@user), :class => "btn btn-default" %>
+        <%= link_to 'Delete', @user, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
+      </span>
+    </small>
+  </h1>
+</div>
