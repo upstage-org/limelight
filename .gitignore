@@ -27,3 +27,6 @@
 # Ignore RBENV
 .rbenv-vars
 .ruby-version
+
+# Ignore abitrary OSX junk
+.DS_Store

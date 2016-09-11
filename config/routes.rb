@@ -11,5 +11,7 @@ Rails.application.routes.draw do
 
   get '/logout', :to => "sessions#destroy", :as => 'logout'
 
-  root "users#index"
+  get '/foyer', :to => "theatre#foyer", :as => 'foyer'
+
+  root "theatre#foyer"
 end
