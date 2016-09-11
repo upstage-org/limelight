@@ -50,7 +50,7 @@ class StagesController < ApplicationController
 
   private
     def set_stage
-      @stage = Stage.find_by_slug(params[:id])
+      @stage = Stage.find_by_slug!(params[:id])
     end
 
     def stage_params

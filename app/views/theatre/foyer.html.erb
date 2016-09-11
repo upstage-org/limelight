@@ -24,7 +24,7 @@
       <% @stages.each do |s| %>
         <div class="row">
           <div class="col-lg-10">
-            <%= link_to s.name, '#' %>
+            <%= link_to s.name, performance_path(s) %>
           </div>
           <div class="col-lg-1">
             0

@@ -13,5 +13,7 @@ Rails.application.routes.draw do
 
   get '/foyer', :to => "theatre#foyer", :as => 'foyer'
 
+  get '/:id', :to => "theatre#performance", :as => 'performance'
+
   root "theatre#foyer"
 end
