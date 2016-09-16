@@ -12,8 +12,10 @@
   </h1>
 </div>
 
-<% if @medium.media_type == 'Image' %>
-  <%= image_tag "/uploads/#{@medium.filename}", :alt => "#{@medium.name}", :class => 'col-lg-4 col-lg-offset-4 img-rounded img-responsive' %>
-<% else %>
-  <%= audio_tag "/uploads/#{@medium.filename}" %>
-<% end %>
+<%= render @medium %>
+
+<div class="row">
+  <div class="col-lg-4 col-sm-12">
+      <%= render 'stages' %>
+  </div>
+</div>
