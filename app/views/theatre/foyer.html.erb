@@ -10,8 +10,8 @@
       <h4 class="panel-title">Stages</h4>
     </div>
     <div class="panel-body">
-      <div class="row">
-        <div class="col-lg-10">
+      <div class="row hidden-sm hidden-xs">
+        <div class="col-lg-10 col-md-6">
           <small>Name</small>
         </div>
         <div class="col-lg-1">
@@ -22,8 +22,8 @@
         </div>
       </div>
       <% @stages.each do |s| %>
-        <div class="row">
-          <div class="col-lg-10">
+        <div class="row hidden-sm hidden-xs">
+          <div class="col-lg-10 col-md-6">
             <%= link_to s.name, performance_path(s) %>
           </div>
           <div class="col-lg-1">
@@ -32,6 +32,12 @@
           <div class="col-lg-1">
             0
           </div>
+        </div>
+        <div class="hidden-lg hidden-md col-sm-12">
+          <%= link_to s.name, s %>
+          <br>
+          <strong>Players:</strong> 0
+          <strong>Audience:</strong> 0
         </div>
       <% end %>
     </div>

@@ -21,6 +21,6 @@ class Medium < ApplicationRecord
 
   private
     def do_upload
-      self.filename = handle_upload(self.file)
+      self.filename = handle_upload(self.file) if self.file
     end
 end

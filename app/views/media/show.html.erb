@@ -7,5 +7,13 @@
         <%= link_to 'Delete', @medium, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
       </span>
     </small>
+    <br>
+    <small><%= @medium.media_type %></small>
   </h1>
 </div>
+
+<% if @medium.media_type == 'Image' %>
+  <%= image_tag "/uploads/#{@medium.filename}", :alt => "#{@medium.name}", :class => 'col-lg-4 col-lg-offset-4 img-rounded img-responsive' %>
+<% else %>
+  <%= audio_tag "/uploads/#{@medium.filename}" %>
+<% end %>
