@@ -7,12 +7,16 @@ class SessionsController < ApplicationController
   def create
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
-      if params[:remember_me]
-        cookies.permanent[:auth_token] = user.auth_token
+      if user.is_active
+        if params[:remember_me]
+          cookies.permanent[:auth_token] = user.auth_token
+        else
+          cookies[:auth_token] = user.auth_token
+        end
       else
-        cookies[:auth_token] = user.auth_token
+        flash[:danger] = "Your account has not been activated"
       end
-      redirect_to root_url
+      redirect_to root_path
     else
       flash.now[:danger] = "Email or password incorrect"
       render :new

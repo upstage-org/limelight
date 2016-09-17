@@ -14,7 +14,13 @@
   <% @users.each do |u| %>
     <tr>
       <td>
-        <%= link_to u.nickname, u %>
+        <% if u.is_active? %>
+          <%= link_to u.nickname, u %>
+        <% else %>
+          <%= u.nickname %>
+          <br>
+          <span class="text-danger small">Inactive</span>
+        <% end %>
       </td>
       <td>
         <span class="btn-group pull-right">

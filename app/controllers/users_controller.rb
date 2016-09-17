@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :reject_anonymous
+  before_action :reject_anonymous, :except => [ :new, :create ]
   before_action :set_user, except: [ :index, :new, :create ]
 
   def index
@@ -13,8 +13,13 @@ class UsersController < ApplicationController
   def create
     @user = User.new(new_user_params)
     if @user.save
-      flash[:success] = "User created"
-      redirect_to @user
+      if current_user
+        flash[:success] = "User created"
+        redirect_to edit_user_path(@user)
+      else
+        flash[:success] = "Registration complete. You will be notified once your account has been activated"
+        redirect_to root_path
+      end
     else
       flash.now[:danger] = "Something went wrong"
       render :new
@@ -22,6 +27,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    unless @user.is_active?
+      raise ActionController::RoutingError.new('Not Found')
+    end
   end
 
   def edit
@@ -30,7 +38,11 @@ class UsersController < ApplicationController
   def update
     if @user.update(update_user_params)
       flash[:success] = "User updated"
-      redirect_to @user
+      if @user.is_active?
+        redirect_to @user
+      else
+        redirect_to users_path
+      end
     else
       flash.now[:danger] = "Something went wrong"
       render :edit

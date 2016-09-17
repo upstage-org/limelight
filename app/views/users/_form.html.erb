@@ -48,9 +48,24 @@
     <% end %>
   </div>
 
+<% unless f.object.new_record? %>
+<div class="checkbox">
+  <label><%= f.check_box :is_active %> Account active</label>
+</div>
+<% end %>
+
   <div class="form-group">
     <span class="btn-group">
-      <%= f.submit ( f.object.new_record? ? "Create" : "Update"), :class => "btn btn-primary" %>
+      <% if f.object.new_record? %>
+        <% if request.path == registration_path %>
+          <% verb = "Register" %>
+        <% else %>
+          <% verb = "Create" %>
+        <% end %>
+      <% else %>
+        <% verb = "Update" %>
+      <% end %>
+      <%= f.submit verb, :class => "btn btn-primary" %>
     </span>
   </div>
 

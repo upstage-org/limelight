@@ -3,6 +3,9 @@ class User < ApplicationRecord
 
   before_create { generate_token(:auth_token) }
 
+  scope :active, -> { where(:is_active => true) }
+  scope :inactive, -> { where(:is_active => false) }
+
   has_secure_password
   acts_as_paranoid
 
