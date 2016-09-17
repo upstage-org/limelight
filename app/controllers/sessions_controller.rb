@@ -8,10 +8,14 @@ class SessionsController < ApplicationController
     user = User.find_by_email(params[:email])
     if user && user.authenticate(params[:password])
       if user.is_active
-        if params[:remember_me]
-          cookies.permanent[:auth_token] = user.auth_token
+        if user.email_confirmed.nil?
+          if params[:remember_me]
+            cookies.permanent[:auth_token] = user.auth_token
+          else
+            cookies[:auth_token] = user.auth_token
+          end
         else
-          cookies[:auth_token] = user.auth_token
+          flash[:danger] = "You have not confirmed your email address"
         end
       else
         flash[:danger] = "Your account has not been activated"

@@ -1,0 +1,16 @@
+<h1>Thank You for Registering!</h1>
+
+<p>
+  Thank you for registering for an UpStage acocunt.  Please confirm your email
+  address by clicking the link below.
+</p>
+
+<p>
+  If you did not register for this account, please disregard this email.
+  No further action needs to be taken.
+</p>
+
+<p>
+  <% debugger %>
+  <%= link_to email_confirmation_url(@user.confirmation_token), email_confirmation_url(@user.confirmation_token) %>
+</p>

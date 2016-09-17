@@ -2,6 +2,7 @@ class User < ApplicationRecord
   extend FriendlyId
 
   before_create { generate_token(:auth_token) }
+  before_create { generate_token(:confirmation_token) }
 
   scope :active, -> { where(:is_active => true) }
   scope :inactive, -> { where(:is_active => false) }

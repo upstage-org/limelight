@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get '/logout', :to => "sessions#destroy", :as => 'logout'
   get '/foyer', :to => "theatre#foyer", :as => 'foyer'
   get '/register', :to => "users#new", :as => 'registration'
+  get '/confirm_email/:confirmation_token', :to => "users#confirm_email", :as => 'email_confirmation'
 
   get '/:id', :to => "theatre#performance", :as => 'performance'
 end
