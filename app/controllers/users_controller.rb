@@ -13,7 +13,6 @@ class UsersController < ApplicationController
   def create
     @user = User.new(new_user_params)
     if @user.save
-      UserMailer.confirm_email(@user).deliver_now
       if current_user
         flash[:success] = "User created"
         redirect_to edit_user_path(@user)

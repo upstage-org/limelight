@@ -9,13 +9,13 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:password])
       if user.is_active
         if user.email_confirmed.nil?
+          flash[:danger] = "You have not confirmed your email address"
+        else
           if params[:remember_me]
             cookies.permanent[:auth_token] = user.auth_token
           else
             cookies[:auth_token] = user.auth_token
           end
-        else
-          flash[:danger] = "You have not confirmed your email address"
         end
       else
         flash[:danger] = "Your account has not been activated"

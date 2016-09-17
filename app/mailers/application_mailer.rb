@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: 'noreply@upstage.org.nz'
+  default from: ENV['UPSTAGE_NO_REPLY']
   layout 'mailer'
 end

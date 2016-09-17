@@ -21,6 +21,10 @@
           <br>
           <span class="text-danger small">Inactive</span>
         <% end %>
+        <% if u.email_confirmed.nil? %>
+          <br>
+          <span class="text-danger small">Email Not Confirmed</span>
+        <% end %>
       </td>
       <td>
         <span class="btn-group pull-right">

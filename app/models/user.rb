@@ -4,6 +4,9 @@ class User < ApplicationRecord
   before_create { generate_token(:auth_token) }
   before_create { generate_token(:confirmation_token) }
 
+  after_create :send_email_confirmation
+  after_update :send_activation_email
+
   scope :active, -> { where(:is_active => true) }
   scope :inactive, -> { where(:is_active => false) }
 
@@ -25,5 +28,16 @@ class User < ApplicationRecord
       begin
         self[column] = SecureRandom.urlsafe_base64
       end while User.exists?(column => self[column])
+    end
+
+    def send_email_confirmation
+      UserMailer.confirm_email(self).deliver_now
+    end
+
+    def send_activation_email
+      debugger
+      if self.is_active_was == false && self.is_active
+        UserMailer.account_activated(self).deliver_now
+      end
     end
 end
