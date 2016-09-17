@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :reject_anonymous, :except => [ :new, :create ]
+  invisible_captcha :only => [ :create ], :honeypot => :bucket
 
   def new
   end

@@ -35,7 +35,6 @@ class User < ApplicationRecord
     end
 
     def send_activation_email
-      debugger
       if self.is_active_was == false && self.is_active
         UserMailer.account_activated(self).deliver_now
       end

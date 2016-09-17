@@ -37,6 +37,9 @@ gem 'bootstrap-sass', '~> 3.3.7'
 # For soft deletion
 gem 'paranoia', '~> 2.2.0.pre'
 
+# Protection from Spam Bots
+gem 'invisible_captcha', '~> 0.9.1'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

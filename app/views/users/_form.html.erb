@@ -1,4 +1,6 @@
 <%= form_for @user do |f| %>
+<%= invisible_captcha :bucket %>
+<%= f.invisible_captcha :bucket %>
 
   <div class="form-group">
     <%= f.text_field :email, :class => "form-control", :placeholder => 'Email' %>
