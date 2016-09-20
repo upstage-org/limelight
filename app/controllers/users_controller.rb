@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :reject_anonymous, :except => [ :new, :create, :confirm_email ]
-  before_action :set_user, :except => [ :index, :new, :create, :confirm_email ]
-  invisible_captcha :only => [ :create ], :honeypot => :bucket
+  before_action :reject_anonymous, :except => [ :new, :create, :confirm_email, :forgot_password, :reset_password ]
+  before_action :set_user, :only => [ :edit, :update, :destroy ]
+  invisible_captcha :only => [ :create, :forgot_password, :reset_password ], :honeypot => :bucket
 
   def index
     @users = User.all
@@ -69,6 +69,31 @@ class UsersController < ApplicationController
       flash[:danger] = "Something went wrong"
     end
     redirect_to root_path
+  end
+
+  def forgot_password
+    if request.method == 'POST'
+      @user = User.find_by_email(params[:email])
+      @user.request_password_reset if @user
+      flash[:success] = "Password reset instructions sent. Check your email."
+      redirect_to root_path
+    end
+  end
+
+  def reset_password
+    @user = User.find_by_password_reset_token!(params[:password_reset_token])
+    if @user.password_reset_sent_at < 2.hours.ago
+      flash[:danger] = "Reset expired. Please try again"
+      redirect_to forgotten_password_path
+    end
+    if request.method == 'POST'
+      if @user.update(params.require(:user).permit([ :password, :password_confirmation ]))
+        flash[:success] = "Password reset"
+        redirect_to root_path
+      else
+        flash.now[:danger] = "Something went wrong"
+      end
+    end
   end
 
   private

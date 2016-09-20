@@ -22,6 +22,13 @@ class User < ApplicationRecord
 
   friendly_id :nickname, use: [ :slugged, :finders ]
 
+  def request_password_reset
+    generate_token(:password_reset_token)
+    self.password_reset_sent_at = Time.zone.now
+    self.save
+    UserMailer.password_reset(self).deliver_now
+  end
+
   private
     def generate_token(column)
       self[column] = SecureRandom.urlsafe_base64
