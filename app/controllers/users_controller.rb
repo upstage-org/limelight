@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :reject_anonymous, :except => [ :new, :create, :confirm_email, :forgot_password, :reset_password ]
-  before_action :set_user, :only => [ :edit, :update, :destroy ]
+  before_action :set_user, :only => [ :show, :edit, :update, :destroy ]
   invisible_captcha :only => [ :create, :forgot_password, :reset_password ], :honeypot => :bucket
 
   def index
