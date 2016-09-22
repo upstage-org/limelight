@@ -23,7 +23,7 @@
 </div>
 
 <div class="form-group">
-  <%= f.select :media_type, [ 'Image', 'Audio' ]  %>
+  <%= f.select :media_type, [ 'Image', 'Audio' ], {}, :class => 'form-control'  %>
   <% unless @medium.errors[:file].empty? %>
     <p class="text-danger">
       <% @medium.errors.full_messages_for(:file).each do |e| %>

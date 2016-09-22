@@ -1,0 +1,21 @@
+<div id="assignModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <%= form_for AvatarStage.new({ avatar: @avatar }) do |f| %>
+      <%= f.hidden_field :avatar_id %>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Assign Stages</h4>
+      </div>
+      <div class="modal-body">
+        <%= f.select :stage_id, Stage.all.map { |s| [ s.name, s.id ] }, {}, :class => "form-control" %>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" name="confirm" class="btn btn-success">
+          <span class="glyphicon glyphicon-ok"></span>
+        </button>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>

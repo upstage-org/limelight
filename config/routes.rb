@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :avatar_stages, :only => [ :create, :destroy ]
+  resources :avatars
   resources :stages
   resources :media
   resources :stage_media, :only => [ :create, :destroy ]

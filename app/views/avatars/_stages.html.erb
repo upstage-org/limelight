@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">Stages</h4>
+  </div>
+  <div class="panel-body">
+    <% @avatar.avatar_stages.each do |i| %>
+      <div class="row">
+        <div class="col-lg-10">
+          <%= link_to i.stage.name, i.stage %>
+        </div>
+        <div class="col-lg-2">
+            <span class="btn-group btn-group-xs pull-right">
+              <%= link_to i, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" do %>
+                <span class="glyphicon glyphicon-minus"></span>
+              <% end %>
+            </span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="panel-footer clearfix">
+    <span class="btn-group btn-group-xs pull-right">
+      <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#assignModal">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    </span>
+  </div>
+</div>
+
+<%= render 'assign_stages' %>
