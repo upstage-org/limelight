@@ -11,6 +11,9 @@ class Medium < ApplicationRecord
   has_many :stage_media
   has_and_belongs_to_many :media, :through => :stage_media
 
+  scope :images_only, -> { where(:media_type => 'Image') }
+  scope :audio_only, -> { where(:media_type => 'Audio') }
+
   attr_accessor :file
 
   validates :name, :presence => true

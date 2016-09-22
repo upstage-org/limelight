@@ -1,0 +1,8 @@
+<div id = "message">
+    <% @user = User.find_by_id(message.user_id) %>
+    <% if (@user != nil) %>
+    <p><%= @user.nickname %> : <%= message.content %></p>
+    <% else %>
+     <p> Audience : <%= message.content %></p>
+    <% end %>
+</div>

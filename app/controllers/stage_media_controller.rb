@@ -1,4 +1,5 @@
 class StageMediaController < ApplicationController
+  before_action :reject_anonymous
   def create
     if StageMedium.create(params.require(:stage_medium).permit([ :stage_id, :medium_id ]))
       flash[:success] = "Media assigned"

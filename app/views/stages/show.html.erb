@@ -1,3 +1,5 @@
+<% @title = @stage.name %>
+
 <div class="page-header">
   <h1>
     <%= @stage.name %>
@@ -14,4 +16,8 @@
 
 <div class="col-lg-4 col-sm-12 clearfix">
     <%= render 'media' %>
+</div>
+
+<div class="col-lg-4 col-sm-12 clearfix">
+    <%= render 'avatars' %>
 </div>

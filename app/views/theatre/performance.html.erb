@@ -1,8 +1,95 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= @stage.name %> | UpStage</title>
-  </head>
-  <body>
-  </body>
+    <head>
+        <title><%= @stage.name %> | UpStage</title>
+        <style type="text/css">
+            #chat-body { width: 400px;
+                         height: 400px;
+                         max-height: 500px;
+                         overflow-y: scroll; }
+            .panel-footer { width: 400px; }
+            #row {
+                overflow ="hidden"
+            }
+        </style>
+    </head>
+    <body>
+        <div class="row" id="row">
+            <div class ="tab">
+                <ul class="nav nav-tabs">
+        			<li class="active">
+                        <a  href="#1" data-toggle="tab">Backdrops</a>
+        			</li>
+        			<li>
+        			    <a href="#2" data-toggle="tab">Avatars</a>
+        			</li>
+        			<li>
+        			    <a href="#3" data-toggle="tab">Drawing</a>
+        			</li>
+    		    </ul>
+    		    
+    		    <div class="tab-content ">
+    			  <div class="tab-pane active" id="1">
+                      <h3>Standard tab panel created on bootstrap using nav-tabs</h3>
+    			  </div>
+    			 </div>
+			</div>
+            <div class="col-md-4 col-md-push-8">
+                <span class="pull-right">
+                    <div class="panel panel-info" id="chat">
+                        <div class="panel-heading">
+                            UpStage Performance Stage Chat
+                        </div>
+                        <div class="panel-body">
+                            <p>Number of people in the performance stage: </p>
+                            <ul class="user-list">
+                                <li class="user">
+                                    <div id="user_list">
+                                        <%= ActionCable.server.connections.length %>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="panel-body" id="chat-body">
+                            <ul class="media-list">
+                                <li class="media">
+                                    <div class="media-body">
+                                        <div class="media">
+                                            <div class="media-body" >
+                                                <div id="messages" data-stage-id ="<%= @stage.id %>">
+                                                    <%= render @stage.messages %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                    <input type="text" class="form-control" id = "chat-speak" size = "60" data-behavior="chat-speak">
+                                    <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
+                                <% if current_user %>
+                                    <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user.id %>">
+                                    <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user.nickname %>">
+                                <% else %>
+                                    <input type="hidden" id = "user-id" name ="user-id" value ="<%= 0 %>">
+                                    <input type="hidden" id = "user-name" name ="user-name" value ="<%= "Guest" %>">
+                                <% end %>
+                            </div>
+                        </div>
+                        
+                        <div class="panel-side">
+                            <div class="backdrop-option">
+                                <input type="radio" name="backdrop" value="Eiffel">
+                            </div>
+                        </div>
+                        
+                    </div>
+                </span>
+            </div>
+        </div>
+    </body>
 </html>

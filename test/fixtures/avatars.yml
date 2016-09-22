@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  medium: one
+  slug: MyString
+  deleted_at: 2016-09-21 19:02:58
+
+two:
+  name: MyString
+  medium: two
+  slug: MyString
+  deleted_at: 2016-09-21 19:02:58

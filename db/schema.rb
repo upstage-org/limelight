@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160919214500) do
+ActiveRecord::Schema.define(version: 20160922033240) do
+
+  create_table "avatar_stages", force: :cascade do |t|
+    t.integer  "stage_id"
+    t.integer  "avatar_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["avatar_id"], name: "index_avatar_stages_on_avatar_id"
+    t.index ["stage_id"], name: "index_avatar_stages_on_stage_id"
+  end
+
+  create_table "avatars", force: :cascade do |t|
+    t.string   "name",       null: false
+    t.integer  "medium_id",  null: false
+    t.string   "slug",       null: false
+    t.datetime "deleted_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["deleted_at"], name: "index_avatars_on_deleted_at"
+    t.index ["medium_id"], name: "index_avatars_on_medium_id"
+    t.index ["slug"], name: "index_avatars_on_slug"
+  end
 
   create_table "media", force: :cascade do |t|
     t.string   "name",       null: false
@@ -23,6 +44,15 @@ ActiveRecord::Schema.define(version: 20160919214500) do
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_media_on_deleted_at"
     t.index ["slug", "deleted_at"], name: "index_media_on_slug_and_deleted_at", unique: true
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "content"
+    t.string   "user_id"
+    t.string   "integer"
+    t.string   "stage_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roles", force: :cascade do |t|
