@@ -25,4 +25,7 @@ Rails.application.routes.draw do
   match '/reset_password/:password_reset_token', :via => [ :get, :post ], :to => "users#reset_password", :as => 'reset_password'
 
   get '/:id', :to => "theatre#performance", :as => 'performance'
+  
+  
+  post "/updatedrawing", :to => "theatre#show_drawing"
 end

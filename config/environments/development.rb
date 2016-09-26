@@ -1,5 +1,5 @@
 Rails.application.configure do
-  Rails.application.config.action_cable.allowed_request_origins = ['https://real-real-upstage-minju-hbp0048.c9users.io']
+  Rails.application.config.action_cable.allowed_request_origins = ['http://localhost:3000']
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

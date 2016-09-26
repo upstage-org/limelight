@@ -18,7 +18,7 @@ jQuery(document).on 'turbolinks:load', ->
         # Called when there's incoming data on the websocket for this channel
         $messages = $('#messages')
         $messages.append(data)
-        $('#chat').scrollTop($('#chat').prop("scrollHeight"));
+        $('#chat').scrollTop($('#chat').prop("scrollHeight"))
     
       speak: (content, stage_id, user_id, username) ->
         @perform 'speak', content: content, stage_id: stage_id, user_id: user_id, username: username
@@ -37,3 +37,19 @@ jQuery(document).on 'turbolinks:load', ->
           e.target.value = ''
           e.preventDefault()
           return false
+          
+    # ActionCable for Drawing      
+    App.global_draw = App.cable.subscriptions.create { channel:"DrawingChannel", stage: messages.data('stage-id') },
+      connected: ->
+        # Called when the subscription is ready for use on the server
+        
+    
+      disconnected: ->
+        # Called when the subscription has been terminated by the server
+    
+      received: (data) ->
+        # Called when there's incoming data on the websocket for this channel
+        drawLine(data.fromx, data.fromy, data.tox, data.toy, data.colour, data.size, data.stage_id)
+    
+
+

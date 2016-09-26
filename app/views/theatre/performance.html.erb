@@ -5,91 +5,302 @@
         <style type="text/css">
             #chat-body { width: 400px;
                          height: 400px;
-                         max-height: 500px;
+                         max-height: 400px;
                          overflow-y: scroll; }
             .panel-footer { width: 400px; }
             #row {
                 overflow ="hidden"
             }
+            .red {
+                color: red;
+            }
+            .black {
+                color: black;
+            }
+            .green {
+                color: green;
+            }
+            .pink {
+                color: pink;
+            }
+            .blue {
+                color: blue;
+            }
+            .white {
+                color: gray;
+            }
         </style>
+        <!--<script src="radius.js"></script>-->
+        <script type='text/javascript'>
+
+                doc = $(document),
+                canvas = $('#canvas'),
+                context = canvas[0].getContext('2d');
+                
+                
+                var prev = {};
+                var colour = 'black';
+                var drawing = false;
+                var timeSinceLastSend = $.now();
+                var size = 1;
+                
+                doc.ready(function(){
+                    $('#colourRed').click(function(){
+                            console.log("red!")
+                            colour = '#ff0000';
+                    }); 
+                    
+                    $('#colourPink').click(function(){
+                            console.log("pink!")
+                            colour = 'pink';
+                    }); 
+                    
+                    $('#colourBlue').click(function(){
+                            console.log("blue!")
+                            colour = 'blue';
+                    }); 
+                    
+                    $('#colourBlack').click(function(){
+                            console.log("black!")
+                            colour = 'black';
+                    }); 
+                    
+                    $('#colourGreen').click(function(){
+                            console.log("green!")
+                            colour = 'green';
+                    }); 
+                    
+                    $('#colourWhite').click(function(){
+                            console.log("white")
+                            colour = 'white';
+                    });
+                    
+                    $('#incrad').click(function(){
+                            console.log("increase size")
+                            if(size <= 15) {
+                                size += 5;
+                                document.getElementById("brushSize").innerHTML = size;
+                            } else {
+                                alert("maximum size")
+                            }
+                    }); 
+                    
+                    $('#decrad').click(function(){
+                            console.log("decrease size")
+                            if(size >= 5) {
+                                size -= 5;
+                                if(size == 0) {
+                                    size = 1;
+                                }
+                                document.getElementById("brushSize").innerHTML = size;
+                            } else {
+                                alert("minimum size")
+                            }
+                    }); 
+                        
+                });
+                
+                
+                canvas.on("mousedown touchstart", function(e) {
+                    e.preventDefault();
+                    
+                    var x = e.offsetX;
+                    var y = e.offsetY;
+                    
+                    if(e.originalEvent.changedTouches) {
+                        e = e.originalEvent.changedTouches[0];
+                        x = e.offsetX;
+                        y = e.offsetY;
+                    }
+                    
+                    drawing = true;
+                    prev.x = x;
+                    prev.y = y;
+                });
+                
+                doc.bind('mouseup mouseleave touchend', function() {
+                    drawing = false;
+                });
+                
+                
+                doc.on('mousemove touchmove', function(e) {
+                    if(drawing && $.now() - timeSinceLastSend > 10) {
+                        
+                        var x = e.offsetX;
+                        var y = e.offsetY;
+                        var stage_id = $('#stage-id').val();
+                        
+                        if(e.originalEvent.changedTouches) {
+                            e = e.originalEvent.changedTouches[0];
+                            x = e.offsetX;
+                            y = e.offsetY;
+                        }
+                        
+                        $.ajax({
+                            method: "POST",
+                            url: "/updatedrawing",
+                            data: {
+                                'fromx': prev.x,
+                                'fromy': prev.y,
+                                'tox': x,
+                                'toy': y,
+                                'colour': colour,
+                                'size': size,
+                                'stage_id': stage_id
+                            }
+                        });
+                        
+                        timeSinceLastSend = $.now();
+                            
+                        }
+                        if(drawing && x && y) {
+                            drawLine(prev.x, prev.y, x, y, colour);
+                            prev.x = x;
+                            prev.y = y;
+                            
+                        }
+                    });
+            function drawLine(fromx, fromy, tox, toy, colour, size) {
+                
+                context.beginPath();
+                context.lineWidth = size;
+                context.strokeStyle = colour;
+                context.moveTo(fromx, fromy);
+                context.lineTo(tox, toy);
+                context.stroke();
+            }
+                
+            
+            // var canvas = document.getElementById('canvas')
+            // var context = canvas.getContext('2d');
+            // var radius = 10;
+            // var dragging = false;
+            
+            // canvas.width = 500;
+            // canvas.height = 500;
+            
+            // context.lineWidth = radius*2;
+            
+            // var putPoint = function(e) {
+            //     if(dragging) {
+            //       context.lineTo(e.offsetX, e.offsetY);
+            //       context.stroke();
+            //       context.beginPath();
+            //       context.arc(e.offsetX, e.offsetY, radius, 0, Math.PI*2);
+            //       context.fill();
+            //       context.beginPath();
+            //       context.moveTo(e.offsetX, e.offsetY);
+                  
+            //     }
+            // }
+            
+            // var engage = function(e) {
+            //     dragging = true;
+            //     putPoint(e);
+            // }
+            
+            // var disengage = function() {
+            //     dragging = false;
+            //     context.beginPath();
+            // }
+            
+            // canvas.addEventListener('mouseup', disengage);
+            // canvas.addEventListener('mousedown', engage);
+            // canvas.addEventListener('mousemove', putPoint);
+        </script> 
     </head>
-    <body>
-        <div class="row" id="row">
-            <div class ="tab">
-                <ul class="nav nav-tabs">
-        			<li class="active">
-                        <a  href="#1" data-toggle="tab">Backdrops</a>
-        			</li>
-        			<li>
-        			    <a href="#2" data-toggle="tab">Avatars</a>
-        			</li>
-        			<li>
-        			    <a href="#3" data-toggle="tab">Drawing</a>
-        			</li>
-    		    </ul>
-    		    
-    		    <div class="tab-content ">
-    			  <div class="tab-pane active" id="1">
-                      <h3>Standard tab panel created on bootstrap using nav-tabs</h3>
-    			  </div>
-    			 </div>
-			</div>
-            <div class="col-md-4 col-md-push-8">
-                <span class="pull-right">
-                    <div class="panel panel-info" id="chat">
-                        <div class="panel-heading">
-                            UpStage Performance Stage Chat
-                        </div>
-                        <div class="panel-body">
-                            <p>Number of people in the performance stage: </p>
-                            <ul class="user-list">
-                                <li class="user">
-                                    <div id="user_list">
-                                        <%= ActionCable.server.connections.length %>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="panel-body" id="chat-body">
-                            <ul class="media-list">
-                                <li class="media">
-                                    <div class="media-body">
-                                        <div class="media">
-                                            <div class="media-body" >
-                                                <div id="messages" data-stage-id ="<%= @stage.id %>">
-                                                    <%= render @stage.messages %>
-                                                </div>
+    <body style ="overflow: hidden">
+        <div class="row">
+            <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
+              <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+              <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+            </ul>
+            <div class="tab-content">
+              <div id="drawing" class="tab-pane fade in active">
+                <h3>Drawing Tool</h3>
+                <p> brush size <div class ="brush" id="brushSize">1</div>
+                  <button type="button" id ="incrad" class="btn btn-default btn-xs">
+                    <span class="glyphicon glyphicon-plus"></span>
+                  </button>
+                  <button type="button" id ="decrad" class="btn btn-default btn-xs">
+                    <span class="glyphicon glyphicon-minus"></span> 
+                  </button>
+                  
+                   Colour Picker
+                   <span class="glyphicon glyphicon-pencil red" id ="colourRed"></span> 
+                   <span class="glyphicon glyphicon-pencil black" id ="colourBlack"></span> 
+                   <span class="glyphicon glyphicon-pencil pink" id ="colourPink"></span> 
+                   <span class="glyphicon glyphicon-pencil green" id ="colourGreen"></span>
+                   <span class="glyphicon glyphicon-pencil blue" id ="colourBlue"></span> 
+                   <span class="glyphicon glyphicon-pencil white" id ="colourWhite"></span> 
+                 </p>
+                 
+              </div>
+              <div id="menu1" class="tab-pane fade">
+                <h3>Avatars</h3>
+                <p>Some content in menu 1.</p>
+              </div>
+              <div id="menu2" class="tab-pane fade">
+                <h3>Backdrops</h3>
+                <p>Some content in menu 2.</p>
+              </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class= "col-md-7 col-lg-8">
+                <div class = "panel-body" style="display: block;">
+    			    <canvas id="canvas" width="600" height="400">Sorry, your browser doesn't support this feature</canvas>
+    			</div>
+            </div>
+            <div class = "col-md-5 col-lg-3">
+                <div class="panel panel-info" id="chat">
+                    <div class="panel-heading">
+                        UpStage Performance Stage Chat
+                    </div>
+                    <div class="panel-body">
+                        <p>Number of people in the performance stage: </p>
+                        <ul class="user-list">
+                            <li class="user">
+                                <div id="user_list">
+                                    <%= ActionCable.server.connections.length + 1 %>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="panel-body" id="chat-body">
+                        <ul class="media-list">
+                            <li class="media">
+                                <div class="media-body">
+                                    <div class="media">
+                                        <div class="media-body" >
+                                            <div id="messages" data-stage-id ="<%= @stage.id %>">
+                                                <%= render @stage.messages %>
                                             </div>
                                         </div>
                                     </div>
-                                </li>
-                            </ul>
-                        </div>
-
-
-                        <div class="panel-footer">
-                            <div class="input-group">
-                                    <input type="text" class="form-control" id = "chat-speak" size = "60" data-behavior="chat-speak">
-                                    <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
-                                <% if current_user %>
-                                    <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user.id %>">
-                                    <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user.nickname %>">
-                                <% else %>
-                                    <input type="hidden" id = "user-id" name ="user-id" value ="<%= 0 %>">
-                                    <input type="hidden" id = "user-name" name ="user-name" value ="<%= "Guest" %>">
-                                <% end %>
-                            </div>
-                        </div>
-                        
-                        <div class="panel-side">
-                            <div class="backdrop-option">
-                                <input type="radio" name="backdrop" value="Eiffel">
-                            </div>
-                        </div>
-                        
+                                </div>
+                            </li>
+                        </ul>
                     </div>
-                </span>
+
+
+                    <div class="panel-footer">
+                        <div class="input-group">
+                                <input type="text" class="form-control" id = "chat-speak" size = "60" data-behavior="chat-speak">
+                                <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
+                            <% if current_user %>
+                                <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user.id %>">
+                                <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user.nickname %>">
+                            <% else %>
+                                <input type="hidden" id = "user-id" name ="user-id" value ="<%= 0 %>">
+                                <input type="hidden" id = "user-name" name ="user-name" value ="<%= "Guest" %>">
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+    
     </body>
 </html>
