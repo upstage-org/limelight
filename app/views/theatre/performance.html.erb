@@ -4,8 +4,8 @@
         <title><%= @stage.name %> | UpStage</title>
         <style type="text/css">
             #chat-body { width: 400px;
-                         height: 400px;
-                         max-height: 400px;
+                         height: 300px;
+                         max-height: 300px;
                          overflow-y: scroll; }
             .panel-footer { width: 400px; }
             #row {
@@ -170,46 +170,9 @@
                 context.stroke();
             }
                 
-            
-            // var canvas = document.getElementById('canvas')
-            // var context = canvas.getContext('2d');
-            // var radius = 10;
-            // var dragging = false;
-            
-            // canvas.width = 500;
-            // canvas.height = 500;
-            
-            // context.lineWidth = radius*2;
-            
-            // var putPoint = function(e) {
-            //     if(dragging) {
-            //       context.lineTo(e.offsetX, e.offsetY);
-            //       context.stroke();
-            //       context.beginPath();
-            //       context.arc(e.offsetX, e.offsetY, radius, 0, Math.PI*2);
-            //       context.fill();
-            //       context.beginPath();
-            //       context.moveTo(e.offsetX, e.offsetY);
-                  
-            //     }
-            // }
-            
-            // var engage = function(e) {
-            //     dragging = true;
-            //     putPoint(e);
-            // }
-            
-            // var disengage = function() {
-            //     dragging = false;
-            //     context.beginPath();
-            // }
-            
-            // canvas.addEventListener('mouseup', disengage);
-            // canvas.addEventListener('mousedown', engage);
-            // canvas.addEventListener('mousemove', putPoint);
         </script> 
     </head>
-    <body style ="overflow: hidden">
+    <body>
         <div class="row">
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
@@ -218,7 +181,6 @@
             </ul>
             <div class="tab-content">
               <div id="drawing" class="tab-pane fade in active">
-                <h3>Drawing Tool</h3>
                 <p> brush size <div class ="brush" id="brushSize">1</div>
                   <button type="button" id ="incrad" class="btn btn-default btn-xs">
                     <span class="glyphicon glyphicon-plus"></span>
