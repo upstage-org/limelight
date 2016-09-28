@@ -10,8 +10,8 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922033240) do
 
+ActiveRecord::Schema.define(version: 20160922033240) do
   create_table "avatar_stages", force: :cascade do |t|
     t.integer  "stage_id"
     t.integer  "avatar_id"
