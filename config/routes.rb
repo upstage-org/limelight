@@ -28,4 +28,5 @@ Rails.application.routes.draw do
   
   
   post "/updatedrawing", :to => "theatre#show_drawing"
+  post "/updateaudio", :to => "theatre#audio_control"
 end
