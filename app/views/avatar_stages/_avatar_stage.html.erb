@@ -1,0 +1,5 @@
+<div class="row">
+<% @avatar_stages.each do |i| %>
+<%= image_tag "/uploads/#{i.avatar.medium.filename}", :alt => "#{i.avatar.medium.name}" %>
+<% end %>
+</div>

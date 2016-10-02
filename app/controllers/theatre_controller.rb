@@ -7,10 +7,11 @@ class TheatreController < ApplicationController
 
   def performance
     @stage = Stage.find_by_slug!(params[:id])
-    render :layout => true;
-    @stage = Stage.includes(:messages).find_by(id: params[:id])
+    render :layout => false;
+    @stage = Stage.includes(:messages).find_by_id(params[:id])
+    @stage = Stage.includes(:stage_media).find_by_id(params[:id])
+    @stage = Stage.includes(:avatar_stages).find_by_id(params[:id])
    
-    
   end
   
   
@@ -26,6 +27,11 @@ class TheatreController < ApplicationController
     head :ok
   end
   
-  
+  def audio_control
+    ActionCable.server.broadcast "audio_channel#{params[:stage_id]}",
+      audio_name: params[:audio_name],
+      play_mode: params[:play_mode]
+    head :ok
+  end
   
 end

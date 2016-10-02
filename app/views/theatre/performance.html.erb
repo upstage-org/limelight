@@ -2,210 +2,70 @@
 <html>
     <head>
         <title><%= @stage.name %> | UpStage</title>
-        <style type="text/css">
-            #chat-body { width: 400px;
-                         height: 300px;
-                         max-height: 300px;
-                         overflow-y: scroll; }
-            .panel-footer { width: 400px; }
-            #row {
-                overflow ="hidden"
-            }
-            .red {
-                color: red;
-            }
-            .black {
-                color: black;
-            }
-            .green {
-                color: green;
-            }
-            .pink {
-                color: pink;
-            }
-            .blue {
-                color: blue;
-            }
-            .white {
-                color: gray;
-            }
-        </style>
-        <!--<script src="radius.js"></script>-->
-        <script type='text/javascript'>
 
-                doc = $(document),
-                canvas = $('#canvas'),
-                context = canvas[0].getContext('2d');
-                
-                
-                var prev = {};
-                var colour = 'black';
-                var drawing = false;
-                var timeSinceLastSend = $.now();
-                var size = 1;
-                
-                doc.ready(function(){
-                    $('#colourRed').click(function(){
-                            console.log("red!")
-                            colour = '#ff0000';
-                    }); 
-                    
-                    $('#colourPink').click(function(){
-                            console.log("pink!")
-                            colour = 'pink';
-                    }); 
-                    
-                    $('#colourBlue').click(function(){
-                            console.log("blue!")
-                            colour = 'blue';
-                    }); 
-                    
-                    $('#colourBlack').click(function(){
-                            console.log("black!")
-                            colour = 'black';
-                    }); 
-                    
-                    $('#colourGreen').click(function(){
-                            console.log("green!")
-                            colour = 'green';
-                    }); 
-                    
-                    $('#colourWhite').click(function(){
-                            console.log("white")
-                            colour = 'white';
-                    });
-                    
-                    $('#incrad').click(function(){
-                            console.log("increase size")
-                            if(size <= 15) {
-                                size += 5;
-                                document.getElementById("brushSize").innerHTML = size;
-                            } else {
-                                alert("maximum size")
-                            }
-                    }); 
-                    
-                    $('#decrad').click(function(){
-                            console.log("decrease size")
-                            if(size >= 5) {
-                                size -= 5;
-                                if(size == 0) {
-                                    size = 1;
-                                }
-                                document.getElementById("brushSize").innerHTML = size;
-                            } else {
-                                alert("minimum size")
-                            }
-                    }); 
-                        
-                });
-                
-                
-                canvas.on("mousedown touchstart", function(e) {
-                    e.preventDefault();
-                    
-                    var x = e.offsetX;
-                    var y = e.offsetY;
-                    
-                    if(e.originalEvent.changedTouches) {
-                        e = e.originalEvent.changedTouches[0];
-                        x = e.offsetX;
-                        y = e.offsetY;
-                    }
-                    
-                    drawing = true;
-                    prev.x = x;
-                    prev.y = y;
-                });
-                
-                doc.bind('mouseup mouseleave touchend', function() {
-                    drawing = false;
-                });
-                
-                
-                doc.on('mousemove touchmove', function(e) {
-                    if(drawing && $.now() - timeSinceLastSend > 10) {
-                        
-                        var x = e.offsetX;
-                        var y = e.offsetY;
-                        var stage_id = $('#stage-id').val();
-                        
-                        if(e.originalEvent.changedTouches) {
-                            e = e.originalEvent.changedTouches[0];
-                            x = e.offsetX;
-                            y = e.offsetY;
-                        }
-                        
-                        $.ajax({
-                            method: "POST",
-                            url: "/updatedrawing",
-                            data: {
-                                'fromx': prev.x,
-                                'fromy': prev.y,
-                                'tox': x,
-                                'toy': y,
-                                'colour': colour,
-                                'size': size,
-                                'stage_id': stage_id
-                            }
-                        });
-                        
-                        timeSinceLastSend = $.now();
-                            
-                        }
-                        if(drawing && x && y) {
-                            drawLine(prev.x, prev.y, x, y, colour);
-                            prev.x = x;
-                            prev.y = y;
-                            
-                        }
-                    });
-            function drawLine(fromx, fromy, tox, toy, colour, size) {
-                
-                context.beginPath();
-                context.lineWidth = size;
-                context.strokeStyle = colour;
-                context.moveTo(fromx, fromy);
-                context.lineTo(tox, toy);
-                context.stroke();
-            }
-                
-        </script> 
+        <%= csrf_meta_tags %>
+
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+     
     </head>
-    <body>
+    
+    <body class="theatre-body">
         <div class="row">
+            
             <ul class="nav nav-tabs">
               <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
-              <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
-              <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+              <li><a data-toggle="tab" href="#audio">Audio</a></li>
+              <li><a data-toggle="tab" href="#backdrop">Backdrop</a></li>
+              <li><a data-toggle="tab" href="#avatar">Avatar</a></li>
             </ul>
             <div class="tab-content">
               <div id="drawing" class="tab-pane fade in active">
+                <h3>Drawing Tool</h3>
                 <p> brush size <div class ="brush" id="brushSize">1</div>
-                  <button type="button" id ="incrad" class="btn btn-default btn-xs">
+                  <button class="size-option" data-size="increase">
                     <span class="glyphicon glyphicon-plus"></span>
                   </button>
-                  <button type="button" id ="decrad" class="btn btn-default btn-xs">
+                  <button class="size-option" data-size="decrease">
                     <span class="glyphicon glyphicon-minus"></span> 
                   </button>
                   
-                   Colour Picker
-                   <span class="glyphicon glyphicon-pencil red" id ="colourRed"></span> 
-                   <span class="glyphicon glyphicon-pencil black" id ="colourBlack"></span> 
-                   <span class="glyphicon glyphicon-pencil pink" id ="colourPink"></span> 
-                   <span class="glyphicon glyphicon-pencil green" id ="colourGreen"></span>
-                   <span class="glyphicon glyphicon-pencil blue" id ="colourBlue"></span> 
-                   <span class="glyphicon glyphicon-pencil white" id ="colourWhite"></span> 
+                   Colour Picker: 
+                   
+                   <button class="color-option" data-color="blue">
+                       <span class="glyphicon glyphicon-pencil blue"></span>
+                    </button>
+                   <button class="color-option" data-color="pink">
+                       <span class="glyphicon glyphicon-pencil pink"></span>
+                    </button>
+                   <button class="color-option" data-color="red">
+                       <span class="glyphicon glyphicon-pencil red"></span>
+                   </button>
+                   <button class="color-option" data-color="black">
+                       <span class="glyphicon glyphicon-pencil black"></span>
+                   </button>
+                   <button class="color-option" data-color="green">
+                       <span class="glyphicon glyphicon-pencil green"></span>
+                   </button>
+                   <button class="color-option" data-color="white">
+                       <span class="glyphicon glyphicon-pencil white"></span>
+                   </button>
                  </p>
                  
               </div>
-              <div id="menu1" class="tab-pane fade">
-                <h3>Avatars</h3>
-                <p>Some content in menu 1.</p>
+              
+              <div id="audio" class="tab-pane fade">
+                <% @stage_media = StageMedium.joins(:medium).where(media: {media_type:'Audio'}, stage_media: { stage_id: @stage.id }) %>
+                <%= render @stage_media %>
               </div>
-              <div id="menu2" class="tab-pane fade">
-                <h3>Backdrops</h3>
-                <p>Some content in menu 2.</p>
+              <div id="backdrop" class="tab-pane fade">
+                <% @stage_media = StageMedium.joins(:medium).where(media: {media_type:'Image'}, stage_media: { stage_id: @stage.id }) %>
+                <%= render @stage_media %>
+              </div>
+              <div id="avatar" class="tab-pane fade">
+                  <% @avatar_stages = @stage.avatar_stages %>
+                  <%= render @avatar_stages %>
               </div>
             </div>
         </div>
@@ -263,6 +123,7 @@
                 </div>
             </div>
         </div>
+    
     
     </body>
 </html>

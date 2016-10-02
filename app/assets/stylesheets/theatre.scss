@@ -1,20 +1,50 @@
-*{
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    
-}
 
 #toolbar {
     width: 100%;
     height: 50px;
     padding: 10px;
-    position: fixed;
 }
 
-.radcontrol {
-    width: 30px;
-    height: 30px;
+.theatre-body {
+    margin: 30px;
+}
+
+canvas { 
+    border: 1px solid black;
+}
+
+#chat-body { 
+    width: 400px;
+    height: 400px;
+    max-height: 400px;
+    overflow-y: scroll; 
     
 }
 
-canvas { border: 1px solid black; }
+.panel-footer { width: 400px; }
+
+
+
+.red {
+    color: red;
+}
+
+.black {
+    color: black;
+}
+
+.green {
+    color: green;
+}
+
+.pink {
+    color: pink;
+}
+            
+.blue {
+    color: blue;
+}
+            
+.white {
+    color: gray;
+}

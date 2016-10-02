@@ -1,6 +1,6 @@
-class TheatreChannel < ApplicationCable::Channel
+class ChatChannel < ApplicationCable::Channel
     def subscribed
-        stream_from "theatre_channel#{params[:stage]}"
+        stream_from "chat_channel#{params[:stage]}"
         
     end
     
