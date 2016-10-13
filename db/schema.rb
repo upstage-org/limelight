@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922003354) do
+ActiveRecord::Schema.define(version: 20161006042612) do
 
   create_table "avatar_stages", force: :cascade do |t|
     t.integer  "stage_id"
@@ -44,6 +44,17 @@ ActiveRecord::Schema.define(version: 20160922003354) do
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_media_on_deleted_at"
     t.index ["slug", "deleted_at"], name: "index_media_on_slug_and_deleted_at", unique: true
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "content"
+    t.string   "user_id"
+    t.string   "integer"
+    t.string   "stage_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.string   "message_type"
+    t.integer  "recipient"
   end
 
   create_table "roles", force: :cascade do |t|

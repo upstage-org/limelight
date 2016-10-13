@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   resources :roles
   resources :users
   resources :user_roles, :only => [ :create, :destroy ]
+  resources :messages
+  
+  
+  mount ActionCable.server => '/cable'
+
 
   root "theatre#foyer"
 
@@ -20,4 +25,8 @@ Rails.application.routes.draw do
   match '/reset_password/:password_reset_token', :via => [ :get, :post ], :to => "users#reset_password", :as => 'reset_password'
 
   get '/:id', :to => "theatre#performance", :as => 'performance'
+  
+  
+  post "/updatedrawing", :to => "theatre#show_drawing"
+  post "/updateaudio", :to => "theatre#audio_control"
 end
