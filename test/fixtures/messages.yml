@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  content: MyString
+  content: 'Hi, This is for testing!'
   user_id: 1
   stage_id: 1
 
 two:
-  content: MyString
+  content: 'Hi, this is solely for testing!'
   user_id: 1
-  stage_id: 1
+  stage_id: 3

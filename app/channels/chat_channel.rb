@@ -10,20 +10,7 @@ class ChatChannel < ApplicationCable::Channel
     def speak(data)
         logger.info  "[ActionCable] received message"
         
-        Message.create! content: data['content']['content'], stage_id: data['content']['stage_id'], user_id: data['content']['user_id']
+        Message.create! content: data['content']['content'], stage_id: data['content']['stage_id'], user_id: data['content']['user_id'], message_type: data['content']['message_type']
     end
-    
-    
-    
-    
-    # def render_message(message)
-    #   ApplicationController.render(
-    #     partial: 'messages/message',
-    #     locals: {
-    #       message: message,
-    #       stage: stage_id,
-    #       username: current_user
-    #     })
-    # end
-    
+
 end

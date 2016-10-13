@@ -8,9 +8,9 @@ class TheatreController < ApplicationController
   def performance
     @stage = Stage.find_by_slug!(params[:id])
     render :layout => false;
-    @stage = Stage.includes(:messages).find_by_id(params[:id])
-    @stage = Stage.includes(:stage_media).find_by_id(params[:id])
-    @stage = Stage.includes(:avatar_stages).find_by_id(params[:id])
+    @message = Message.find_by_stage_id(params[:id])
+    
+    @user_list
    
   end
   
@@ -18,6 +18,7 @@ class TheatreController < ApplicationController
   # broadcast the drawing 
   def show_drawing
     ActionCable.server.broadcast "drawing_channel#{params[:stage_id]}",
+      drawing_option: params[:drawing_option],
       fromx: params[:fromx],
       fromy: params[:fromy],
       tox: params[:tox],
@@ -26,6 +27,8 @@ class TheatreController < ApplicationController
       size: params[:size]
     head :ok
   end
+  
+  
   
   def audio_control
     ActionCable.server.broadcast "audio_channel#{params[:stage_id]}",
