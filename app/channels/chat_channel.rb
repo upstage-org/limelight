@@ -10,7 +10,7 @@ class ChatChannel < ApplicationCable::Channel
     def speak(data)
         logger.info  "[ActionCable] received message"
         
-        Message.create! content: data['content']['content'], stage_id: data['content']['stage_id'], user_id: data['content']['user_id'], message_type: data['content']['message_type']
+        Message.create! content: data['content']['content'], stage_id: data['content']['stage_id'], sender_id: data['content']['user_id'], message_type: data['content']['message_type']
     end
 
 end
