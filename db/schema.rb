@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161006042612) do
+ActiveRecord::Schema.define(version: 20161013104108) do
 
   create_table "avatar_stages", force: :cascade do |t|
     t.integer  "stage_id"
@@ -48,13 +48,13 @@ ActiveRecord::Schema.define(version: 20161006042612) do
 
   create_table "messages", force: :cascade do |t|
     t.text     "content"
-    t.string   "user_id"
-    t.string   "integer"
-    t.string   "stage_id"
+    t.integer  "sender_id"
+    t.integer  "stage_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "message_type"
-    t.integer  "recipient"
+    t.index ["sender_id"], name: "index_messages_on_sender_id"
+    t.index ["stage_id"], name: "index_messages_on_stage_id"
   end
 
   create_table "roles", force: :cascade do |t|

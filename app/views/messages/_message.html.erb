@@ -1,5 +1,5 @@
 <div id = "message">
-    <% @user = User.find_by_id(message.user_id) %>
+    <% @user = User.find_by_id(message.sender_id) %>
     <% if (@user != nil) %>
         <% if message.message_type == 'broadcast' %> 
             <p class="player"><%= @user.nickname %> : <%= message.content %></p>
