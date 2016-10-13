@@ -1,17 +1,17 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  type: 
-  deleted_at: 2016-09-09 12:37:42
-  slug: MyString
-  user: one
-  filename: MyString
+  name: testing_media1
+  media_type: Image
+  created_at: 2016-09-09 12:37:42
+  slug: testing_media1
+  owner_id: 1
+  filename: important_media_test2
 
 two:
-  name: MyString
-  type: 
-  deleted_at: 2016-09-09 12:37:42
-  slug: MyString
-  user: two
-  filename: MyString
+  name: testing_media2
+  media_type: Audio
+  created_at: 2016-09-09 12:37:43
+  slug: testing_media2
+  owner_id: 2
+  filename: important_media_test2

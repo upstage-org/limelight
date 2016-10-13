@@ -1,0 +1,14 @@
+<div class="row">
+  <% @medium = Medium.find_by_id(stage_medium.medium_id) %>
+  <% if(@medium != nil) %>
+    <% if @medium.media_type == 'Image' %>
+        <button class="backdrops" data-backdrop-filename= "<%= "#{@medium.filename}" %>" id="<%= "#{@medium.name}" %>"  >
+            <%= @medium.name %>
+        </button></br>
+    <% else %>
+      <li class = "audio-list-item"><span class="glyphicon glyphicon-headphones"></span><%= audio_tag "/uploads/#{@medium.filename}", :class => 'audio-option', :id => "#{@medium.name}" %> <%= "#{@medium.name}" %>
+      <button class="audio-button <%= "#{@medium.name}" %>" data-audio-mode ="play" data-audio-name="<%= "#{@medium.name}" %>">play</button></li>
+    <% end %>
+  <% end %>
+</div>
+                                                                                                                                                                                                 
