@@ -1,93 +1,82 @@
+
+
 <!DOCTYPE html>
 <html>
     <head>
         <title><%= @stage.name %> | UpStage</title>
-
         <%= csrf_meta_tags %>
-
         <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
-     
     </head>
-    
-    <body class="theatre-body">
-        <div class="row">
-        <div class= "col-md-7 col-lg-7">
+    <div class="theatre-body">
+    <div class="col-xs-12">
+        <div class= "col-xs-9">
+            <div class = "panel-body" style="display: block;">
+                <canvas id="canvas" width="1200" height="700">Sorry, your browser doesn't support this feature</canvas>
+            </div>
+            <div class ="backdrop">
+				<% @stage_media = StageMedium.joins(:medium).where(media: {media_type:'Image'}, stage_media: { stage_id: @stage.id }) %>
+				<%= render @stage_media %>
+				<button id="clearBackdrop">Clear</button>
+			</div>
+        </div>
+        <div class = "col-xs-3">
             <ul class="nav nav-tabs">
-              <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
-              <li><a data-toggle="tab" href="#audio">Audio</a></li>
-              <li><a data-toggle="tab" href="#backdrop">Backdrop</a></li>
+                <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
+                <li><a data-toggle="tab" href="#audio">Audio</a></li>
             </ul>
             <div class="tab-content">
-              <div id="drawing" class="tab-pane fade in active">
-                   brush size <p class ="brush" id="brushSize">1</p>
-                  <button class="size-option" data-size="increase">
+                <div id="drawing" class="tab-pane fade in active">
+                    Colour Picker: 
+                    <button class="color-option" data-color="blue">
+                    <span class="glyphicon glyphicon-pencil blue"></span>
+                    </button>
+                    <button class="color-option" data-color="pink">
+                    <span class="glyphicon glyphicon-pencil pink"></span>
+                    </button>
+                    <button class="color-option" data-color="red">
+                    <span class="glyphicon glyphicon-pencil red"></span>
+                    </button>
+                    <button class="color-option" data-color="black">
+                    <span class="glyphicon glyphicon-pencil black"></span>
+                    </button>
+                    <button class="color-option" data-color="green">
+                    <span class="glyphicon glyphicon-pencil green"></span>
+                    </button>
+                    <button class="color-option" data-color="white">
+                    <span class="glyphicon glyphicon-pencil white"></span>
+                    </button>
+                    <button class="color-option" data-color="clear">
+                    Clear
+                    <p></p>
+                    </button>
+                    Brush Size:
+                    <span class ="brush" id="brushSize">1</span>
+                    <button class="size-option" data-size="increase">
                     <span class="glyphicon glyphicon-plus"></span>
-                  </button>
-                  <button class="size-option" data-size="decrease">
+                    </button>
+                    <button class="size-option" data-size="decrease">
                     <span class="glyphicon glyphicon-minus"></span> 
-                  </button>
-                  
-                   Colour Picker: 
-                   
-                   <button class="color-option" data-color="blue">
-                       <span class="glyphicon glyphicon-pencil blue"></span>
                     </button>
-                   <button class="color-option" data-color="pink">
-                       <span class="glyphicon glyphicon-pencil pink"></span>
-                    </button>
-                   <button class="color-option" data-color="red">
-                       <span class="glyphicon glyphicon-pencil red"></span>
-                   </button>
-                   <button class="color-option" data-color="black">
-                       <span class="glyphicon glyphicon-pencil black"></span>
-                   </button>
-                   <button class="color-option" data-color="green">
-                       <span class="glyphicon glyphicon-pencil green"></span>
-                   </button>
-                   <button class="color-option" data-color="white">
-                       <span class="glyphicon glyphicon-pencil white"></span>
-                   </button>
-                   
-                   <button class="color-option" data-color="clear">
-                       Clear
-                   </button>
-                 </p>
-                 
-              </div>
-              
-              <div id="audio" class="tab-pane fade">
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#collapse1"><span class="glyphicon glyphicon-headphones"></span>Audio List</a>
-                     </h4>
                 </div>
-                    <div id="collapse1" class="panel-collapse collapse">
-                      <ul class="list-group">
-                          <% @stage_media = StageMedium.joins(:medium).where(media: {media_type:'Audio'}, stage_media: { stage_id: @stage.id }) %>
-                          <%= render @stage_media %>
-                      </ul>
-                      <div class="panel-footer"><span class="glyphicon glyphicon-headphones"></span>Play All Sounds: <button class="audio-button all" data-audio-name="all" data-audio-mode ="play">play</button></button></div>
-                    </div>
-                </div>
-              <div id="backdrop" class="tab-pane fade">
-                <% @stage_media = StageMedium.joins(:medium).where(media: {media_type:'Image'}, stage_media: { stage_id: @stage.id }) %>
-                <%= render @stage_media %>
-                <button id="clearBackdrop">Clear</button>
-              </div>
-              
-                <div class = "panel-body" style="display: block;">
-    			    <canvas id="canvas" width="600" height="400">Sorry, your browser doesn't support this feature</canvas>
-    			</div>
-            </div>
-            <div class = "col-md-5 col-lg-5">
-                <div class="panel panel-info" id="chat">
+                <div id="audio" class="tab-pane fade">
                     <div class="panel-heading">
-                        UpStage Performance Stage Chat
+                        <h4 class="panel-title">
+                            <a data-toggle="collapse" href="#collapse1"><span class="glyphicon glyphicon-headphones"></span>Audio List</a>
+                        </h4>
                     </div>
-                    <div class="list-group user_list">
+                    <div id="collapse1" class="panel-collapse collapse">
+                        <ul class="list-group">
+                            <% @stage_media = StageMedium.joins(:medium).where(media: {media_type:'Audio'}, stage_media: { stage_id: @stage.id }) %>
+                            <%= render @stage_media %>
+                        </ul>
+                        <div class="panel-footer"><span class="glyphicon glyphicon-headphones"></span>Play All Sounds: <button class="audio-button all" data-audio-name="all" data-audio-mode ="play">play</button></button>
+                        </div>
                     </div>
+                </div>                
+                <div class="panel panel-info" id="chat">
+                    <!
+                    <div class="list-group user_list">                    <!</div>
                     <div class="panel-body" id="chat-body">
                         <ul class="media-list">
                             <li class="media">
@@ -103,33 +92,28 @@
                             </li>
                         </ul>
                     </div>
-
-
                     <div class="panel-footer">
-                        
                         <div class="input-group">
-                            <select class="form-control" id="selectChatType">
+                            <input type="text" id = "chat-speak" data-behavior="chat-speak">
+                            <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
+                            <% if current_user %>
+                            <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user.id %>">
+                            <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user.nickname %>">
+                            <% else %>
+                            <input type="hidden" id = "user-id" name ="user-id" value ="<%= 0 %>">
+                            <input type="hidden" id = "user-name" name ="user-name" value ="<%= "Guest" %>">
+                            <% end %>
+                            <select id="selectChatType">
                                 <option class="chat-option all" data-chat-mode="broadcast">All</option>
                                 <% if current_user %>
                                 <option class="chat-option shout" data-chat-mode="shout">Shout</option>
                                 <% end %>
                             </select>
-                            <input type="text" class="form-control" id = "chat-speak" size = "60" data-behavior="chat-speak">
-                            <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
-                        <% if current_user %>
-                            <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user.id %>">
-                            <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user.nickname %>">
-                        <% else %>
-                            <input type="hidden" id = "user-id" name ="user-id" value ="<%= 0 %>">
-                            <input type="hidden" id = "user-name" name ="user-name" value ="<%= "Guest" %>">
-                        <% end %>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-    
-    
-    </body>
+    </div>
 </html>
+
