@@ -1,15 +1,17 @@
 Rails.application.routes.draw do
   resources :avatar_stages, :only => [ :create, :destroy ]
   resources :avatars
-  resources :stages
+  resources :stages do
+    post '/clone', :to => "stages#clone", :as => 'clone'
+  end
   resources :media
   resources :stage_media, :only => [ :create, :destroy ]
   resources :roles
   resources :users
   resources :user_roles, :only => [ :create, :destroy ]
   resources :messages
-  
-  
+
+
   mount ActionCable.server => '/cable'
 
 
@@ -25,8 +27,8 @@ Rails.application.routes.draw do
   match '/reset_password/:password_reset_token', :via => [ :get, :post ], :to => "users#reset_password", :as => 'reset_password'
 
   get '/:id', :to => "theatre#performance", :as => 'performance'
-  
-  
+
+
   post "/updatedrawing", :to => "theatre#show_drawing"
   post "/updateaudio", :to => "theatre#audio_control"
 end
