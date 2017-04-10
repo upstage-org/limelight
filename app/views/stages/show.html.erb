@@ -6,6 +6,7 @@
     <small class="pull-right">
       <span class="btn-group">
         <%= link_to 'Edit', edit_stage_path(@stage), :class => "btn btn-default" %>
+        <%= link_to 'Clone', stage_clone_path(@stage), :method => :post, :data => { confirm: "Stage will be cloned" }, :class => "btn btn-default" %>
         <%= link_to 'Delete', @stage, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
       </span>
     </small>

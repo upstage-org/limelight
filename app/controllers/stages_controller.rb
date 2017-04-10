@@ -48,9 +48,22 @@ class StagesController < ApplicationController
     end
   end
 
+  def clone
+    @new_stage = @stage.dup
+    @new_stage.name = "#{@new_stage.name} (clone)"
+    @new_stage.owner = current_user
+    if @new_stage.save
+      flash[:success] = "#{@stage.name} cloned successfully"
+      redirect_to @new_stage
+    else
+      flash[:danger] = "Something went wrong"
+      redirect_to @stage
+    end
+  end
+
   private
     def set_stage
-      @stage = Stage.find_by_slug!(params[:id])
+      @stage = Stage.find_by_slug!(params[:id] || params[:stage_id])
     end
 
     def stage_params
