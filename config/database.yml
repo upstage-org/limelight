@@ -28,4 +28,4 @@ production:
   pool: 5
   username: <%= ENV['UPSTAGE_DB_USERNAME'] %>
   password: <%= ENV['UPSTAGE_DB_PASSWORD'] %>
-  database: upstage
+  database: <%= ENV['UPSTAGE_DB_NAME'] || 'upstage' %>
