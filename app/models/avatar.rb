@@ -5,7 +5,7 @@ class Avatar < ApplicationRecord
 
   belongs_to :medium
   has_many :avatar_stages
-  has_and_belongs_to_many :stages, :through => :avatar_stages
+  has_many :stages, :through => :avatar_stages
 
   friendly_id :name, :use => [ :slugged, :finders ]
 
