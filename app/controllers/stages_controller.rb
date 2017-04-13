@@ -52,6 +52,15 @@ class StagesController < ApplicationController
     @new_stage = @stage.dup
     @new_stage.name = "#{@new_stage.name} (clone)"
     @new_stage.owner = current_user
+
+    @stage.media.each do |m|
+      @new_stage.media << m
+    end
+
+    @stage.avatars.each do |a|
+      @new_stage.avatars << a
+    end
+
     if @new_stage.save
       flash[:success] = "#{@stage.name} cloned successfully"
       redirect_to @new_stage
