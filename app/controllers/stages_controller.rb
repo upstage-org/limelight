@@ -49,7 +49,6 @@ class StagesController < ApplicationController
   end
 
   def clone
-    debugger
     @new_stage = @stage.dup
     @new_stage.name = params[:name] || "#{@new_stage.name} (clone)"
     @new_stage.owner = current_user
