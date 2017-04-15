@@ -3,7 +3,7 @@ class Stage < ApplicationRecord
   acts_as_paranoid
 
   belongs_to :owner, :class_name => 'User'
-  has_many :stage_media
+  has_many :stage_media, :dependent => :destroy
   has_many :media, :through => :stage_media
   has_many :avatar_stages
   has_many :avatars, :through => :avatar_stages
