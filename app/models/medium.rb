@@ -8,7 +8,7 @@ class Medium < ApplicationRecord
   friendly_id :name, :use => [ :slugged, :finders ]
 
   belongs_to :owner, :class_name => 'User'
-  has_many :stage_media
+  has_many :stage_media, :dependent => :destroy
   has_many :media, :through => :stage_media
 
   scope :images_only, -> { where(:media_type => 'Image') }
