@@ -38,6 +38,9 @@ gem 'paranoia', '~> 2.2.0.pre'
 # Protection from Spam Bots
 gem 'invisible_captcha', '~> 0.9.1'
 
+# To automatically identify links
+gem 'rails_autolink'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
