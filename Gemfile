@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.1.0'
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets
@@ -27,13 +27,13 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'email_validator', '~> 1.6.0'
 
 # For pretty URLs
-gem 'friendly_id', '~> 5.1.0'
+gem 'friendly_id', '~> 5.2.1'
 
 # Design library
 gem 'bootstrap-sass', '~> 3.3.7'
 
 # For soft deletion
-gem 'paranoia', '~> 2.2.0.pre'
+gem 'paranoia', '~> 2.3.1'
 
 # Protection from Spam Bots
 gem 'invisible_captcha', '~> 0.9.1'
