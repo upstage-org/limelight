@@ -3,7 +3,6 @@
     <%= @tag.name %>
     <small class="pull-right">
       <span class="btn-group">
-        <%= link_to 'Edit', edit_tag_path(@tag), :class => "btn btn-default" %>
         <%= link_to 'Delete', @tag, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
       </span>
     </small>

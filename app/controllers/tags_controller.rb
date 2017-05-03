@@ -24,19 +24,6 @@ class TagsController < ApplicationController
   def show
   end
 
-  def edit
-  end
-
-  def update
-    if @tag.update(tag_params)
-      flash[:success] = 'Tag updated.'
-      redirect_to @tag
-    else
-      flash.now[:danger] = 'Something went wrong'
-      render :edit
-    end
-  end
-
   def destroy
       if @tag.destroy
         flash[:success] = 'Tag removed.'
