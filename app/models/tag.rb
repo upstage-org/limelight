@@ -1,8 +1,14 @@
 class Tag < ApplicationRecord
-  extend FriendlyId
+  before_validation :standardize_name
 
-  acts_as_paranoid
-  friendly_id :name, :use => [ :slugged, :finders ]
+  validates :name, :presence => true, :uniqueness => true, :format => /[a-z0-9\-]/
 
-  validates :name, :presence => true, :uniqueness => true
+  def to_param
+    self.name
+  end
+
+  private
+    def standardize_name
+      self.name = self.name.strip.downcase.gsub(/[^a-z0-9\s\-]/, '').gsub(/\s/, '-')
+    end
 end

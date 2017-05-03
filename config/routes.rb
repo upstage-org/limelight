@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tags
+  resources :tags, :param => :name
   resources :avatar_stages, :only => [ :create, :destroy ]
   resources :avatars
   resources :stages do

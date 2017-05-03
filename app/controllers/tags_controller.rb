@@ -40,15 +40,16 @@ class TagsController < ApplicationController
   def destroy
       if @tag.destroy
         flash[:success] = 'Tag removed.'
+        redirect_to tags_path
       else
         flash.now[:danger] = 'Something went wrong'
-
+        redirect_to @tag
       end
   end
 
   private
     def set_tag
-      @tag = Tag.find_by_slug!(params[:id])
+      @tag = Tag.find_by_name!(params[:name])
     end
 
     def tag_params
