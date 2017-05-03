@@ -16,7 +16,7 @@ class TagsController < ApplicationController
   end
 
   def create
-    @tag = Tag.find_by_name(params[:name])
+    @tag = Tag.find_by_name(params[:tag][:name])
     @tag = Tag.new(tag_params) unless @tag.present?
     if @tag.new_record?
       if @tag.save
@@ -27,14 +27,17 @@ class TagsController < ApplicationController
       end
     end
     if @perspective.present?
-      if @perspective.tags << @tag
-        flash[:success] = "#{@tag.name} assigned to #{@perspective.name}"
-      else
-        flash.now[:danger] = "Failed to assign #{@tag.name} to #{@perspective.name}"
+      unless @perspective.tags.exists?(@tag.id)
+        if @perspective.tags << @tag
+          flash[:success] = "#{@tag.name} assigned to #{@perspective.name}"
+        else
+          flash.now[:danger] = "Failed to assign #{@tag.name} to #{@perspective.name}"
+        end
       end
       redirect_to @perspective
+    else
+      redirect_to @tag
     end
-    redirect_to @tag
   end
 
   def show
@@ -44,11 +47,11 @@ class TagsController < ApplicationController
     if @perspective.present?
       if @perspective.tags.delete(@tag)
         flash[:success] = "Unassigned #{@tag.name} from #{@perspective.name}"
-        redirect_to @perspective
       else
         flash.now[:danger] = 'Something went wrong'
         redirect_to @perspective
       end
+      redirect_to medium_tags_path @perspective
     else
       if @tag.destroy
         flash[:success] = 'Tag removed.'
@@ -71,7 +74,10 @@ class TagsController < ApplicationController
 
     def set_perspective
       if params[:medium_id].present?
-        @perspective = Medium.find_by_slug(params[:medium_id])
+        @perspective = Medium.find_by_slug!(params[:medium_id])
+        @create_path = new_medium_tag_path(@perspective)
+      else
+        @create_path = new_tag_path
       end
     end
 end

@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 20170503191720) do
     t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["medium_id", "tag_id"], name: "index_medium_tags_on_medium_id_and_tag_id", unique: true
     t.index ["medium_id"], name: "index_medium_tags_on_medium_id"
     t.index ["tag_id"], name: "index_medium_tags_on_tag_id"
   end

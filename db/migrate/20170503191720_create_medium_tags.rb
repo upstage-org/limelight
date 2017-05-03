@@ -6,5 +6,6 @@ class CreateMediumTags < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+    add_index :medium_tags, [ :medium_id, :tag_id ], :unique => true
   end
 end
