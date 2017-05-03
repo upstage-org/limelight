@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161013104108) do
+ActiveRecord::Schema.define(version: 20170503151405) do
 
   create_table "avatar_stages", force: :cascade do |t|
-    t.integer  "stage_id"
-    t.integer  "avatar_id"
+    t.integer "stage_id"
+    t.integer "avatar_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["avatar_id"], name: "index_avatar_stages_on_avatar_id"
@@ -22,9 +22,9 @@ ActiveRecord::Schema.define(version: 20161013104108) do
   end
 
   create_table "avatars", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.integer  "medium_id",  null: false
-    t.string   "slug",       null: false
+    t.string "name", null: false
+    t.integer "medium_id", null: false
+    t.string "slug", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 20161013104108) do
   end
 
   create_table "media", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.integer  "owner_id",   null: false
-    t.string   "media_type", null: false
+    t.string "name", null: false
+    t.integer "owner_id", null: false
+    t.string "media_type", null: false
     t.datetime "deleted_at"
-    t.string   "slug",       null: false
-    t.string   "filename",   null: false
+    t.string "slug", null: false
+    t.string "filename", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_media_on_deleted_at"
@@ -47,19 +47,19 @@ ActiveRecord::Schema.define(version: 20161013104108) do
   end
 
   create_table "messages", force: :cascade do |t|
-    t.text     "content"
-    t.integer  "sender_id"
-    t.integer  "stage_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
-    t.string   "message_type"
+    t.text "content"
+    t.integer "sender_id"
+    t.integer "stage_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "message_type"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
     t.index ["stage_id"], name: "index_messages_on_stage_id"
   end
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.string   "slug",       null: false
+    t.string "name", null: false
+    t.string "slug", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -69,8 +69,8 @@ ActiveRecord::Schema.define(version: 20161013104108) do
   end
 
   create_table "stage_media", force: :cascade do |t|
-    t.integer  "stage_id"
-    t.integer  "medium_id"
+    t.integer "stage_id"
+    t.integer "medium_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["medium_id"], name: "index_stage_media_on_medium_id"
@@ -78,10 +78,10 @@ ActiveRecord::Schema.define(version: 20161013104108) do
   end
 
   create_table "stages", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "owner_id",   null: false
+    t.string "name"
+    t.integer "owner_id", null: false
     t.datetime "deleted_at"
-    t.string   "slug",       null: false
+    t.string "slug", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at", "slug"], name: "index_stages_on_deleted_at_and_slug", unique: true
@@ -89,9 +89,16 @@ ActiveRecord::Schema.define(version: 20161013104108) do
     t.index ["slug"], name: "index_stages_on_slug"
   end
 
+  create_table "tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_tags_on_name"
+  end
+
   create_table "user_roles", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "role_id"
+    t.integer "user_id"
+    t.integer "role_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_user_roles_on_role_id"
@@ -99,18 +106,18 @@ ActiveRecord::Schema.define(version: 20161013104108) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                                        null: false
-    t.string   "password_digest",                              null: false
-    t.string   "auth_token",                                   null: false
-    t.string   "nickname",                                     null: false
-    t.boolean  "is_active",              default: false,       null: false
-    t.string   "slug",                                         null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.string "auth_token", null: false
+    t.string "nickname", null: false
+    t.boolean "is_active", default: false, null: false
+    t.string "slug", null: false
     t.datetime "deleted_at"
-    t.datetime "created_at",                                   null: false
-    t.datetime "updated_at",                                   null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.datetime "email_confirmed"
-    t.string   "confirmation_token",     default: "CONFIRMED", null: false
-    t.string   "password_reset_token"
+    t.string "confirmation_token", default: "CONFIRMED", null: false
+    t.string "password_reset_token"
     t.datetime "password_reset_sent_at"
     t.index ["deleted_at", "nickname"], name: "index_users_on_deleted_at_and_nickname", unique: true
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
