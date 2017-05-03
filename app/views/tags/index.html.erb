@@ -18,7 +18,7 @@
       </td>
       <td>
         <span class="btn-group pull-right">
-          <%= link_to 'Delete', t, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
+          <%= link_to @perspective.present? ? 'Unassign' : 'Delete', [@perspective, t], :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
         </span>
       </td>
     </tr>

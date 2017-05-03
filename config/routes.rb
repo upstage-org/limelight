@@ -5,7 +5,9 @@ Rails.application.routes.draw do
   resources :stages do
     post '/clone', :to => "stages#clone", :as => 'clone'
   end
-  resources :media
+  resources :media do
+    resources :tags, :param => :name, :except => [ :edit, :update ]
+  end
   resources :stage_media, :only => [ :create, :destroy ]
   resources :roles
   resources :users
