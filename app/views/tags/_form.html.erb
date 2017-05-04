@@ -1,10 +1,10 @@
-<%= form_with :model => @tag do |f| %>
+<%= form_with :model => [(@perspective || perspective), (@tag || tag)] do |f| %>
 
 <div class="form-group">
   <%= f.text_field :name, :class => 'form-control', :placeholder => 'Name' %>
-  <% unless @tag.errors[:name].empty? %>
+  <% unless f.object.errors[:name].empty? %>
     <p class="text-danger">
-      <% @tag.errors.full_messages_for(:name).each do |e| %>
+      <% f.object.errors.full_messages_for(:name).each do |e| %>
         <%= e %><br>
       <% end %>
     </p>
@@ -12,7 +12,7 @@
 </div>
 
 <div class="form-group">
-  <%= f.submit ( @tag.new_record? ? 'Create' : 'Edit' ), :class => 'btn btn-primary' %>
+  <%= f.submit ( (@perspective || perspective).present? ? 'Add' : 'Create' ), :class => 'btn btn-primary' %>
 </div>
 
 <% end %>

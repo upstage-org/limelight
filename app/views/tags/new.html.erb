@@ -1,5 +1,11 @@
 <div class="page-header">
-  <h1>Create Tag</h1>
+  <h1>
+    <%= @perspective.present? ? 'Add' : 'Create' %> Tag
+    <% if @perspective.present? %>
+      <br/>
+      <small><%= @perspective.name %></small>
+    <% end %>
+  </h1>
 </div>
 
 <%= render 'form' %>
