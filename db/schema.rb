@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170504175949) do
 
   create_table "avatars", force: :cascade do |t|
     t.string "name", null: false
-    t.bigint "medium_id", null: false
+    t.integer "medium_id", null: false
     t.string "slug", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20170504175949) do
     t.index ["slug"], name: "index_avatars_on_slug"
   end
 
-  create_table "media", id: :bigint, default: nil, force: :cascade do |t|
+  create_table "media", force: :cascade do |t|
     t.string "name", null: false
     t.integer "owner_id", null: false
     t.string "media_type", null: false
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 20170504175949) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_media_on_deleted_at"
-    t.index ["id"], name: "sqlite_autoindex_media_1", unique: true
     t.index ["slug", "deleted_at"], name: "index_media_on_slug_and_deleted_at", unique: true
   end
 
@@ -81,7 +80,7 @@ ActiveRecord::Schema.define(version: 20170504175949) do
 
   create_table "stage_media", force: :cascade do |t|
     t.integer "stage_id"
-    t.bigint "medium_id"
+    t.integer "medium_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["medium_id"], name: "index_stage_media_on_medium_id"

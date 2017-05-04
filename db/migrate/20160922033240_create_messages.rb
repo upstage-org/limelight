@@ -1,4 +1,4 @@
-class CreateMessages < ActiveRecord::Migration[5.0]
+class CreateMessages < ActiveRecord::Migration[5.1]
   def change
     create_table :messages do |t|
       t.text :content
@@ -9,4 +9,3 @@ class CreateMessages < ActiveRecord::Migration[5.0]
     end
   end
 end
-                   

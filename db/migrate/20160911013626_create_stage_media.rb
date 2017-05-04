@@ -1,4 +1,4 @@
-class CreateStageMedia < ActiveRecord::Migration[5.0]
+class CreateStageMedia < ActiveRecord::Migration[5.1]
   def change
     create_table :stage_media do |t|
       t.belongs_to :stage, foreign_key: true
