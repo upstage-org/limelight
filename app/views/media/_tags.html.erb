@@ -7,7 +7,21 @@
       <% end %>
     </span>
   <% end %>
-  <%= link_to new_medium_tag_path(@medium), :class => 'btn btn-success btn-xs' do %>
-    <span class="glpyhicon glyphicon-plus"></span>
-  <% end %>
+  <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addTagModal">
+    <%= 'Add Tag' if @medium.tags.empty? %> <span class="glpyhicon glyphicon-plus"></span>
+  </button>
+</div>
+
+<div id="addTagModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Tags</h4>
+      </div>
+      <div class="modal-body">
+        <%= render :partial => 'tags/form', :locals => { tag: Tag.new, perspective: @medium } %>
+      </div>
+    </div>
+  </div>
 </div>
