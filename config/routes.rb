@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   resources :tags, :param => :name, :except => [ :edit, :update ]
   resources :avatar_stages, :only => [ :create, :destroy ]
-  resources :avatars
+  resources :avatars do
+    resources :tags, :param => :name, :except => [ :edit, :update ]
+  end
   resources :stages do
     post '/clone', :to => "stages#clone", :as => 'clone'
   end

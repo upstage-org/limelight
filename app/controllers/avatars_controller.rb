@@ -40,7 +40,7 @@ class AvatarsController < ApplicationController
   def destroy
     if @avatar.destroy
       flash[:success] = 'Avatar removed'
-      redirect_to avatar_path
+      redirect_to avatars_path
     else
       flash[:danger] = 'Something went wrong'
       redirect_to @avatar
