@@ -75,6 +75,9 @@ class TagsController < ApplicationController
       if params[:medium_id].present?
         @perspective = Medium.find_by_slug!(params[:medium_id])
         @create_path = new_medium_tag_path(@perspective)
+      elsif params[:avatar_id].present?
+        @perspective = Avatar.find_by_slug!(params[:avatar_id])
+        @create_path = new_avatar_tag_path(@perspective)        
       else
         @create_path = new_tag_path
       end
