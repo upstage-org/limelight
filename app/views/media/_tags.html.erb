@@ -1,8 +1,13 @@
-<% @medium.tags.each do |t| %>
-  <span class="btn-group btn-group-xs">
-    <%= link_to t.name, t, :class => 'btn btn-default btn-xs' %>
-    <%= link_to medium_tag_path(@medium, t), :method => :delete , :class => 'btn btn-danger btn-xs' do %>
-      <span class="glyphicon glyphicon-remove"></span>
-    <% end %>
-  </span>
-<% end %>
+<div id="tags">
+  <% @medium.tags.each do |t| %>
+    <span class="btn-group btn-group-xs">
+      <%= link_to t.name, t, :class => 'btn btn-default btn-xs' %>
+      <%= link_to medium_tag_path(@medium, t), :method => :delete , :class => 'btn btn-danger btn-xs' do %>
+        <span class="glyphicon glyphicon-remove"></span>
+      <% end %>
+    </span>
+  <% end %>
+  <%= link_to new_medium_tag_path(@medium), :class => 'btn btn-success btn-xs' do %>
+    <span class="glpyhicon glyphicon-plus"></span>
+  <% end %>
+</div>
