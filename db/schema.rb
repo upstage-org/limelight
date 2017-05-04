@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20170504175949) do
 
   create_table "avatars", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "medium_id", null: false
+    t.bigint "medium_id", null: false
     t.string "slug", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20170504175949) do
 
   create_table "stage_media", force: :cascade do |t|
     t.integer "stage_id"
-    t.integer "medium_id"
+    t.bigint "medium_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["medium_id"], name: "index_stage_media_on_medium_id"
