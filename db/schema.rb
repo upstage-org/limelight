@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170503191720) do
+ActiveRecord::Schema.define(version: 20170504175949) do
 
   create_table "avatar_stages", force: :cascade do |t|
     t.integer "stage_id"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 20170503191720) do
     t.index ["slug"], name: "index_avatars_on_slug"
   end
 
-  create_table "media", force: :cascade do |t|
+  create_table "media", id: :bigint, default: nil, force: :cascade do |t|
     t.string "name", null: false
     t.integer "owner_id", null: false
     t.string "media_type", null: false
@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170503191720) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_media_on_deleted_at"
+    t.index ["id"], name: "sqlite_autoindex_media_1", unique: true
     t.index ["slug", "deleted_at"], name: "index_media_on_slug_and_deleted_at", unique: true
   end
 
