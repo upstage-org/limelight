@@ -1,4 +1,4 @@
-class CreateAvatarStages < ActiveRecord::Migration[5.0]
+class CreateAvatarStages < ActiveRecord::Migration[5.1]
   def change
     create_table :avatar_stages do |t|
       t.belongs_to :stage, foreign_key: true
