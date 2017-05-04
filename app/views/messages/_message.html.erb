@@ -4,9 +4,9 @@
         <% if message.message_type == 'broadcast' %> 
             <p class="player"><%= @user.nickname %> : <%= auto_link(message.content, html: { target: '_blank' }) %></p>
         <% else %>
-            <p class ="shoutToChat"><%= @user.nickname %> : <%= message.content %></p>
+            <p class ="shoutToChat"><%= @user.nickname %> : <%= auto_link(message.content, html: { target: '_blank' }) %></p>
         <% end %>
     <% else %>
-     <p class="audience"> Audience : <%= message.content %></p>
+     <p class="audience"> Audience : <%= auto_link(message.content, html: { target: '_blank' }) %></p>
     <% end %>
 </div>
