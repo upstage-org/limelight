@@ -49,9 +49,8 @@ class TagsController < ApplicationController
         flash[:success] = "Unassigned #{@tag.name} from #{@perspective.name}"
       else
         flash.now[:danger] = 'Something went wrong'
-        redirect_to @perspective
       end
-      redirect_to medium_tags_path @perspective
+      redirect_to @perspective
     else
       if @tag.destroy
         flash[:success] = 'Tag removed.'
