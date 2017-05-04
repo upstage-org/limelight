@@ -5,7 +5,10 @@ class Tag < ApplicationRecord
   has_many :media, :through => :medium_tags
 
   has_many :avatars_tags, :dependent => :destroy
-  has_many :tags, :through => :avatar_tags
+  has_many :avatars, :through => :avatar_tags
+
+  has_many :stage_tags, :dependent => :destroy
+  has_many :stages, :through => :stage_tags
 
   validates :name, :presence => true, :uniqueness => true, :format => /[a-z0-9\-]/, :length => { maximum: 25 }
 

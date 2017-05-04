@@ -77,7 +77,10 @@ class TagsController < ApplicationController
         @create_path = new_medium_tag_path(@perspective)
       elsif params[:avatar_id].present?
         @perspective = Avatar.find_by_slug!(params[:avatar_id])
-        @create_path = new_avatar_tag_path(@perspective)        
+        @create_path = new_avatar_tag_path(@perspective)
+      elsif params[:stage_id].present?
+        @perspective = Stage.find_by_slug!(params[:stage_id])
+        @create_path = new_stage_tag_path(@perspective)        
       else
         @create_path = new_tag_path
       end
