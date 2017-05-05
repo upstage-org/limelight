@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505190819) do
+ActiveRecord::Schema.define(version: 20170505195702) do
 
   create_table "avatar_stages", force: :cascade do |t|
     t.integer "stage_id"
@@ -71,6 +71,16 @@ ActiveRecord::Schema.define(version: 20170505190819) do
     t.index ["deleted_at"], name: "index_roles_on_deleted_at"
     t.index ["name", "deleted_at"], name: "index_roles_on_name_and_deleted_at", unique: true
     t.index ["slug"], name: "index_roles_on_slug"
+  end
+
+  create_table "sound_tags", force: :cascade do |t|
+    t.integer "sound_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sound_id", "tag_id"], name: "index_sound_tags_on_sound_id_and_tag_id", unique: true
+    t.index ["sound_id"], name: "index_sound_tags_on_sound_id"
+    t.index ["tag_id"], name: "index_sound_tags_on_tag_id"
   end
 
   create_table "sounds", force: :cascade do |t|

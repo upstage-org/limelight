@@ -11,7 +11,9 @@
   <% end %>
 </div>
 
-<%= audio_tag "/uploads/#{@sound.medium.filename}", :alt => "#{@sound.name}", :controls => true %>
+<% unless @sound.new_record? %>
+  <%= audio_tag "/uploads/#{@sound.medium.filename}", :alt => "#{@sound.name}", :controls => true %>
+<% end %>
 
 <%= f.fields_for :medium do |mf| %>
   <div class="form-group">
