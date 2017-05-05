@@ -7,11 +7,14 @@ class AvatarsController < ApplicationController
   end
 
   def new
-    @avatar = Avatar.new
+    @avatar = Avatar.new({ medium: Medium.new })
   end
 
   def create
     @avatar = Avatar.new(avatar_params)
+    @avatar.medium.name = @avatar.name
+    @avatar.medium.media_type = 'Image'
+    @avatar.medium.owner = current_user
     if @avatar.save
       flash[:success] = 'Avatar created.'
       redirect_to @avatar
@@ -53,6 +56,6 @@ class AvatarsController < ApplicationController
     end
 
     def avatar_params
-      params.require(:avatar).permit([ :name, :medium_id ])
+      params.require(:avatar).permit([ :name, :medium_attributes => [ :id, :file ] ])
     end
 end
