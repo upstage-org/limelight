@@ -16,6 +16,7 @@ class TagsController < ApplicationController
   end
 
   def create
+    debugger
     @tag = Tag.find_by_name(params[:tag][:name])
     @tag = Tag.new(tag_params) unless @tag.present?
     if @tag.new_record?
@@ -72,15 +73,12 @@ class TagsController < ApplicationController
     end
 
     def set_perspective
-      if params[:medium_id].present?
-        @perspective = Medium.find_by_slug!(params[:medium_id])
-        @create_path = new_medium_tag_path(@perspective)
-      elsif params[:avatar_id].present?
+      if params[:avatar_id].present?
         @perspective = Avatar.find_by_slug!(params[:avatar_id])
         @create_path = new_avatar_tag_path(@perspective)
       elsif params[:stage_id].present?
         @perspective = Stage.find_by_slug!(params[:stage_id])
-        @create_path = new_stage_tag_path(@perspective)        
+        @create_path = new_stage_tag_path(@perspective)
       else
         @create_path = new_tag_path
       end

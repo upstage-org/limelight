@@ -1,9 +1,0 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  stage: 1
-  medium: 1
-
-two:
-  stage: 1
-  medium: 2

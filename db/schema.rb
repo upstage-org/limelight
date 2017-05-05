@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20170504203008) do
     t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["avatar_id", "tag_id"], name: "index_avatar_tags_on_avatar_id_and_tag_id", unique: true
     t.index ["avatar_id"], name: "index_avatar_tags_on_avatar_id"
     t.index ["tag_id"], name: "index_avatar_tags_on_tag_id"
   end
@@ -43,26 +44,11 @@ ActiveRecord::Schema.define(version: 20170504203008) do
   end
 
   create_table "media", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "owner_id", null: false
-    t.string "media_type", null: false
     t.datetime "deleted_at"
-    t.string "slug", null: false
     t.string "filename", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["deleted_at"], name: "index_media_on_deleted_at"
-    t.index ["slug", "deleted_at"], name: "index_media_on_slug_and_deleted_at", unique: true
-  end
-
-  create_table "medium_tags", force: :cascade do |t|
-    t.integer "medium_id"
-    t.integer "tag_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["medium_id", "tag_id"], name: "index_medium_tags_on_medium_id_and_tag_id", unique: true
-    t.index ["medium_id"], name: "index_medium_tags_on_medium_id"
-    t.index ["tag_id"], name: "index_medium_tags_on_tag_id"
   end
 
   create_table "messages", force: :cascade do |t|
@@ -87,28 +73,19 @@ ActiveRecord::Schema.define(version: 20170504203008) do
     t.index ["slug"], name: "index_roles_on_slug"
   end
 
-  create_table "stage_media", force: :cascade do |t|
-    t.integer "stage_id"
-    t.integer "medium_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["medium_id"], name: "index_stage_media_on_medium_id"
-    t.index ["stage_id"], name: "index_stage_media_on_stage_id"
-  end
-
   create_table "stage_tags", force: :cascade do |t|
     t.integer "stage_id"
     t.integer "tag_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["stage_id", "tag_id"], name: "index_stage_tags_on_stage_id_and_tag_id", unique: true
     t.index ["stage_id"], name: "index_stage_tags_on_stage_id"
     t.index ["tag_id"], name: "index_stage_tags_on_tag_id"
-    t.index [nil, "tag_id"], name: "index_stage_tags_on_medium_id_and_tag_id", unique: true
   end
 
   create_table "stages", force: :cascade do |t|
     t.string "name"
-    t.integer "owner_id", null: false
+    t.bigint "owner_id", null: false
     t.datetime "deleted_at"
     t.string "slug", null: false
     t.datetime "created_at", null: false

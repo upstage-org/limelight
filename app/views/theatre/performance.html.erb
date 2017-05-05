@@ -15,8 +15,6 @@
                 <canvas id="canvas" width="1200" height="700">Sorry, your browser doesn't support this feature</canvas>
             </div>
             <div class ="backdrop">
-				<% @stage_media = StageMedium.joins(:medium).where(media: {media_type:'Image'}, stage_media: { stage_id: @stage.id }) %>
-				<%= render @stage_media %>
 				<button id="clearBackdrop">Clear</button>
 			</div>
         </div>
@@ -27,7 +25,7 @@
             </ul>
             <div class="tab-content">
                 <div id="drawing" class="tab-pane fade in active">
-                    Colour Picker: 
+                    Colour Picker:
                     <button class="color-option" data-color="blue">
                     <span class="glyphicon glyphicon-pencil blue"></span>
                     </button>
@@ -56,7 +54,7 @@
                     <span class="glyphicon glyphicon-plus"></span>
                     </button>
                     <button class="size-option" data-size="decrease">
-                    <span class="glyphicon glyphicon-minus"></span> 
+                    <span class="glyphicon glyphicon-minus"></span>
                     </button>
                 </div>
                 <div id="audio" class="tab-pane fade">
@@ -66,14 +64,10 @@
                         </h4>
                     </div>
                     <div id="collapse1" class="panel-collapse collapse">
-                        <ul class="list-group">
-                            <% @stage_media = StageMedium.joins(:medium).where(media: {media_type:'Audio'}, stage_media: { stage_id: @stage.id }) %>
-                            <%= render @stage_media %>
-                        </ul>
                         <div class="panel-footer"><span class="glyphicon glyphicon-headphones"></span>Play All Sounds: <button class="audio-button all" data-audio-name="all" data-audio-mode ="play">play</button></button>
                         </div>
                     </div>
-                </div>                
+                </div>
                 <div class="panel panel-info" id="chat">
                     <!
                     <div class="list-group user_list">                    <!</div>
@@ -116,4 +110,3 @@
         </div>
     </div>
 </html>
-

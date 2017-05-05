@@ -1,7 +1,0 @@
-<div class="row">
-  <% if medium.media_type == 'Image' %>
-    <%= image_tag "/uploads/#{@medium.filename}", :alt => "#{medium.name}", :class => 'col-lg-4 col-lg-offset-4 img-rounded img-responsive' %>
-  <% else %>
-    <%= audio_tag "/uploads/#{medium.filename}" %>
-  <% end %>
-</div>

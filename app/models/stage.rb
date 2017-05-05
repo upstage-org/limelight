@@ -4,9 +4,6 @@ class Stage < ApplicationRecord
 
   belongs_to :owner, :class_name => 'User'
 
-  has_many :stage_media, :dependent => :destroy
-  has_many :media, :through => :stage_media
-
   has_many :avatar_stages, :dependent => :destroy
   has_many :avatars, :through => :avatar_stages
 
