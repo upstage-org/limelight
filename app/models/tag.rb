@@ -10,6 +10,9 @@ class Tag < ApplicationRecord
   has_many :stage_tags, :dependent => :destroy
   has_many :stages, :through => :stage_tags
 
+  has_many :sound_tags, :dependent => :destroy
+  has_many :sounds, :through => :sound_tags
+
   validates :name, :presence => true, :uniqueness => true, :format => /[a-z0-9\-]/, :length => { maximum: 25 }
 
   def to_param
