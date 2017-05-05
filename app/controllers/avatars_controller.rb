@@ -12,9 +12,6 @@ class AvatarsController < ApplicationController
 
   def create
     @avatar = Avatar.new(avatar_params)
-    @avatar.medium.name = @avatar.name
-    @avatar.medium.media_type = 'Image'
-    @avatar.medium.owner = current_user
     if @avatar.save
       flash[:success] = 'Avatar created.'
       redirect_to @avatar

@@ -53,9 +53,9 @@ class StagesController < ApplicationController
     @new_stage.name = params[:name] || "#{@new_stage.name} (clone)"
     @new_stage.owner = current_user
 
-    if params[:include_media]
-      @stage.media.each do |m|
-        @new_stage.media << m
+    if params[:include_tags]
+      @stage.tags.each do |t|
+        @new_stage.tags << t
       end
     end
 
