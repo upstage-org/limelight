@@ -16,7 +16,6 @@ class TagsController < ApplicationController
   end
 
   def create
-    debugger
     @tag = Tag.find_by_name(params[:tag][:name])
     @tag = Tag.new(tag_params) unless @tag.present?
     if @tag.new_record?
