@@ -6,6 +6,6 @@ class CreateStageTags < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
-    add_index :stage_tags, [ :medium_id, :tag_id ], :unique => true
+    add_index :stage_tags, [ :stage_id, :tag_id ], :unique => true
   end
 end
