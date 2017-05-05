@@ -1,0 +1,35 @@
+<%= form_for @sound do |f| %>
+
+<div class="form-group">
+  <%= f.text_field :name, :class => "form-control", :placeholder => 'Name' %>
+  <% unless @sound.errors[:name].empty? %>
+    <p class="text-danger">
+      <% @sound.errors.full_messages_for(:name).each do |e| %>
+        <%= e %><br>
+      <% end %>
+    </p>
+  <% end %>
+</div>
+
+<%= audio_tag "/uploads/#{@sound.medium.filename}", :alt => "#{@sound.name}", :controls => true %>
+
+<%= f.fields_for :medium do |mf| %>
+  <div class="form-group">
+    <%= mf.file_field :file, :class => "form-control", :placeholder => 'Choose File' %>
+    <% unless @sound.medium.errors[:filename].empty? %>
+      <p class="text-danger">
+        <% @sound.medium.errors.full_messages_for(:filename).each do |e| %>
+          <%= e %><br>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
+<% end %>
+
+<div class="form-group">
+  <span class="btn-group">
+    <%= f.submit ( f.object.new_record? ? "Create" : "Update"), :class => "btn btn-primary" %>
+  </span>
+</div>
+
+<% end %>
