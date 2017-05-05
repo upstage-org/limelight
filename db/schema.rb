@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504195111) do
+ActiveRecord::Schema.define(version: 20170504203008) do
 
   create_table "avatar_stages", force: :cascade do |t|
     t.integer "stage_id"
@@ -94,6 +94,16 @@ ActiveRecord::Schema.define(version: 20170504195111) do
     t.datetime "updated_at", null: false
     t.index ["medium_id"], name: "index_stage_media_on_medium_id"
     t.index ["stage_id"], name: "index_stage_media_on_stage_id"
+  end
+
+  create_table "stage_tags", force: :cascade do |t|
+    t.integer "stage_id"
+    t.integer "tag_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["stage_id"], name: "index_stage_tags_on_stage_id"
+    t.index ["tag_id"], name: "index_stage_tags_on_tag_id"
+    t.index [nil, "tag_id"], name: "index_stage_tags_on_medium_id_and_tag_id", unique: true
   end
 
   create_table "stages", force: :cascade do |t|

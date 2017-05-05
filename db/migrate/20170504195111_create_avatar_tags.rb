@@ -6,5 +6,6 @@ class CreateAvatarTags < ActiveRecord::Migration[5.1]
 
       t.timestamps
     end
+    add_index :avatar_tags, [ :avatar_id, :tag_id ], :unique => true
   end
 end
