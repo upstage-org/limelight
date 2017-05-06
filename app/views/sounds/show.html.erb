@@ -15,4 +15,4 @@
   </h1>
 </div>
 
-<%= audio_tag "/uploads/#{@sound.medium.filename}", :alt => "#{@sound.name}", :controls => true %>
+<%= audio_tag @sound.source.url, :alt => "#{@sound.name}", :controls => true %>
