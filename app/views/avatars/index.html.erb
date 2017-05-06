@@ -5,25 +5,37 @@
     Avatars
     <small class="pull-right">
       <span class="btn-group">
-        <%= link_to 'Create', new_avatar_path, :class => "btn btn-primary" %>
+        <%= link_to new_avatar_path, :class => "btn btn-primary" do %>
+          <span class="glyphicon glyphicon-plus"></span>
+        <% end %>
       </span>
     </small>
   </h1>
   </h1>
 </div>
 
-<table class="table table-striped">
-  <% @avatars.each do |a| %>
-    <tr>
-      <td>
-        <%= link_to a.name, a %>
-      </td>
-      <td>
-        <span class="btn-group pull-right">
-          <%= link_to 'Edit', edit_avatar_path(a), :class => "btn btn-default" %>
-          <%= link_to 'Delete', a, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
-        </span>
-      </td>
-    </tr>
-  <% end %>
-</table>
+<% @avatars.each do |a| %>
+  <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title"><%= link_to a.name, a %></h4>
+        </div>
+        <div class="panel-body">
+          <%= link_to a do %>
+            <%= image_tag a.source.url, :alt => a.name, :class => 'img-responsive' %>
+          <% end %>
+        </div>
+        <div class="panel-footer">
+          <span class="btn-group btn-group-sm pull-right">
+            <%= link_to edit_avatar_path(a), :class => 'btn btn-default btn-sm' do %>
+              <span class="glyphicon glyphicon-edit"></span>
+            <% end %>
+            <%= link_to a, :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => 'btn btn-danger btn-sm' do %>
+              <span class="glyphicon glyphicon-remove"></span>
+            <% end %>
+          </span>
+          <div class="clearfix"></div>
+        </div>
+    </div>
+  </div>
+<% end %>
