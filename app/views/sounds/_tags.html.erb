@@ -1,7 +1,7 @@
 <div id="tags">
   <% @sound.tags.each do |t| %>
     <span class="btn-group btn-group-xs">
-      <%= link_to t.name, t, :class => 'btn btn-default btn-xs' %>
+      <%= render t %>
       <%= link_to sound_tag_path(@sound, t), :method => :delete , :class => 'btn btn-danger btn-xs' do %>
         <span class="glyphicon glyphicon-remove"></span>
       <% end %>

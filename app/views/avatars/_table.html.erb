@@ -1,0 +1,43 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th class="col-sm-1">&nbsp;</th>
+      <th>Name</th>
+      <th>Stages</th>
+      <th>Tags</th>
+      <th class="col-sm-1">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @avatars.each do |a| %>
+      <tr>
+        <td class="col-sm-1">
+          <%= link_to a do %>
+            <%= image_tag a.source.url(:thumb), :alt => a.name, :class => 'img-circle pull-left' %>
+          <% end %>
+        </td>
+        <td><%= link_to a.name, a %></td>
+        <td class="text-muted">
+          <% a.stages.each do |s| %>
+            <%= link_to s.name, s %>
+          <% end %>
+        </td>
+        <td>
+          <% a.tags.each do |t| %>
+            <%= render t %>
+          <% end %>
+        </td>
+        <td class="col-sm-1">
+          <span class="btn-group btn-group-sm">
+            <%= link_to edit_avatar_path(a), :class => 'btn btn-sm btn-default' do %>
+              <span class="glyphicon glyphicon-edit"></span>
+            <% end %>
+            <%= link_to a, :method => :delete, :data => { confirm: 'Are you sure?' }, :class => 'btn btn-sm btn-danger' do %>
+              <span class="glyphicon glyphicon-remove"></span>
+            <% end %>
+          </span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
