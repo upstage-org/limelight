@@ -15,7 +15,7 @@
   </h1>
 </div>
 
-<%= image_tag "/uploads/#{@avatar.medium.filename}", :alt => "#{@avatar.name}", :class => 'col-lg-4 col-lg-offset-4 img-rounded img-responsive' %>
+<%= image_tag @avatar.source.url, :alt => "#{@avatar.name}", :class => 'col-lg-4 col-lg-offset-4 img-rounded img-responsive' %>
 
 <div class="row">
   <div class="col-lg-4 col-sm-12">

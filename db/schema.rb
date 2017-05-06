@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170505195702) do
+ActiveRecord::Schema.define(version: 20170506125636) do
 
   create_table "avatar_stages", force: :cascade do |t|
     t.integer "stage_id"
@@ -33,13 +33,15 @@ ActiveRecord::Schema.define(version: 20170505195702) do
 
   create_table "avatars", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "medium_id", null: false
     t.string "slug", null: false
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "source_file_name"
+    t.string "source_content_type"
+    t.integer "source_file_size"
+    t.datetime "source_updated_at"
     t.index ["deleted_at"], name: "index_avatars_on_deleted_at"
-    t.index ["medium_id"], name: "index_avatars_on_medium_id"
     t.index ["slug"], name: "index_avatars_on_slug"
   end
 

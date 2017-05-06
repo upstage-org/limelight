@@ -3,7 +3,6 @@ class Avatar < ApplicationRecord
 
   acts_as_paranoid
 
-  belongs_to :medium, :dependent => :destroy
   has_many :avatar_stages, :dependent => :destroy
   has_many :stages, :through => :avatar_stages
 
@@ -12,9 +11,9 @@ class Avatar < ApplicationRecord
 
   friendly_id :name, :use => [ :slugged, :finders ]
 
-  validates :name, :presence => true
-  validates :medium, :presence => true
+  has_attached_file :source, styles: { medium: "300x300>", thumb: "100x100" }, default_url: "/media/:styles/missing.png"
 
-  accepts_nested_attributes_for :medium
+  validates :name, :presence => true
+  validates_attachment_content_type :source, content_type: /\Aimage\/.*\z/
 
 end

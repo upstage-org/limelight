@@ -39,7 +39,10 @@ gem 'paranoia', '~> 2.3.1'
 gem 'invisible_captcha', '~> 0.9.1'
 
 # To automatically identify links
-gem 'rails_autolink'
+gem 'rails_autolink', '~> 1.1.6'
+
+# Handles uploads
+gem 'paperclip', '~> 5.1.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

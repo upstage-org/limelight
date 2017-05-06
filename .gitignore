@@ -18,8 +18,7 @@
 !/tmp/.keep
 
 # Ignore uploaded media
-/public/uploads/*
-!/public/uploads/.keep
+/public/system/*
 
 # Ignore Byebug command history file.
 .byebug_history
