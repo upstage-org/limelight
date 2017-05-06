@@ -7,7 +7,7 @@ class AvatarsController < ApplicationController
   end
 
   def new
-    @avatar = Avatar.new({ medium: Medium.new })
+    @avatar = Avatar.new
   end
 
   def create
@@ -53,6 +53,6 @@ class AvatarsController < ApplicationController
     end
 
     def avatar_params
-      params.require(:avatar).permit([ :name, :medium_attributes => [ :id, :file ] ])
+      params.require(:avatar).permit([ :name, :source ])
     end
 end

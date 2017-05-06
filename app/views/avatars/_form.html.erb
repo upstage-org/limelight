@@ -11,20 +11,19 @@
   <% end %>
 </div>
 
-<%= image_tag("/uploads/#{@avatar.medium.filename}", :alt => "#{@avatar.name}", :class => 'col-lg-4 col-lg-offset-4 img-rounded img-responsive') unless @avatar.new_record? %>
-
-<%= f.fields_for :medium do |mf| %>
-  <div class="form-group">
-    <%= mf.file_field :file, :class => "form-control", :placeholder => 'Choose File' %>
-    <% unless @avatar.medium.errors[:filename].empty? %>
-      <p class="text-danger">
-        <% @avatar.medium.errors.full_messages_for(:filename).each do |e| %>
-          <%= e %><br>
-        <% end %>
-      </p>
-    <% end %>
-  </div>
+<% unless @avatar.new_record? %>
+  <%= image_tag @avatar.source.url(:medium), :alt => "#{@avatar.name}", :class => 'col-lg-4 col-lg-offset-4 img-rounded img-responsive' %>
 <% end %>
+<div class="form-group">
+  <%= f.file_field :source, :class => 'form-control', :placeholder => 'Choose File' %>
+  <% unless @avatar.errors[:source].empty? %>
+    <p class="text-danger">
+      <% @avatar.errors.full_messages_for(:source).each do |e| %>
+        <%= e %><br>
+      <% end %>
+    </p>
+  <% end %>
+</div>
 
 <div class="form-group">
   <span class="btn-group">
