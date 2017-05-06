@@ -7,7 +7,7 @@ class SoundsController < ApplicationController
   end
 
   def new
-    @sound = Sound.new({ medium: Medium.new })
+    @sound = Sound.new
   end
 
   def create
@@ -25,13 +25,12 @@ class SoundsController < ApplicationController
   end
 
   def update
-    @sound = Sound.new(sound_params)
-    if @stage.save
-      flash[:success] = "#{@sound.name} created"
+    if @sound.update(sound_params)
+      flash[:success] = "#{@sound.name} updated"
       redirect_to @sound
     else
       flash.now[:danger] = 'Something went wrong'
-      render :new
+      render :edit
     end
   end
 
@@ -51,6 +50,6 @@ class SoundsController < ApplicationController
     end
 
     def sound_params
-      params.require(:sound).permit([ :name, :medium_attributes => [ :id, :file ] ])
+      params.require(:sound).permit([ :name, :source ])
     end
 end

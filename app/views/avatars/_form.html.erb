@@ -14,6 +14,7 @@
 <% unless @avatar.new_record? %>
   <%= image_tag @avatar.source.url(:medium), :alt => "#{@avatar.name}", :class => 'col-lg-4 col-lg-offset-4 img-rounded img-responsive' %>
 <% end %>
+
 <div class="form-group">
   <%= f.file_field :source, :class => 'form-control', :placeholder => 'Choose File' %>
   <% unless @avatar.errors[:source].empty? %>
