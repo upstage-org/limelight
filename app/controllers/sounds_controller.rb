@@ -14,11 +14,15 @@ class SoundsController < ApplicationController
     @sound = Sound.new(sound_params)
     if @sound.save
       flash[:success] = "#{@sound.name} created"
-      redirect_to @sound
+      redirect_to edit_sound_path(@sound)
     else
       flash.now[:danger] = 'Something went wrong'
       render :new
     end
+  end
+
+  def show
+    redirect_to edit_sound_path(@sound)
   end
 
   def edit
@@ -27,7 +31,7 @@ class SoundsController < ApplicationController
   def update
     if @sound.update(sound_params)
       flash[:success] = "#{@sound.name} updated"
-      redirect_to @sound
+      redirect_to edit_sound_path(@sound)
     else
       flash.now[:danger] = 'Something went wrong'
       render :edit
@@ -40,7 +44,7 @@ class SoundsController < ApplicationController
       redirect_to sounds_path
     else
       flash[:danger] = 'Something went wrong'
-      redirect_to @sound
+      redirect_to edit_sound_path(@sound)
     end
   end
 
