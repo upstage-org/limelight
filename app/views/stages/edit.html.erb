@@ -1,7 +1,14 @@
-<% @title = "Edit Stage \'#{@stage.name}\'" %>
+<% @title = "Edit Stage \'#{@avatar.name}\'" %>
 
 <div class="page-header">
-  <h1>Create New Stage</h1>
+  <h1>
+    Edit Stage
+    <br>
+    <small>
+      <%= @stage.name %>
+      <%= render 'tags' %>
+    </small>
+  </h1>
 </div>
 
 <%= render 'form' %>
