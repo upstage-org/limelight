@@ -1,0 +1,33 @@
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Stages</th>
+      <th>Tags</th>
+      <th class="col-sm-1">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @media.each do |m| %>
+      <tr>
+        <td><%= link_to m.name, m %></td>
+        <td><%= m.class.name %>
+        <td class="text-muted">
+        </td>
+        <td>
+          <% m.tags.each do |t| %>
+            <%= render t %>
+          <% end %>
+        </td>
+        <td class="col-sm-1">
+          <span class="btn-group btn-group-sm">
+            <%= link_to m, :method => :delete, :data => { confirm: "#{m.name} will be removed" }, :class => 'btn btn-sm btn-danger' do %>
+              <span class="glyphicon glyphicon-remove"></span>
+            <% end %>
+          </span>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

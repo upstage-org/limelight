@@ -1,0 +1,24 @@
+<div class="col-xs-12 col-sm-4 col-md-3 col-lg-2">
+  <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title"><%= link_to medium.name, medium %></h4>
+      </div>
+      <div class="panel-body">
+        <% if medium.instance_of? Sound %>
+          <%= audio_tag medium.source.url, :controls => true %>
+        <% else %>
+          <%= link_to medium do %>
+            <%= image_tag medium.source.url, :alt => medium.name, :class => 'img-responsive' %>
+          <% end %>
+        <% end %>
+      </div>
+      <div class="panel-footer">
+        <span class="btn-group btn-group-sm pull-right">
+          <%= link_to medium, :method => :delete, :data => { :confirm => "#{medium.name} will be removed" }, :class => 'btn btn-danger btn-sm' do %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+        </span>
+        <div class="clearfix"></div>
+      </div>
+  </div>
+</div>
