@@ -5,22 +5,25 @@
     Sounds
     <small class="pull-right">
       <span class="btn-group">
-        <%= link_to 'Create', new_sound_path, :class => "btn btn-primary" %>
+        <%= link_to new_sound_path, :class => "btn btn-primary" do %>
+          <span class="glyphicon glyphicon-plus"></span>
+        <% end %>
       </span>
     </small>
   </h1>
 </div>
 
 <table class="table table-striped">
-  <% @sounds.each do |a| %>
+  <% @sounds.each do |s| %>
     <tr>
       <td>
-        <%= link_to a.name, a %>
+        <%= link_to s.name, edit_sound_path(s) %>
       </td>
       <td>
         <span class="btn-group pull-right">
-          <%= link_to 'Edit', edit_sound_path(a), :class => "btn btn-default" %>
-          <%= link_to 'Delete', a, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
+          <%= link_to s, :method => :delete, :data => { confirm: "#{s.name} will be removed" }, :class => "btn btn-danger" do %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
         </span>
       </td>
     </tr>

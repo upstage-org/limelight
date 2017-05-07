@@ -14,7 +14,7 @@ class AvatarsController < ApplicationController
     @avatar = Avatar.new(avatar_params)
     if @avatar.save
       flash[:success] = 'Avatar created.'
-      redirect_to @avatar
+      redirect_to edit_avatar_path(@avatar)
     else
       flash.now[:danger] = 'Something went wrong'
       render :new
@@ -22,6 +22,7 @@ class AvatarsController < ApplicationController
   end
 
   def show
+    redirect_to edit_avatar_path(@avatar)
   end
 
   def edit
@@ -30,7 +31,7 @@ class AvatarsController < ApplicationController
   def update
     if @avatar.update(avatar_params)
       flash[:success] = 'Avatar updated'
-      redirect_to @avatar
+      redirect_to edit_avatar_path(@avatar)
     else
       flash.now[:danger] = 'Something went wrong'
       render :edit
@@ -43,7 +44,7 @@ class AvatarsController < ApplicationController
       redirect_to avatars_path
     else
       flash[:danger] = 'Something went wrong'
-      redirect_to @avatar
+      redirect_to edit_avatar_path(@avatar)
     end
   end
 
