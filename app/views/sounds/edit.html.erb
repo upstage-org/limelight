@@ -1,7 +1,14 @@
 <% @title = "Edit Sound \'#{@sound.name}\'" %>
 
 <div class="page-header">
-  <h1>Edit Sound<br><small><%= @sound.name %></small></h1>
+  <h1>
+    Edit Sound
+    <br>
+    <small>
+      <%= @sound.name %>
+      <%= render 'tags' %>
+    </small>
+  </h1>
 </div>
 
 <%= render 'form' %>
