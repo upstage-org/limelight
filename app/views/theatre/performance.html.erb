@@ -85,6 +85,13 @@
                         </ul>
                     </div>
                     <div class="panel-footer">
+                        <% unless current_user.nil? %>
+                          <div class="input-group">
+                            <%= label_tag do %>
+                              <%= check_box_tag 'shoutToggle', nil, false, :onclick => 'toggleShout()' %> Shout
+                            <% end %>
+                          </div>
+                        <% end %>
                         <div class="input-group">
                             <input type="text" id = "chat-speak" data-behavior="chat-speak">
                             <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
