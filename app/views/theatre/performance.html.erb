@@ -69,8 +69,6 @@
                     </div>
                 </div>
                 <div class="panel panel-info" id="chat">
-                    <!
-                    <div class="list-group user_list">                    <!</div>
                     <div class="panel-body" id="chat-body">
                         <ul class="media-list">
                             <li class="media">
@@ -90,19 +88,8 @@
                         <div class="input-group">
                             <input type="text" id = "chat-speak" data-behavior="chat-speak">
                             <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
-                            <% if current_user %>
-                            <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user.id %>">
-                            <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user.nickname %>">
-                            <% else %>
-                            <input type="hidden" id = "user-id" name ="user-id" value ="<%= 0 %>">
-                            <input type="hidden" id = "user-name" name ="user-name" value ="<%= "Guest" %>">
-                            <% end %>
-                            <select id="selectChatType">
-                                <option class="chat-option all" data-chat-mode="broadcast">All</option>
-                                <% if current_user %>
-                                <option class="chat-option shout" data-chat-mode="shout">Shout</option>
-                                <% end %>
-                            </select>
+                            <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user ? current_user.id : 0 %>">
+                            <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user ? current_user.nickname : 'Guest' %>">
                         </div>
                     </div>
                 </div>
