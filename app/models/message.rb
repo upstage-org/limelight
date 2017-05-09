@@ -11,12 +11,14 @@ class Message < ApplicationRecord
 
   def formatted_content
     msg = self.content
-    if MODIFIERS.map { |m, v| v }.include? msg[0]
-      msg[0] = ''
+    MODIFIERS.each do |n, m|
+      if msg.starts_with? m
+        msg = msg.sub(m, '')
+      end
     end
     return msg
   end
-  
+
   MODIFIERS.each do |k, v|
     define_method("is_#{k.to_s}?") do
       return self.content.starts_with? v
