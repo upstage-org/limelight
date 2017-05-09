@@ -1,16 +1,11 @@
-<% msg = message.content %>
 <div class="message">
   <% unless message.sender.nil? %>
     <% cls = 'player' %>
-    <% if msg.starts_with? '!'%>
-      <% cls += ' shout' %>
-      <% msg[0] = '' %>
-    <% end %>
+    <% cls += ' shout' if message.is_shouted? %>
   <% else %>
     <% cls = 'audience' %>
   <% end %>
-  <% msg = auto_link(msg, html: { target: '_blank' }) %>
   <p class="<%= cls %>">
-    <%= message.sender ? message.sender.nickname : 'Audience' %> : <%= msg %>
+    <%= message.sender ? message.sender.nickname : 'Audience' %> : <%= auto_link(message.formatted_content, html: { target: '_blank' }) %>
   </p>
 </div>
