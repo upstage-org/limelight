@@ -1,12 +1,16 @@
+<% unless message.sender.nil? %>
+  <% cls = 'player' %>
+  <% cls += ' shout' if message.is_shout? %>
+  <% cls += ' thought' if message.is_thought? %>
+<% else %>
+  <% cls = 'audience' %>
+<% end %>
+
 <div class="message">
-  <% unless message.sender.nil? %>
-    <% cls = 'player' %>
-    <% cls += ' shout' if message.is_shout? %>
-    <% cls += ' thought' if message.is_thought? %>
-  <% else %>
-    <% cls = 'audience' %>
-  <% end %>
-  <p class="<%= cls %>">
-    <%= message.sender ? message.sender.nickname : 'Audience' %> : <%= auto_link(message.formatted_content, html: { target: '_blank' }) %>
-  </p>
+  <div class="content <%= cls %>">
+    <p>
+      <%= auto_link(message.formatted_content, html: { target: '_blank' }) %>
+    </p>
+  </div>
+  <span class="sender"><%= message.sender.nil? ? '' : message.sender.nickname %></span>
 </div>

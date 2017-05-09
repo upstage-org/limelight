@@ -1,4 +1,6 @@
 
+$upstageGreen : #5da332;
+
 #toolbar {
     width: 100%;
     height: 30px;
@@ -110,4 +112,52 @@ div.message > p.thought {
 
 .shout {
     color: red;
+}
+
+div.message {
+  margin-bottom: 30px;
+}
+
+div.message > div.content {
+  color: #000;
+  margin-top: 20px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 0px;
+  padding: 8px;
+}
+
+div.message > span.sender {
+  font-size: 8pt;
+  color: #888;
+  float: right;
+}
+
+div.message > div.content.player {
+  background-color: $upstageGreen;
+  color: #fff;
+  margin-left: 10px;
+}
+
+div.message > div.content.audience {
+  background-color: #eee;
+  color: #888;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 8px;
+  margin-right: 10px;
+}
+
+/* Chat modifiers */
+
+div.message > div.content.thought {
+  background-color: #add8e6;
+  color: #888;
+}
+
+div.message > div.content.shout {
+  background-color: #ff0000;
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
 }
