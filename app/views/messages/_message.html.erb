@@ -1,12 +1,16 @@
-<div id = "message">
-    <% @user = User.find_by_id(message.sender_id) %>
-    <% if (@user != nil) %>
-        <% if message.message_type == 'broadcast' %> 
-            <p class="player"><%= @user.nickname %> : <%= auto_link(message.content, html: { target: '_blank' }) %></p>
-        <% else %>
-            <p class ="shoutToChat"><%= @user.nickname %> : <%= auto_link(message.content, html: { target: '_blank' }) %></p>
-        <% end %>
-    <% else %>
-     <p class="audience"> Audience : <%= auto_link(message.content, html: { target: '_blank' }) %></p>
+<% msg = message.content %>
+<div class="message">
+  <% unless message.sender.nil? %>
+    <% cls = 'player' %>
+    <% if msg.starts_with? '!'%>
+      <% cls += ' shout' %>
+      <% msg[0] = '' %>
     <% end %>
+  <% else %>
+    <% cls = 'audience' %>
+  <% end %>
+  <% msg = auto_link(msg, html: { target: '_blank' }) %>
+  <p class="<%= cls %>">
+    <%= message.sender ? message.sender.nickname : 'Audience' %> : <%= msg %>
+  </p>
 </div>
