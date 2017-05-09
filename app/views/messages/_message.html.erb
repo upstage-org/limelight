@@ -1,7 +1,8 @@
 <div class="message">
   <% unless message.sender.nil? %>
     <% cls = 'player' %>
-    <% cls += ' shout' if message.is_shouted? %>
+    <% cls += ' shout' if message.is_shout? %>
+    <% cls += ' thought' if message.is_thought? %>
   <% else %>
     <% cls = 'audience' %>
   <% end %>

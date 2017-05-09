@@ -1,6 +1,6 @@
 class Message < ApplicationRecord
 
-  MODIFIERS = { :shout => '!' }
+  MODIFIERS = { :shout => '!', :thought => ':' }
 
   belongs_to :sender, :class_name => 'User'
   belongs_to :stage
@@ -9,8 +9,12 @@ class Message < ApplicationRecord
 
   after_create_commit { MessageBroadcastJob.perform_later(self) }
 
-  def is_shouted?
+  def is_shout?
     self.content.starts_with? MODIFIERS[:shout]
+  end
+
+  def is_thought?
+    self.content.starts_with? MODIFIERS[:thought]
   end
 
   def formatted_content
