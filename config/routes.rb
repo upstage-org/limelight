@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'media/index'
+
   resources :tags, :param => :name, :except => [ :edit, :update ]
   resources :avatar_stages, :only => [ :create, :destroy ]
   resources :sounds, :param => :slug do
@@ -30,6 +32,7 @@ Rails.application.routes.draw do
   get '/confirm_email/:confirmation_token', :to => "users#confirm_email", :as => 'email_confirmation'
   match '/forgotten_password', :via => [ :get, :post ], :to => "users#forgot_password", :as => 'forgotten_password'
   match '/reset_password/:password_reset_token', :via => [ :get, :post ], :to => "users#reset_password", :as => 'reset_password'
+  get '/media', :to => "media#index", :as => 'media'
 
   get '/:id', :to => "theatre#performance", :as => 'performance'
 
