@@ -115,49 +115,41 @@ div.message > p.thought {
 }
 
 div.message {
-  margin-bottom: 30px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 
 div.message > div.content {
   color: #000;
   margin-top: 20px;
-  border-top-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  border-top-right-radius: 8px;
-  border-bottom-right-radius: 0px;
-  padding: 8px;
+  padding: 0px;
 }
 
 div.message > span.sender {
   font-size: 8pt;
   color: #888;
-  float: right;
+  float: left;
 }
 
 div.message > div.content.player {
-  background-color: $upstageGreen;
-  color: #fff;
-  margin-left: 10px;
+  color: #000;
+  margin-right: 10px;
 }
 
 div.message > div.content.audience {
-  background-color: #eee;
-  color: #888;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 8px;
-  margin-right: 10px;
+  color: #aaa;
+  margin-left: 10px;
+  text-align: right;
 }
 
 /* Chat modifiers */
 
 div.message > div.content.thought {
-  background-color: #add8e6;
-  color: #888;
+  color: #2222aa;
 }
 
 div.message > div.content.shout {
-  background-color: #ff0000;
-  color: #000;
+  color: #ff0000;
   font-weight: bold;
   text-transform: uppercase;
 }
