@@ -1,0 +1,19 @@
+<div>
+  <h1>
+    <%= @announcement.title %>
+    <br>
+    <small>
+      <%= @announcement.subtitle unless @announcement.subtitle.blank? %>
+    </small>
+  </h1>
+  <p>by <%= @announcement.author.nickname %></p>
+  <p>Last Modified: <%= localize(@announcement.updated_at, :format => :long) %></p>
+</div>
+
+<div>
+  <%= @announcement.body.html_safe %>
+</div>
+
+<p>
+  <%= link_to 'Click here to read in your browser', announcement_url(@announcement) %>
+</p>
