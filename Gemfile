@@ -44,6 +44,9 @@ gem 'rails_autolink', '~> 1.1.6'
 # Handles uploads
 gem 'paperclip', '~> 5.1.0'
 
+# Rich editor
+gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.8'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

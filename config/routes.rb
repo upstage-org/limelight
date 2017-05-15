@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  get 'media/index'
+  resources :announcements, :param => :slug
 
   resources :tags, :param => :name, :except => [ :edit, :update ]
   resources :avatar_stages, :only => [ :create, :destroy ]
