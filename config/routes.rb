@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :avatars do
     resources :tags, :param => :name, :except => [ :edit, :update ]
   end
-  resources :stages do
+  resources :stages, :param => :slug do
     resources :tags, :param => :name, :except => [ :edit, :update ]
     post '/clone', :to => "stages#clone", :as => 'clone'
   end
