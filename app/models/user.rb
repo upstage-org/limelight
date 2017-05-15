@@ -15,6 +15,7 @@ class User < ApplicationRecord
 
   has_many :user_roles
   has_many :roles, :through => :user_roles
+  has_many :announcements
 
   validates :email, :email => true, :presence => true, :uniqueness => true
   validates :nickname, :presence => true, :length => { minimum: 3 }, :uniqueness => true

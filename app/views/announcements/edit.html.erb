@@ -1,0 +1,16 @@
+<% @title = 'Edit Announcement' %>
+
+<div class="page-header">
+  <h1>
+    Edit Announcement
+    <small class="pull-right">
+      <span class="btn-group">
+        <%= link_to @announcement, :class => "btn btn-default" do %>
+          <span class="glyphicon glyphicon-go"></span>
+        <% end %>
+      </span>
+    </small>
+  </h1>
+</div>
+
+<%= render 'form' %>

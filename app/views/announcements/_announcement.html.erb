@@ -1,0 +1,8 @@
+<div class="panel">
+  <h4>
+    <%= link_to announcement.title, announcement %>
+    <br>
+    <small><%= "#{localize(announcement.updated_at, :format => :long)} by #{announcement.author.nickname}" %></small>
+  </h4>
+  <%= announcement.body[0..50].html_safe %>
+</div>

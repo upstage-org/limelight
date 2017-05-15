@@ -1,0 +1,7 @@
+<div class="panel">
+  <%= link_to announcement.title, announcement %> by <%= announcement.author.nickname %>
+  <br>
+  <p class="text-muted">
+    <%= localize(announcement.updated_at, :format => :short) %>
+  </p>
+</div>
