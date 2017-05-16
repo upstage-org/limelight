@@ -28,6 +28,9 @@
       padding-left: 0px;
       padding-right: 0px; 
     }
+    h1{
+    border-bottom: 2px solid green;
+    }
   </style>
     <nav class="navbar navbar-default" style="border:1px solid green;">
        <div class="container-fluid">
@@ -42,10 +45,10 @@
               <%= image_tag '/logo.png', :alt => 'Logo' %>
            <% end %>
          </div>
-         <div id="navbar" class="navbar-collapse collapse">
+         <div id="navbar" class="navbar-collapse collapse" >
            <ul class="nav navbar-nav navbar-right">
              <% if current_user %>
-               <li><%= link_to "Stages", stages_path %></li>
+               <li><%= link_to "Stages", stages_path %> </li>
                <li><%= link_to 'Media', media_path %></li>
                <li><%= link_to 'Announcements', announcements_path %></li>
                <li><%= link_to "Users", users_path %></li>
