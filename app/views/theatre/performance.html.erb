@@ -85,21 +85,29 @@
                         </ul>
                     </div>
                     <div class="panel-footer">
-                        <% unless current_user.nil? %>
-                          <div class="input-group">
-                            <% Message::MODIFIERS.each do |k, v| %>
-                              <%= label_tag do %>
-                                <%= check_box_tag "#{k.to_s}Toggle", "#{v}", false, :onclick => "toggleChatModifier(this)" %> <%= k.to_s.capitalize %>
-                              <% end %>
-                            <% end %>
-                          </div>
-                        <% end %>
+                      <% unless current_user.nil? %>
                         <div class="input-group">
-                            <input type="text" id = "chat-speak" data-behavior="chat-speak">
-                            <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
-                            <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user ? current_user.id : 0 %>">
-                            <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user ? current_user.nickname : 'Guest' %>">
+                          <%= label_tag nil, :class => 'radio-inline' do %>
+                            <%= radio_button_tag 'chat-modifier', '', true, :class => 'chat-modifier' %> None
+                          <% end %>
+                          <% Message::MODIFIERS.each do |k, v| %>
+                            <%= label_tag nil, :class => 'radio-inline', :title => "(#{v})" do %>
+                              <%= radio_button_tag 'chat-modifier', "#{v}", false, :class => 'chat-modifier' %> <%= k.to_s.capitalize %>
+                            <% end %>
+                          <% end %>
                         </div>
+                      <% end %>
+                        <div class="input-group">
+                          <input type="text" id = "chat-speak" class="form-control" data-behavior="chat-speak", placeholder="Say something...">
+                          <span class="input-group-btn">
+                            <button id="sendChat" type="button" class="btn btn-primary">
+                              <span class="glyphicon glyphicon-send"></span>
+                            </button>
+                          </span>
+                        </div>
+                        <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
+                        <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user ? current_user.id : 0 %>">
+                        <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user ? current_user.nickname : 'Guest' %>">
                     </div>
                 </div>
             </div>
