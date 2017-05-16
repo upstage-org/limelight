@@ -71,3 +71,24 @@ a:hover{
 .panel-title > a:hover {
   color: #fff;
 }
+
+.navbar-toggle {
+  background: transparent;
+  border: 0px;
+}
+
+.navbar-toggle:hover {
+  background-color: $upstageGreen;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+  background-color: $upstageGreen;
+}
+
+.navbar-toggle:hover > .icon-bar, .navbar-toggle:focus > .icon-bar {
+  background-color: #fff !important;
+}
+
+.icon-bar {
+  background-color: $upstageGreen !important;
+}
