@@ -18,6 +18,8 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+$upstageGreen : #5da332;
+
 a.navbar-brand {
   padding: 5px 15px;
 }
@@ -25,14 +27,14 @@ a.navbar-brand > img {
   height: 45px;
 }
 .navbar{
-	border-bottom: 3px solid #5DA332;
+	border-bottom: 3px solid $upstageGreen;
 }
-.panel-default{
-	border-color: #5DA332;
+.panel-default {
+	border-color: $upstageGreen;
 }
 
 a{
-	color: #5DA332;
+	color: $upstageGreen;
 }
 
 a:hover{
@@ -40,17 +42,32 @@ a:hover{
 }
 
 .navbar-default .navbar-nav > li > a{
-	color: #000000;
+	color: #333;
 }
 
 .navbar-default .navbar-nav > li > a:hover{
-	color: #5DA332;
+	color: $upstageGreen;
 }
 
-.panel-default > .panel-heading{
-	background-color: #5DA332;
+.panel-default > .panel-heading {
+	background-color: $upstageGreen;
+  border: 0;
+}
+
+.panel-default > .panel-footer {
+  background-color: #fff;
+  border: 0px;
+  border-top: solid 1px $upstageGreen;
 }
 
 .table, th{
-	background-color: #5DA332;
+	background-color: $upstageGreen;
+}
+
+.panel-title {
+  color: #fff !important;
+}
+
+.panel-title > a:hover {
+  color: #fff;
 }
