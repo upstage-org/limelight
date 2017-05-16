@@ -4,14 +4,14 @@
   <h1>Welcome!</h1>
 </div>
 
-<div class="col-lg-8 col-md-6 col-sm-12">
+<div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title">Stages</h4>
     </div>
     <div class="panel-body">
-      <div class="row hidden-sm hidden-xs">
-        <div class="col-lg-10 col-md-6">
+      <div class="row hidden-md hidden-sm hidden-xs">
+        <div class="col-lg-10 col-md-12">
           <small>Name</small>
         </div>
         <div class="col-lg-1">
@@ -22,8 +22,8 @@
         </div>
       </div>
       <% @stages.each do |s| %>
-        <div class="row hidden-sm hidden-xs">
-          <div class="col-lg-10 col-md-6">
+        <div class="row hidden-md hidden-sm hidden-xs">
+          <div class="col-lg-10 col-md-12">
             <%= link_to s.name, performance_path(s) %>
           </div>
           <div class="col-lg-1">
@@ -33,7 +33,7 @@
             0
           </div>
         </div>
-        <div class="hidden-lg hidden-md col-sm-12">
+        <div class="hidden-lg col-md-12">
           <%= link_to s.name, s %>
           <br>
           <strong>Players:</strong> 0
@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<div class="col-lg-4 col-md-6 col-sm-12 pull-right">
+<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 pull-right">
   <div class="panel panel-default">
     <div class="panel-heading">
       <h4 class="panel-title"><%= link_to 'Announcements', announcements_path %></h4>
@@ -53,13 +53,6 @@
       <% @announcements.each do |a| %>
         <%= render :partial => 'announcement', :locals => { announcement: a } %>
       <% end %>
-    </div>
-  </div>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h4 class="panel-title">Stats</h4>
-    </div>
-    <div class="panel-body">
     </div>
   </div>
 </div>
