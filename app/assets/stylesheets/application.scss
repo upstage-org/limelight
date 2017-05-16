@@ -24,4 +24,33 @@ a.navbar-brand {
 a.navbar-brand > img {
   height: 45px;
 }
+.navbar{
+	border-bottom: 3px solid #5DA332;
+}
+.panel-default{
+	border-color: #5DA332;
+}
 
+a{
+	color: #5DA332;
+}
+
+a:hover{
+	color: #696969;
+}
+
+.navbar-default .navbar-nav > li > a{
+	color: #000000;
+}
+
+.navbar-default .navbar-nav > li > a:hover{
+	color: #5DA332;
+}
+
+.panel-default > .panel-heading{
+	background-color: #5DA332;
+}
+
+.table, th{
+	background-color: #5DA332;
+}
