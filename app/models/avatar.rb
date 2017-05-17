@@ -16,4 +16,8 @@ class Avatar < ApplicationRecord
   validates :name, :presence => true
   validates_attachment_content_type :source, content_type: /\Aimage\/.*\z/
 
+  def self.not_assigned(stage)
+    self.all.reject { |a| stage.avatars.include? a }
+  end
+
 end
