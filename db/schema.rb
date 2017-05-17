@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170515145044) do
+ActiveRecord::Schema.define(version: 20170517032653) do
 
   create_table "announcements", force: :cascade do |t|
     t.string "title", null: false
@@ -113,6 +113,15 @@ ActiveRecord::Schema.define(version: 20170515145044) do
     t.index ["deleted_at"], name: "index_sounds_on_deleted_at"
     t.index ["slug", "deleted_at"], name: "index_sounds_on_slug_and_deleted_at", unique: true
     t.index ["slug"], name: "index_sounds_on_slug"
+  end
+
+  create_table "stage_sounds", force: :cascade do |t|
+    t.integer "stage_id"
+    t.integer "sound_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["sound_id"], name: "index_stage_sounds_on_sound_id"
+    t.index ["stage_id"], name: "index_stage_sounds_on_stage_id"
   end
 
   create_table "stage_tags", force: :cascade do |t|

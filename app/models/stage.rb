@@ -10,6 +10,10 @@ class Stage < ApplicationRecord
   has_many :stage_tags, :dependent => :destroy
   has_many :tags, :through => :stage_tags
 
+  has_many :stage_sounds, :dependent => :destroy
+  has_many :sounds, :through => :stage_sounds
+
+
   has_many :messages, dependent: :destroy
 
 
