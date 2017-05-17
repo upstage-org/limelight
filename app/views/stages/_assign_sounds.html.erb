@@ -9,7 +9,7 @@
         <%= select_tag :add_sound_path, options_for_select(Sound.not_assigned(@stage).map { |s| [ s.name, url_for([@stage, s])] }), :class => "form-control", :prompt => 'Select a Sound' %>
       </div>
       <div class="modal-footer">
-        <%= link_to '', :method => :patch, :class => "btn btn-primary", :id => 'assignSoundButton', :disabled => true do %>
+        <%= link_to '#', :method => :get, :class => "btn btn-primary", :id => 'soundAssignmentButton', :disabled => true do %>
           <span class="glyphicon glyphicon-ok"></span>
         <% end %>
       </div>

@@ -4,8 +4,15 @@
 
 init = () ->
   $(document).on 'change', '#add_sound_path', (e) ->
-    $('#assignSoundButton').removeAttr 'disabled' if $(this).val() != ''
-    $('#assignSoundButton').attr 'disabled', 'disabled' if $(this).val() == ''
-    $('#assignSoundButton').attr 'href', $(this).val()
+    btn = $('#soundAssignmentButton')
+    val = $(this).val()
+    if val == ''
+      btn.attr 'disabled', 'disabled'
+      btn.data 'method', 'GET'
+    else
+      btn.removeAttr 'disabled'
+      btn.data 'method', 'PATCH'
+    btn.attr 'href', val
+
 
 $(document).on 'turbolinks:load', init
