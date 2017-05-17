@@ -1,6 +1,7 @@
 class SoundsController < ApplicationController
   before_action :reject_anonymous
   before_action :set_sound, :except => [ :index, :new, :create ]
+  before_action :set_stage, :only => [ :update, :destroy ]
 
   def index
     @sounds = Sound.all
@@ -29,28 +30,44 @@ class SoundsController < ApplicationController
   end
 
   def update
-    if @sound.update(sound_params)
-      flash[:success] = "#{@sound.name} updated"
-      redirect_to edit_sound_path(@sound)
+    if @stage.present?
+      @stage.sounds << @sound
+      flash[:success] = "#{@sound.name} assigned to #{@stage.name}"
+      redirect_to @stage
     else
-      flash.now[:danger] = 'Something went wrong'
-      render :edit
+      if @sound.update(sound_params)
+        flash[:success] = "#{@sound.name} updated"
+        redirect_to edit_sound_path(@sound)
+      else
+        flash.now[:danger] = 'Something went wrong'
+        render :edit
+      end
     end
   end
 
   def destroy
-    if @sound.destroy
-      flash[:success] = "#{@sound.name} removed"
-      redirect_to sounds_path
+    if @stage.present?
+      @stage.sounds.delete(@sound)
+      flash[:success] = "#{@sound.name} unassigned from #{@stage.name}"
+      redirect_to @stage
     else
-      flash[:danger] = 'Something went wrong'
-      redirect_to edit_sound_path(@sound)
+      if @sound.destroy
+        flash[:success] = "#{@sound.name} removed"
+        redirect_to sounds_path
+      else
+        flash[:danger] = 'Something went wrong'
+        redirect_to edit_sound_path(@sound)
+      end
     end
   end
 
   private
     def set_sound
       @sound = Sound.find_by_slug!(params[:slug])
+    end
+
+    def set_stage
+      @stage = Stage.find_by_slug(params[:stage_slug]) if params[:stage_slug].present?
     end
 
     def sound_params

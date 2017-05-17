@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  stage: one
+  sound: one
+
+two:
+  stage: two
+  sound: two

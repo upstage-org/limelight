@@ -1,0 +1,30 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h4 class="panel-title">Sounds</h4>
+  </div>
+  <div class="panel-body">
+    <% @stage.sounds.each do |s| %>
+      <div class="row">
+        <div class="col-lg-10">
+          <%= link_to s.name, s %>
+        </div>
+        <div class="col-lg-2">
+            <span class="btn-group btn-group-xs pull-right">
+              <%= link_to [@stage, s], :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" do %>
+                <span class="glyphicon glyphicon-minus"></span>
+              <% end %>
+            </span>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="panel-footer clearfix">
+    <span class="btn-group btn-group-xs pull-right">
+      <a class="btn btn-primary" href="#" data-toggle="modal" data-target="#assignSoundsModal">
+        <span class="glyphicon glyphicon-plus"></span>
+      </a>
+    </span>
+  </div>
+</div>
+
+<%= render 'assign_sounds' %>

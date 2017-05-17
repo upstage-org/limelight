@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   end
   resources :stages, :param => :slug do
     resources :tags, :param => :name, :except => [ :edit, :update ]
+    resources :sounds, :param => :slug, :only => [ :update, :destroy ]
     post '/clone', :to => "stages#clone", :as => 'clone'
   end
   resources :roles
