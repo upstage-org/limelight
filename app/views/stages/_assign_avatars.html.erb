@@ -9,7 +9,6 @@
       </div>
       <div class="modal-body">
         <%= f.select :avatar_id, Avatar.not_assigned(@stage).map { |a| [ a.name, a.id ] }, { :include_blank => 'Select an Avatar' }, :class => "form-control" %>
-        <% debugger %>
       </div>
       <div class="modal-footer">
         <button type="submit" name="confirm" class="btn btn-success">
