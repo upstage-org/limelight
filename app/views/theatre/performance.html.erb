@@ -1,116 +1,118 @@
-
-
 <!DOCTYPE html>
 <html>
-    <head>
-        <title><%= @stage.name %> | UpStage</title>
-        <%= csrf_meta_tags %>
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    </head>
-    <div class="theatre-body">
-    <div class="col-xs-12">
-        <div class= "col-xs-9">
-            <div class = "panel-body" style="display: block;">
-                <canvas id="canvas" width="1200" height="700">Sorry, your browser doesn't support this feature</canvas>
-            </div>
-            <div class ="backdrop">
-				<button id="clearBackdrop">Clear</button>
-			</div>
-        </div>
-        <div class = "col-xs-3">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
-                <li><a data-toggle="tab" href="#audio">Audio</a></li>
-            </ul>
-            <div class="tab-content">
-                <div id="drawing" class="tab-pane fade in active">
-                    Colour Picker:
-                    <button class="color-option" data-color="blue">
-                    <span class="glyphicon glyphicon-pencil blue"></span>
-                    </button>
-                    <button class="color-option" data-color="pink">
-                    <span class="glyphicon glyphicon-pencil pink"></span>
-                    </button>
-                    <button class="color-option" data-color="red">
-                    <span class="glyphicon glyphicon-pencil red"></span>
-                    </button>
-                    <button class="color-option" data-color="black">
-                    <span class="glyphicon glyphicon-pencil black"></span>
-                    </button>
-                    <button class="color-option" data-color="green">
-                    <span class="glyphicon glyphicon-pencil green"></span>
-                    </button>
-                    <button class="color-option" data-color="white">
-                    <span class="glyphicon glyphicon-pencil white"></span>
-                    </button>
-                    <button class="color-option" data-color="clear">
-                    Clear
-                    <p></p>
-                    </button>
-                    Brush Size:
-                    <span class ="brush" id="brushSize">1</span>
-                    <button class="size-option" data-size="increase">
-                    <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                    <button class="size-option" data-size="decrease">
-                    <span class="glyphicon glyphicon-minus"></span>
-                    </button>
-                </div>
-                <div id="audio" class="tab-pane fade">
-                    <div class="panel-heading">
-                        <h4 class="panel-title">
-                            <a data-toggle="collapse" href="#collapse1"><span class="glyphicon glyphicon-headphones"></span>Audio List</a>
-                        </h4>
-                    </div>
-                    <div id="collapse1" class="panel-collapse collapse">
-                        <div class="panel-footer"><span class="glyphicon glyphicon-headphones"></span>Play All Sounds: <button class="audio-button all" data-audio-name="all" data-audio-mode ="play">play</button></button>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel panel-info" id="chat">
-                    <div class="panel-body" id="chat-body">
-                        <ul class="media-list">
-                            <li class="media">
-                                <div class="media-body">
-                                    <div class="media">
-                                        <div class="media-body" >
-                                            <div id="messages" data-stage-id ="<%= @stage.id %>">
-                                                <%= render @stage.messages %>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="panel-footer">
-                      <% unless current_user.nil? %>
-                        <div class="input-group">
-                          <%= label_tag nil, :class => 'radio-inline' do %>
-                            <%= radio_button_tag 'chat-modifier', '', true, :class => 'chat-modifier' %> None
-                          <% end %>
-                          <% Message::MODIFIERS.each do |k, v| %>
-                            <%= label_tag nil, :class => 'radio-inline', :title => "(#{v})" do %>
-                              <%= radio_button_tag 'chat-modifier', "#{v}", false, :class => 'chat-modifier' %> <%= k.to_s.capitalize %>
-                            <% end %>
-                          <% end %>
-                        </div>
-                      <% end %>
-                        <div class="input-group">
-                          <input type="text" id = "chat-speak" class="form-control" data-behavior="chat-speak", placeholder="Say something...">
-                          <span class="input-group-btn">
-                            <button id="sendChat" type="button" class="btn btn-primary">
-                              <span class="glyphicon glyphicon-send"></span>
-                            </button>
-                          </span>
-                        </div>
-                        <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
-                        <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user ? current_user.id : 0 %>">
-                        <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user ? current_user.nickname : 'Guest' %>">
-                    </div>
-                </div>
-            </div>
-        </div>
+  <head>
+    <title><%= @stage.name %> | UpStage</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+  <body>
+
+    <!-- Stage -->
+
+    <div class= "col-xs-9">
+      <div class = "panel-body" style="display: block;">
+        <canvas id="canvas" width="1200" height="700">Sorry, your browser doesn't support this feature</canvas>
+      </div>
+      <div class ="backdrop">
+        <button id="clearBackdrop">Clear</button>
+      </div>
     </div>
+
+    <!-- Tools -->
+
+    <div class = "col-xs-3">
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
+        <li><a data-toggle="tab" href="#audio">Audio</a></li>
+      </ul>
+      <div class="tab-content">
+        <div id="drawing" class="tab-pane fade in active">
+          Colour Picker:
+          <button class="color-option" data-color="blue">
+            <span class="glyphicon glyphicon-pencil blue"></span>
+          </button>
+          <button class="color-option" data-color="pink">
+            <span class="glyphicon glyphicon-pencil pink"></span>
+          </button>
+          <button class="color-option" data-color="red">
+            <span class="glyphicon glyphicon-pencil red"></span>
+          </button>
+          <button class="color-option" data-color="black">
+            <span class="glyphicon glyphicon-pencil black"></span>
+          </button>
+          <button class="color-option" data-color="green">
+            <span class="glyphicon glyphicon-pencil green"></span>
+          </button>
+          <button class="color-option" data-color="white">
+            <span class="glyphicon glyphicon-pencil white"></span>
+          </button>
+          <button class="color-option" data-color="clear">
+            Clear
+          </button>
+          Brush Size:
+          <span class ="brush" id="brushSize">1</span>
+          <button class="size-option" data-size="increase">
+            <span class="glyphicon glyphicon-plus"></span>
+          </button>
+          <button class="size-option" data-size="decrease">
+            <span class="glyphicon glyphicon-minus"></span>
+          </button>
+        </div>
+        <div id="audio" class="tab-pane fade">
+          <div class="panel-heading">
+            <h4 class="panel-title">
+              <a data-toggle="collapse" href="#collapse1">Audio</a>
+            </h4>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse">
+            <div class="panel-footer">
+              <span class="glyphicon glyphicon-headphones"></span>
+              Play All Sounds:
+              <button class="audio-button all" data-audio-name="all" data-audio-mode ="play">
+                play
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat -->
+
+    <div class="col-xs-3">
+      <div class="panel" id="chat">
+        <div class="panel-body" id="chat-body">
+          <div id="messages" data-stage-id ="<%= @stage.id %>">
+            <%= render @stage.messages %>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <% unless current_user.nil? %>
+            <div class="input-group">
+              <%= label_tag nil, :class => 'radio-inline' do %>
+                <%= radio_button_tag 'chat-modifier', '', true, :class => 'chat-modifier' %> Speech
+              <% end %>
+              <% Message::MODIFIERS.each do |k, v| %>
+                <%= label_tag nil, :class => 'radio-inline', :title => "(#{v})" do %>
+                  <%= radio_button_tag 'chat-modifier', "#{v}", false, :class => 'chat-modifier' %> <%= k.to_s.capitalize %>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+          <div class="input-group">
+            <input type="text" id = "chat-speak" class="form-control" data-behavior="chat-speak", placeholder="Say something...">
+            <span class="input-group-btn">
+              <button id="sendChat" type="button" class="btn btn-primary">
+                <span class="glyphicon glyphicon-send"></span>
+              </button>
+            </span>
+          </div>
+          <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
+          <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user ? current_user.id : 0 %>">
+          <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user ? current_user.nickname : 'Guest' %>">
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
