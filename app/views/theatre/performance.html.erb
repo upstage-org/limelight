@@ -1,28 +1,21 @@
 <!DOCTYPE html>
-<html>
+<html class="theatre">
   <head>
     <title><%= @stage.name %> | UpStage</title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-  <body>
+  <body class="stage">
 
     <!-- Stage -->
+    <canvas id="canvas">Sorry, your browser doesn't support this feature</canvas>
 
-    <div class= "col-xs-9">
-      <div class = "panel-body" style="display: block;">
-        <canvas id="canvas" width="1200" height="700">Sorry, your browser doesn't support this feature</canvas>
-      </div>
-      <div class ="backdrop">
-        <button id="clearBackdrop">Clear</button>
-      </div>
-    </div>
-
+  <div id="sidebar">
 <% unless current_user.nil? %>
     <!-- Tools -->
 
-    <div class = "col-xs-3">
+    <div id="toolbox">
       <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
         <li><a data-toggle="tab" href="#audio">Audio</a></li>
@@ -81,14 +74,13 @@
 <% end %>
     <!-- Chat -->
 
-    <div class="col-xs-3">
-      <div class="panel" id="chat">
-        <div class="panel-body" id="chat-body">
+      <div id="chat" style="height: <%= current_user.nil? ? '100%' : '80%' %>;">
+        <div id="chat-body">
           <div id="messages" data-stage-id ="<%= @stage.id %>">
             <%= render @stage.messages %>
           </div>
         </div>
-        <div class="panel-footer">
+        <div id="chatInput">
           <% unless current_user.nil? %>
             <div class="input-group">
               <%= label_tag nil, :class => 'radio-inline' do %>
