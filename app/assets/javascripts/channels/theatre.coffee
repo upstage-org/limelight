@@ -184,8 +184,6 @@ jQuery(document).on 'turbolinks:load', ->
     ################## BACKDROP #####################################################
     images = document.getElementsByClassName("backdrops")
 
-    clearButton = document.getElementById 'clearBackdrop'
-
     for i in images
       do (i) ->
         i.addEventListener "click", ->
@@ -193,8 +191,6 @@ jQuery(document).on 'turbolinks:load', ->
           filename = $("#" + name).data("backdrop-filename")
           document.body.style.backgroundImage = 'url("/uploads/' + filename + '")'
 
-    clearButton.addEventListener 'click', ->
-      document.body.style.backgroundImage = 'none'
 
 
 
