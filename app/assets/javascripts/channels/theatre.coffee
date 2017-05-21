@@ -255,7 +255,7 @@ jQuery(document).on 'turbolinks:load', ->
 # Sends the chat message through the websocket
 utter = () ->
   App.global_chat.speak(
-    content: $("input:radio[name ='chat-modifier']:checked").val() + $('#chat-speak').val(),
+    content: ($("input:radio[name ='chat-modifier']:checked").val() || '') + $('#chat-speak').val(),
     stage_id: $('#stage-id').val(),
     user_id: $('#user-id').val(),
     username: $('#user-name').val()
