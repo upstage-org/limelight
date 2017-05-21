@@ -34,6 +34,7 @@ div#chat {
 
 div#chat > div#chat-body {
   height: 85%;
+  overflow-y: scroll;
   border: solid 1px $upstageGreen;
 }
 
