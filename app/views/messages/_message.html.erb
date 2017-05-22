@@ -7,10 +7,8 @@
 <% end %>
 
 <div class="message">
-  <div class="content <%= cls %>">
-    <p>
-      <%= auto_link(message.formatted_content, html: { target: '_blank' }) %>
-    </p>
-  </div>
   <span class="sender"><%= message.sender.nil? ? '' : message.sender.nickname %></span>
+  <div class="content <%= cls %>">
+      <%= auto_link(message.formatted_content, html: { target: '_blank' }) %>
+  </div>
 </div>

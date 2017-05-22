@@ -99,30 +99,25 @@ div#chat > div#chatInput {
 }
 
 div.message {
-  margin-bottom: 10px;
+  margin: 30px 16px 30px 8px;
   border-bottom: 1px solid #eee;
 }
 
 div.message > div.content {
   color: #000;
-  margin-top: 20px;
-  padding: 0px;
 }
 
 div.message > span.sender {
   font-size: 8pt;
   color: #888;
-  float: left;
 }
 
 div.message > div.content.player {
   color: #000;
-  margin-right: 10px;
 }
 
 div.message > div.content.audience {
   color: #aaa;
-  margin-left: 10px;
   text-align: right;
 }
 
