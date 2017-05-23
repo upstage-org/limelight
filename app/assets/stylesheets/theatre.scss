@@ -49,6 +49,11 @@ div.message > p.thought {
     border: 1px solid YellowGreen;
 }
 
+#avatar {
+  overflow: scroll;
+  height: 10vh;
+}
+
 div#chat > div.panel-footer {
     width: 100%;
     border: 1px solid YellowGreen;

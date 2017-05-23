@@ -58,11 +58,17 @@
                     <span class="glyphicon glyphicon-minus"></span>
                     </button>
                 </div>
+
                 <div id="avatar" class="tab-pane fade">
-                    <div class="media-body">
-                    Avatars:
-                    </div>
+                    <ul class="media-list">
+                    <% @stage.avatars.each do |a| %>
+                        <li class="media">
+                        <%= image_tag a.source.url(:thumb), :alt => a.name, :class => 'img-circle pull-left' %>
+                        </li>
+                    <% end %>
+                    </ul>
                 </div>
+
                 <div id="audio" class="tab-pane fade">
                     <div class="panel-heading">
                         <h4 class="panel-title">
