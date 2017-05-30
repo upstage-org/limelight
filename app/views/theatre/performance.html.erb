@@ -61,16 +61,14 @@
 
                 <div id="avatar" class="tab-pane fade">
 
-                    <ul class="media-list">
                     <% @stage.avatars.each do |a| %>
 
-                        <button  id=<%a.name%> class="media">
-                        <%= image_tag a.source.url(:thumb), :alt => a.name, :class => 'img-circle pull-left' %>    
-
+                        <button id="avatarButtons" avatar-name="<%= a.name%>" class="avatar-selection">
+                        <div class="media" id="avatarButtonImage">
+                            <%= image_tag a.source.url(:thumb), :alt => a.name, :class => 'pull-left'%>
+                        </div>
                         </button>
-                        <p></p>
                     <% end %>
-                    </ul>
                 </div>
 
                 <div id="audio" class="tab-pane fade">

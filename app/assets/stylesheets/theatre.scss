@@ -50,15 +50,28 @@ div.message > p.thought {
 }
 
 #avatar {
-  overflow: scroll;
-  height: 10vh;
+  overflow-y: scroll;
+  height: 16vh;
+  float: centre;
+}
+
+#avatarButtons {
+  width: 4vw;
+  height: 4vw;
+  padding: 0;
+  align: left;
+}
+
+#avatarButtonImage {
+  size: 100%;
+  max-height: 100%;
+  padding: 0;
 }
 
 div#chat > div.panel-footer {
     width: 100%;
     border: 1px solid YellowGreen;
 }
-
 
 
 .red {
