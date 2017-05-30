@@ -44,6 +44,25 @@ div#chat > div#chatInput {
   padding: 10px;
 }
 
+#avatar {
+  overflow-y: scroll;
+  height: 14vh;
+  float: centre;
+}
+
+#avatarButtons {
+  width: 4vw;
+  height: 4vw;
+  padding: 0;
+  align: left;
+}
+
+#avatarButtonImage {
+  size: 100%;
+  max-height: 100%;
+  padding: 0;
+}
+
 .red {
     color: red;
 }
