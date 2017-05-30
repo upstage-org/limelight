@@ -19,6 +19,7 @@
       <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
         <li><a data-toggle="tab" href="#audio">Audio</a></li>
+        <li><a data-toggle="tab" href="#avatar">Avatars</a></li>
       </ul>
       <div class="tab-content">
         <div id="drawing" class="tab-pane fade in active">
@@ -53,6 +54,17 @@
             <span class="glyphicon glyphicon-minus"></span>
           </button>
         </div>
+
+            <div id="avatar" class="tab-pane fade">
+                <% @stage.avatars.each do |a| %>
+                    <button id="avatarButtons" avatar-name="<%= a.name%>" class="avatar-selection">
+                    <div class="media" id="avatarButtonImage">
+                        <%= image_tag a.source.url(:thumb), :alt => a.name, :class => 'pull-left'%>
+                    </div>
+                    </button>
+                <% end %>
+            </div>
+
         <div id="audio" class="tab-pane fade">
           <div class="panel-heading">
             <h4 class="panel-title">
