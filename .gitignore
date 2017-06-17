@@ -23,9 +23,15 @@
 # Ignore Byebug command history file.
 .byebug_history
 
+# Ignore spring files
+/spring/*.pid
+
 # Ignore RBENV
 .rbenv-vars
 .ruby-version
 
 # Ignore abitrary OSX junk
 .DS_Store
+
+# Ignore IDE configurations
+/.vscode

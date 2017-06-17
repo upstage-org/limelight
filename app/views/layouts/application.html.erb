@@ -11,21 +11,20 @@
   </head>
 
   <body>
-
     <nav class="navbar navbar-default">
-       <div class="container-fluid">
-         <div class="navbar-header">
-           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-             <span class="sr-only">Toggle navigation</span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-             <span class="icon-bar"></span>
-           </button>
-           <%= link_to foyer_path, :class => 'navbar-brand' do %>
-              <%= image_tag '/logo.png', :alt => 'Logo' %>
-           <% end %>
-         </div>
-         <div id="navbar" class="navbar-collapse collapse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <%= link_to foyer_path, :class => 'navbar-brand' do %>
+            <%= image_tag '/logo.png', :alt => 'Logo' %>
+          <% end %>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
            <ul class="nav navbar-nav navbar-right">
              <% if current_user %>
                <li><%= link_to "Stages", stages_path %></li>
@@ -36,11 +35,11 @@
             <% else %>
               <li><%= link_to "Register", registration_path %></li>
               <li><%= link_to "Log In", login_path %></li>
-             <% end %>
-           </ul>
-         </div>
-       </div>
-     </nav>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
     <div class="container-fluid">
       <% unless flash.empty? %>
@@ -56,6 +55,5 @@
 
       <%= yield %>
     </div>
-
   </body>
 </html>
