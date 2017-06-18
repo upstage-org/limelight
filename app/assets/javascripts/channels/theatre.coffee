@@ -110,6 +110,8 @@ jQuery(document).on 'turbolinks:load', ->
 
 
     drawLine = (fromx, fromy, tox, toy, colour, size) ->
+      context.lineWidth = size
+      context.strokeStyle = colour
       context.beginPath()
       context.moveTo(fromx, fromy)
       context.lineTo(tox, toy)
