@@ -274,7 +274,15 @@ $(document).on 'keydown', '#chat-speak', (e) ->
 $(document).on 'mouseup', '#sendChat', (e) ->
   utter()
 
+# Ensures that the canvas size is aligned with its element size.
+# Use of intermediatary canvas prevents losing canvas content on resize
+# NOTE: intermediatary canvas might cause a memory leak - TODO: Look into this.
 resizeCanvas = () ->
   canv = document.querySelector('#canvas')
+  store = document.createElement('canvas')
+  store.getContext('2d').drawImage(canv, 0, 0)
   canv.width = canv.offsetWidth
   canv.height = canv.offsetHeight
+  canv.getContext('2d').drawImage(store, 0, 0)
+
+window.addEventListener 'resize', resizeCanvas
