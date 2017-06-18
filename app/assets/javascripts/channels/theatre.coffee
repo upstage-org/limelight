@@ -1,4 +1,5 @@
 jQuery(document).on 'turbolinks:load', ->
+  resizeCanvas()
   messages = $('#messages')
   if $('#messages').length > 0
 
@@ -110,8 +111,6 @@ jQuery(document).on 'turbolinks:load', ->
 
     drawLine = (fromx, fromy, tox, toy, colour, size) ->
       context.beginPath()
-      context.lineWidth = size
-      context.strokeStyle = colour
       context.moveTo(fromx, fromy)
       context.lineTo(tox, toy)
       context.stroke()
@@ -274,3 +273,8 @@ $(document).on 'keydown', '#chat-speak', (e) ->
 # When user clicks the 'Send' button in chat, call the utter function.
 $(document).on 'mouseup', '#sendChat', (e) ->
   utter()
+
+resizeCanvas = () ->
+  canv = document.querySelector('#canvas')
+  canv.width = canv.offsetWidth
+  canv.height = canv.offsetHeight
