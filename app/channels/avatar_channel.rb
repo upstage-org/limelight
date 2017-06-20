@@ -6,7 +6,6 @@ class AvatarChannel < ApplicationCable::Channel
   end
 
   def hold(data)
-    debugger
     unless current_user.nil? || @avatar_allocation[data['avatar_id']] != nil
       @avatar_allocation[data['avatar_id']] = current_user
       AvatarChannel.broadcast_to @stage, { username: current_user.nickname, action: 'hold', avatar_id: data['avatar_id'] }
@@ -19,4 +18,18 @@ class AvatarChannel < ApplicationCable::Channel
       AvatarChannel.broadcast_to @stage, { action: 'drop', avatar_id: data['avatar_id'] }
     end
   end
+
+  def place(data)
+    unless current_user.nil? || @avatar_allocation[data['avatar_id']] != current_user
+      avatar = Avatar.find_by_id!(data['avatar_id'])
+      AvatarChannel.broadcast_to @stage, {
+        action: 'place',
+        avatar_id: data['avatar_id'],
+        file: avatar.source.url(:original),
+        x: data['x'],
+        y: data['y']
+      }
+    end
+  end
+
 end
