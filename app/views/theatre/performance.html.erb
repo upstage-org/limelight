@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html class="theatre">
+<html class="theatre" data-channel-suffix="<%= @stage.slug %>">
   <head>
     <title><%= @stage.name %> | UpStage</title>
     <%= csrf_meta_tags %>
+    <%= action_cable_meta_tag %>
+    <meta name="stage-slug" value="<%= @stage.slug %>">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -55,15 +57,18 @@
           </button>
         </div>
 
-            <div id="avatar" class="tab-pane fade">
-                <% @stage.avatars.each do |a| %>
-                    <button id="avatarButtons" title="<%= a.name%>" class="avatar-selection">
-                    <div class="media" id="avatarButtonImage">
-                        <%= image_tag a.source.url(:thumb), :alt => a.name, :class => 'pull-left'%>
-                    </div>
-                    </button>
-                <% end %>
+        <div id="avatar" class="tab-pane fade">
+            <% @stage.avatars.each do |a| %>
+              <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-name="<%= a.name %>" data-avatar-id="<%= a.id %>">
+                <%= image_tag a.source.url(:thumb), :alt => a.name %>
+              </button>
+            <% end %>
+            <div>
+              <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
+                Drop
+              </button>
             </div>
+        </div>
 
         <div id="audio" class="tab-pane fade">
           <div class="panel-heading">
