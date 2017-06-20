@@ -1,18 +1,22 @@
 drop = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.removeAttribute 'disabled'
+  btn.setAttribute 'title', "#{btn.dataset.name}"
   if `data.avatar_id == window.dropWait`
     dropButton = document.querySelector '#dropAvatarButton'
     dropButton.setAttribute 'disabled', 'disabled'
+    dropButton.removeAttribute 'title'
     dropButton.dataset.avatarId = undefined
     window.dropWait = undefined
 
 hold = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.setAttribute 'disabled', 'disabled'
+  btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
   if `data.avatar_id == window.holdWait`
     dropButton = document.querySelector '#dropAvatarButton'
     dropButton.removeAttribute 'disabled'
+    dropButton.setAttribute 'title', "#{btn.dataset.name}"
     dropButton.dataset.avatarId = data.avatar_id
     window.holdWait = undefined
 
