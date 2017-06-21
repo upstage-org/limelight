@@ -43,9 +43,7 @@ document.addEventListener 'turbolinks:load', (e) ->
   document.querySelector('#canvas').addEventListener 'mouseup', (e) ->
     App.avatar.place e.x, e.y
 
-  slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value')
-
-  App.avatar = App.cable.subscriptions.create { channel:"AvatarChannel", slug: slug },
+  App.avatar = App.cable.subscriptions.create { channel:"AvatarChannel", slug: App.slug },
     received: (data) ->
       switch data.action
         when 'hold' then hold data
