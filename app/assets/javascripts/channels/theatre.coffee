@@ -1,5 +1,4 @@
 jQuery(document).on 'turbolinks:load', ->
-  resizeCanvas()
   messages = $('#messages')
   if $('#messages').length > 0
 
@@ -232,9 +231,15 @@ jQuery(document).on 'turbolinks:load', ->
       received: (data) ->
         # Called when there's incoming data on the websocket for this channel
         if data.drawing_option == 'draw'
-          drawLine(data.fromx, data.fromy, data.tox, data.toy, data.colour, data.size)
-        else
-          context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+          App.state.drawings.push {
+            fromX: data.fromx,
+            fromY: data.fromy,
+            toX: data.tox,
+            toY: data.toy,
+            color: data.colour,
+            size: data.size
+          }
+          App.drawFrame()
 
     #ActionCable for audio
     App.global_audio = App.cable.subscriptions.create { channel:"AudioChannel", stage: messages.data('stage-id') },
@@ -275,16 +280,3 @@ $(document).on 'keydown', '#chat-speak', (e) ->
 # When user clicks the 'Send' button in chat, call the utter function.
 $(document).on 'mouseup', '#sendChat', (e) ->
   utter()
-
-# Ensures that the canvas size is aligned with its element size.
-# Use of intermediatary canvas prevents losing canvas content on resize
-# NOTE: intermediatary canvas might cause a memory leak - TODO: Look into this.
-resizeCanvas = () ->
-  canv = document.querySelector('#canvas')
-  store = document.createElement('canvas')
-  store.getContext('2d').drawImage(canv, 0, 0)
-  canv.width = canv.offsetWidth
-  canv.height = canv.offsetHeight
-  canv.getContext('2d').drawImage(store, 0, 0)
-
-window.addEventListener 'resize', resizeCanvas
