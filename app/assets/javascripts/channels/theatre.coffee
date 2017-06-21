@@ -266,6 +266,8 @@ utter = () ->
     user_id: $('#user-id').val(),
     username: $('#user-name').val()
   )
+  if window.holding
+    App.dialog.utter $('#chat-speak').val()
   $('#chat-speak').val('')
 
 
