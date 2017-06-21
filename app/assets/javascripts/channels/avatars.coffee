@@ -13,6 +13,8 @@ drop = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.removeAttribute 'disabled'
   btn.setAttribute 'title', "#{btn.dataset.name}"
+  delete App.state.avatars[data.avatar_id]
+  App.drawFrame()
   if `data.avatar_id == window.holding`
     dropButton = document.querySelector '#dropAvatarButton'
     dropButton.setAttribute 'disabled', 'disabled'
