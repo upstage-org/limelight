@@ -1,9 +1,12 @@
 place = (data) ->
-  canv = document.querySelector('#canvas')
-  ctx = canv.getContext '2d'
   img = new Image
   img.addEventListener 'load', (e) ->
-    ctx.drawImage img, (data['x'] - (img.height / 2)), (data['y'] - (img.width / 2))
+    App.state.avatars[data.avatar_id] = {
+      image: img,
+      x: data['x'] - (img.height / 2),
+      y: data['y'] - (img.width / 2)
+    }
+    App.drawFrame()
   img.src = data['file']
 
 drop = (data) ->
