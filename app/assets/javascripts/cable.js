@@ -13,14 +13,25 @@
   App.state = { avatars: [] };
 
   App.drawFrame = function() {
-    var canvas = document.querySelector('#canvas');
-    var ctx = canvas.getContext('2d');
     // Clear frame
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    App.context.clearRect(0, 0, canvas.width, canvas.height);
     // Draw avatars
     App.state.avatars.forEach(function(avatar) {
-      ctx.drawImage(avatar.image, avatar.x, avatar.y);
+      App.context.drawImage(avatar.image, avatar.x, avatar.y);
     });
   };
+
+  App.resizeCanvas = function() {
+    App.canvas.width = App.canvas.offsetWidth;
+    App.canvas.height = App.canvas.offsetHeight;
+    App.drawFrame();
+  };
+
+  document.addEventListener('turbolinks:load', function(e) {
+    App.canvas = document.querySelector('#canvas');
+    App.context = App.canvas.getContext('2d');
+    window.addEventListener('resize', App.resizeCanvas());
+    App.resizeCanvas();
+  });
 
 }).call(this);
