@@ -231,9 +231,15 @@ jQuery(document).on 'turbolinks:load', ->
       received: (data) ->
         # Called when there's incoming data on the websocket for this channel
         if data.drawing_option == 'draw'
-          drawLine(data.fromx, data.fromy, data.tox, data.toy, data.colour, data.size)
-        else
-          context.clearRect(0, 0, context.canvas.width, context.canvas.height)
+          App.state.drawings.push {
+            fromX: data.fromx,
+            fromY: data.fromy,
+            toX: data.tox,
+            toY: data.toy,
+            color: data.colour,
+            size: data.size
+          }
+          App.drawFrame()
 
     #ActionCable for audio
     App.global_audio = App.cable.subscriptions.create { channel:"AudioChannel", stage: messages.data('stage-id') },

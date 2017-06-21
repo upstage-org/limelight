@@ -10,14 +10,28 @@
 
   App.cable = ActionCable.createConsumer();
 
-  App.state = { avatars: [] };
+  App.state = { avatars: [], drawings: [] };
 
   App.drawFrame = function() {
     // Clear frame
     App.context.clearRect(0, 0, canvas.width, canvas.height);
+
     // Draw avatars
     App.state.avatars.forEach(function(avatar) {
       App.context.drawImage(avatar.image, avatar.x, avatar.y);
+    });
+
+    // Draw drawings
+    App.state.drawings.forEach(function(drawing) {
+      App.context.lineWidth = drawing.size;
+      App.context.strokeStyle = drawing.color;
+
+      App.context.beginPath();
+
+      App.context.moveTo(drawing.fromX, drawing.fromY);
+      App.context.lineTo(drawing.toX, drawing.toY);
+
+      App.context.stroke()
     });
   };
 
