@@ -33,7 +33,13 @@
             0
           </div>
         </div>
-        <div class="hidden-lg col-md-12">
+        <div class="hidden-lg hidden-sm hidden-xs col-md-12">
+          <%= link_to s.name, performance_path(s) %>
+          <br>
+          <strong>Players:</strong> 0
+          <strong>Audience:</strong> 0
+        </div>
+        <div class="hidden-lg hidden-md col-sm-12">
           <%= link_to s.name, s %>
           <br>
           <strong>Players:</strong> 0
