@@ -65,11 +65,11 @@ a:hover{
 }
 
 .panel-title {
-  color: #fff !important;
+  color: #000000 !important;
 }
 
 .panel-title > a:hover {
-  color: #fff;
+  color: $upstageGreen;
 }
 
 .navbar-toggle {
