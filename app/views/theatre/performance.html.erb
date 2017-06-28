@@ -80,7 +80,7 @@
             <div class="panel-footer">
               <% @stage.sounds.each do |au| %>
                 <button class="btn btn-default audio-selection" title="<%= au.name %>" data-name="<%= au.name %>" data-audio-id="<%= au.id %>">
-                  <%= image_tag au.source.url(:thumb), :alt => au.name %>
+                  <%=au.name%>
                 </button>
               <% end %>
               </br>
