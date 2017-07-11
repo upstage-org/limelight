@@ -145,7 +145,6 @@ jQuery(document).on 'turbolinks:load', ->
       play_mode = $(this).data('audio-mode')
       console.log($(this).data('audio-name'))
 
-
       $.ajax
         method: "POST",
         url: "/updateaudio",
@@ -154,32 +153,46 @@ jQuery(document).on 'turbolinks:load', ->
           'play_mode': play_mode,
           'stage_id': messages.data('stage-id')
 
+    $('.audio-selection').click  ->
+      audio_name = $(this).data('audio-name')
+      play_mode = "play"
+      audio_id = $(this).data('audio-id')
+      console.log(audio_name + ": " + audio_id)
 
-    controlAllAudios = (play_mode) ->
-      audio = document.getElementsByClassName("audio-option")
+      $.ajax
+        method: "POST",
+        url: "/updateaudio",
+        data:
+          'audio_name': audio_name,
+          'audio_id': audio_id,
+          'play_mode': play_mode,
+          'stage_id': messages.data('stage-id')
 
-      for i in audio
-        do(i) ->
-          name = i.id
-          audio_id = "#" + name
-          $(audio_id).trigger(play_mode)
+    #controlAllAudios = (play_mode) ->
+      #audio = document.getElementsByClassName("audio-option")
 
-      if play_mode == 'play'
-        $('.audio-button').data('audio-mode', 'pause')
-        $('.audio-button').text("pause")
-      else
-        $('.audio-button').data('audio-mode', 'play')
-        $('.audio-button').text("play")
+      #for i in audio
+        #do(i) ->
+          #name = i.id
+          #audio_id = "#" + name
+          #$(audio_id).trigger(play_mode)
+          #console.log("audio running")
+
+      #if play_mode == 'play'
+        #$('.audio-button').data('audio-mode', 'pause')
+        #$('.audio-button').text("pause")
+      #else
+        #$('.audio-button').data('audio-mode', 'play')
+        #$('.audio-button').text("play")
 
 
-    audioControl = (audio_name, play_mode) ->
+    audioControl = (audio_name, audio_id, play_mode) ->
       console.log("audio control method " + audio_name + " " + play_mode)
       if audio_name == 'all'
         controlAllAudios(play_mode)
       else
-        audio_id = "#" + audio_name
-        $(audio_id).trigger(play_mode)
-
+        audio = new Audio(audio_id).play()
+        console.log("audio attempt to run:" + audio_name)
 
     ################## BACKDROP #####################################################
     images = document.getElementsByClassName("backdrops")
@@ -248,7 +261,7 @@ jQuery(document).on 'turbolinks:load', ->
       disconnected: ->
 
       received: (data) ->
-        audioControl(data.audio_name, data.play_mode)
+        audioControl(data.audio_name, data.audio_id, data.play_mode)
 
     #ActionCable for updating list of users in the stage
     App.userlist = App.cable.subscriptions.create { channel:"UserChannel", stage: messages.data('stage-id') },
