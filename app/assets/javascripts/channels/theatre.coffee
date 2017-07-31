@@ -143,7 +143,6 @@ jQuery(document).on 'turbolinks:load', ->
     $('.audio-button').click  ->
       audio_name = $(this).data('audio-name')
       play_mode = $(this).data('audio-mode')
-      console.log($(this).data('audio-name'))
 
       $.ajax
         method: "POST",
@@ -157,7 +156,6 @@ jQuery(document).on 'turbolinks:load', ->
       audio_name = $(this).data('audio-name')
       play_mode = "play"
       audio_id = $(this).data('audio-id')
-      console.log(audio_name + ": " + audio_id)
 
       $.ajax
         method: "POST",
@@ -187,12 +185,10 @@ jQuery(document).on 'turbolinks:load', ->
 
 
     audioControl = (audio_name, audio_id, play_mode) ->
-      console.log("audio control method " + audio_name + " " + play_mode)
       if audio_name == 'all'
         controlAllAudios(play_mode)
       else
         audio = new Audio(audio_id).play()
-        console.log("audio attempt to run:" + audio_name)
 
     ################## BACKDROP #####################################################
     images = document.getElementsByClassName("backdrops")
