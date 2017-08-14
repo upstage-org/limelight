@@ -31,42 +31,44 @@
     <% end %>
   </tbody>
   <script> 
-        function sortTable(n) {
+        function sortTable(n){
           var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-          table = document.getElementById("mediatable");
-
+          table = document.getElementById("mediatable");          
           switching = true;
-
+          //Setting the sorting direction to ascending order.
           dir = "asc"; 
-
-        while (switching) {
+        //A loop that will continue until no switching has been done.
+        while (switching){
           switching = false;
           rows = table.getElementsByTagName("TR");
-
-          for (i = 1; i < (rows.length - 1); i++) {
+          //Loop through all table rows but not the table headers.
+          for (i = 1; i < (rows.length - 1); i++){
+            //No switching at first.
             shouldSwitch = false;
-
+            //Compares the two elements, one from current row and one from the next.
             x = rows[i].getElementsByTagName("TD")[n];
             y = rows[i + 1].getElementsByTagName("TD")[n];
-
-            if (dir == "asc") {
-              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            //Check if the two needs switching based on the direction, ascending or descending order.
+            if (dir == "asc"){
+              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
                 shouldSwitch= true;
                 break;
               }
-            } else if (dir == "desc") {
-              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            } else if (dir == "desc"){
+              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
                 shouldSwitch= true;
                 break;
               }
             }
           }
-          if (shouldSwitch) {
+          if (shouldSwitch){
+            //If a switch has been marked, make the switch and then mark that a switch has been done.
             rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
             switching = true;
             switchcount ++;      
-          } else {            
-            if (switchcount == 0 && dir == "asc") {
+          } else{
+            //If no switching has been done AND the direction is "ascending", will set the direction to "descending" and run the loop again.
+            if (switchcount == 0 && dir == "asc"){
               dir = "desc";
               switching = true;
             }
