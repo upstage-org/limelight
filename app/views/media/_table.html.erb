@@ -1,10 +1,11 @@
+<% javascript_include_tag "sorttable.js" %>
 <table id = "mediatable" class="table table-striped">
   <thead>
     <tr>
-      <th onclick = "sortTable(0)">Name</th>
-      <th onclick = "sortTable(1)">Type</th>
-      <th onclick = "sortTable(2)">Stages</th>
-      <th onclick = "sortTable(3)">Tags</th>
+      <th onclick="sortTable(0)" style="cursor:pointer">Name</th>
+      <th onclick="sortTable(1)" style="cursor:pointer">Type</th>
+      <th onclick="sortTable(2)" style="cursor:pointer">Stages</th>
+      <th onclick="sortTable(3)" style="cursor:pointer">Tags</th>
       <th class="col-sm-1">Actions</th>
     </tr>
   </thead>
@@ -30,51 +31,6 @@
       </tr>
     <% end %>
   </tbody>
-  <script> 
-        function sortTable(n){
-          var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-          table = document.getElementById("mediatable");          
-          switching = true;
-          //Setting the sorting direction to ascending order.
-          dir = "asc"; 
-        //A loop that will continue until no switching has been done.
-        while (switching){
-          switching = false;
-          rows = table.getElementsByTagName("TR");
-          //Loop through all table rows but not the table headers.
-          for (i = 1; i < (rows.length - 1); i++){
-            //No switching at first.
-            shouldSwitch = false;
-            //Compares the two elements, one from current row and one from the next.
-            x = rows[i].getElementsByTagName("TD")[n];
-            y = rows[i + 1].getElementsByTagName("TD")[n];
-            //Check if the two needs switching based on the direction, ascending or descending order.
-            if (dir == "asc"){
-              if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
-                shouldSwitch= true;
-                break;
-              }
-            } else if (dir == "desc"){
-              if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
-                shouldSwitch= true;
-                break;
-              }
-            }
-          }
-          if (shouldSwitch){
-            //If a switch has been marked, make the switch and then mark that a switch has been done.
-            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-            switching = true;
-            switchcount ++;      
-          } else{
-            //If no switching has been done AND the direction is "ascending", will set the direction to "descending" and run the loop again.
-            if (switchcount == 0 && dir == "asc"){
-              dir = "desc";
-              switching = true;
-            }
-          }
-        }
-      }
-</script>
+    
 </table>
 
