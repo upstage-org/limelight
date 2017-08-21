@@ -166,24 +166,6 @@ jQuery(document).on 'turbolinks:load', ->
           'play_mode': play_mode,
           'stage_id': messages.data('stage-id')
 
-    #controlAllAudios = (play_mode) ->
-      #audio = document.getElementsByClassName("audio-option")
-
-      #for i in audio
-        #do(i) ->
-          #name = i.id
-          #audio_id = "#" + name
-          #$(audio_id).trigger(play_mode)
-          #console.log("audio running")
-
-      #if play_mode == 'play'
-        #$('.audio-button').data('audio-mode', 'pause')
-        #$('.audio-button').text("pause")
-      #else
-        #$('.audio-button').data('audio-mode', 'play')
-        #$('.audio-button').text("play")
-
-
     audioControl = (audio_name, audio_id, play_mode) ->
       if audio_name == 'all'
         controlAllAudios(play_mode)
