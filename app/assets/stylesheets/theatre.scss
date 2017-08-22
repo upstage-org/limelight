@@ -33,7 +33,7 @@ div#chat {
 }
 
 div#chat > div#chat-body {
-  height: 85%;
+  height: 75%;
   overflow-y: scroll;
   border: solid 1px $upstageGreen;
 }
@@ -48,6 +48,11 @@ div#chat > div#chatInput {
   overflow-y: scroll;
   height: 14vh;
   float: centre;
+}
+
+div.mirror {
+  border: solid 1px $upstageGreen;
+  text-align: center;
 }
 
 #avatarButtons {
