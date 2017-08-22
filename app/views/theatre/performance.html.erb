@@ -58,11 +58,15 @@
         </div>
 
         <div id="avatar" class="tab-pane fade">
+          <div class="mirror" id="mirrorPane">
+          </div>
+          <div>
             <% @stage.avatars.each do |a| %>
               <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-name="<%= a.name %>" data-avatar-id="<%= a.id %>">
                 <%= image_tag a.source.url(:thumb), :alt => a.name %>
               </button>
             <% end %>
+          </div>
             <div>
               <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
                 Drop
