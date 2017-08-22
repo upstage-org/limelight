@@ -8,6 +8,7 @@ function sortTable(n){
   while (switching){
     switching = false;
     var rows = table.getElementsByTagName("tr");
+    if (typeof rows !== 'null'){
     //Loop through all table rows but not the table headers.
     for (var i = 1; i < (rows.length - 1); i++){
       //No switching at first.
@@ -40,5 +41,6 @@ function sortTable(n){
             switching = true;
           }
       }
+    }
   }
 }
