@@ -58,11 +58,15 @@
         </div>
 
         <div id="avatar" class="tab-pane fade">
+          <div class="mirror" id="mirrorPane">
+          </div>
+          <div>
             <% @stage.avatars.each do |a| %>
               <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-name="<%= a.name %>" data-avatar-id="<%= a.id %>">
                 <%= image_tag a.source.url(:thumb), :alt => a.name %>
               </button>
             <% end %>
+          </div>
             <div>
               <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
                 Drop
@@ -71,25 +75,13 @@
         </div>
 
         <div id="audio" class="tab-pane fade">
-          <div class="panel-heading">
-            <h4 class="panel-title">
-              <a class = "audio-display" data-toggle="collapse" href="#collapse1">Audio</a>
-            </h4>
-          </div>
-          <div id="collapse1" class="panel-collapse collapse">
-            <div class="panel-footer">
-              <% @stage.sounds.each do |au| %>
-                <button class="btn btn-default audio-selection" title="<%= au.name %>" data-name="<%= au.name %>" data-audio-id="<%= au.id %>">
-                  <%=au.name%>
-                </button>
-              <% end %>
-              </br>
-              <span class="glyphicon glyphicon-headphones"></span>
-              Play All Sounds:
-              <button class="audio-button all" data-audio-name="all" data-audio-mode ="play">
-                play
+          <div class="panel-footer">
+            <% @stage.sounds.each do |au| %>
+              <button class="btn btn-default audio-selection" title="<%= au.name %>" data-audio-name="<%= au.name %>" data-audio-id="<%= au.source%>">
+                <%=au.name%>
               </button>
-            </div>
+            <% end %>
+            </br>
           </div>
         </div>
       </div>
