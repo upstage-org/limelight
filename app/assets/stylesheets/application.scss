@@ -60,6 +60,16 @@ a:hover{
   border-top: solid 1px $upstageGreen;
 }
 
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  background-color: $upstageGreen;
+  color: #fff;
+}
+
 .panel-title {
   color: #fff !important;
 }
