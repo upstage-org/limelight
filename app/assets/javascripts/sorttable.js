@@ -1,5 +1,5 @@
-var table = document.getElementById("mediatable"); 
 function sortTable(n){
+  var table = document.getElementById("mediatable"); 
   var switchcount = 0;        
   var switching = true;
   //Setting the sorting direction to ascending order.
