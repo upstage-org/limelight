@@ -6,7 +6,7 @@ document.addEventListener 'turbolinks:load', (e) ->
 
   document.querySelectorAll('.audio-selection').forEach (elem) ->
     elem.addEventListener 'mouseup', (e) ->
-      App.audio.play this.dataset.audioID
+      App.audio.play this.dataset.audioId
       console.log("3 ")
 
   App.audio = App.cable.subscriptions.create { channel:"AudioChannel", slug: App.slug },
@@ -17,4 +17,3 @@ document.addEventListener 'turbolinks:load', (e) ->
 
     play: (audioID) ->
       @perform 'play', audio_id: audioID
-
