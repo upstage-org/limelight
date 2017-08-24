@@ -68,10 +68,8 @@ jQuery(document).on 'turbolinks:load', ->
       prev.x = x
       prev.y = y
 
-
     doc.bind 'mouseup mouseleave touchend', ->
       drawing = false
-
 
     doc.on 'mousemove touchmove', (e) ->
       if(drawing && $.now() - timeSinceLastSend > 10)
@@ -97,16 +95,12 @@ jQuery(document).on 'turbolinks:load', ->
             'size': size,
             'stage_id': stage_id
 
-
-
         timeSinceLastSend = $.now()
 
         if (drawing && x && y)
           drawLine(prev.x, prev.y, x, y, colour, size)
           prev.x = x
           prev.y = y
-
-
 
     drawLine = (fromx, fromy, tox, toy, colour, size) ->
       context.lineWidth = size
@@ -116,61 +110,6 @@ jQuery(document).on 'turbolinks:load', ->
       context.lineTo(tox, toy)
       context.stroke()
       return false;
-
-
-    # get all the audios and do a for loop to add eventlisteners into
-    # each of audio
-    audio = document.getElementsByClassName("audio-option")
-
-    for i in audio
-      do (i) ->
-        i.addEventListener "ended", ->
-          name = i.id
-          $("." + name).data('audio-mode', "play")
-          $("." + name).text("play")
-          console.log("ended " + name)
-        i.addEventListener "play", ->
-          name = i.id
-          $("." + name).data('audio-mode', "pause")
-          $("." + name).text("pause")
-        i.addEventListener "pause", ->
-          name = i.id
-          $("." + name).data('audio-mode', "play")
-          $("." + name).text("play")
-
-    # when audio button is clicked get audio filename, mode and broadcast it
-    # by using theatre controller
-    $('.audio-button').click  ->
-      audio_name = $(this).data('audio-name')
-      play_mode = $(this).data('audio-mode')
-
-      $.ajax
-        method: "POST",
-        url: "/updateaudio",
-        data:
-          'audio_name': audio_name,
-          'play_mode': play_mode,
-          'stage_id': messages.data('stage-id')
-
-    $('.audio-selection').click  ->
-      audio_name = $(this).data('audio-name')
-      play_mode = "play"
-      audio_id = $(this).data('audio-id')
-
-      $.ajax
-        method: "POST",
-        url: "/updateaudio",
-        data:
-          'audio_name': audio_name,
-          'audio_id': audio_id,
-          'play_mode': play_mode,
-          'stage_id': messages.data('stage-id')
-
-    audioControl = (audio_name, audio_id, play_mode) ->
-      if audio_name == 'all'
-        controlAllAudios(play_mode)
-      else
-        audio = new Audio(audio_id).play()
 
     ################## BACKDROP #####################################################
     images = document.getElementsByClassName("backdrops")
@@ -231,15 +170,6 @@ jQuery(document).on 'turbolinks:load', ->
             size: data.size
           }
           App.drawFrame()
-
-    #ActionCable for audio
-    App.global_audio = App.cable.subscriptions.create { channel:"AudioChannel", stage: messages.data('stage-id') },
-      connected: ->
-
-      disconnected: ->
-
-      received: (data) ->
-        audioControl(data.audio_name, data.audio_id, data.play_mode)
 
     #ActionCable for updating list of users in the stage
     App.userlist = App.cable.subscriptions.create { channel:"UserChannel", stage: messages.data('stage-id') },
