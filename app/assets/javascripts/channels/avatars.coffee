@@ -33,6 +33,18 @@ hold = (data) ->
     window.holdWait = undefined
     window.holding = data.avatar_id
 
+name = (data) ->
+  btn = document.querySelector ".avatar-name[data-avatar-name='#{data.avatar_name}']"
+  btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
+  if `data.avatar_name == window.holdWait`
+    dropButton = document.querySelector '#dropAvatarButton'
+    dropButton.removeAttribute 'disabled'
+    dropButton.setAttribute 'title', "#{btn.dataset.name}"
+    window.holdWait = undefined
+    window.holding = data.avatar_name
+  
+
+
 document.addEventListener 'turbolinks:load', (e) ->
 
   document.querySelectorAll('.avatar-selection').forEach (elem) ->
@@ -41,6 +53,9 @@ document.addEventListener 'turbolinks:load', (e) ->
 
   document.querySelector('#dropAvatarButton').addEventListener 'mouseup', (e) ->
     App.avatar.drop()
+
+  document.querySelector('.avatar-name').addEventListener 'mouseup', (e) ->
+    App.avatar.name()
 
   document.querySelector('#canvas').addEventListener 'mouseup', (e) ->
     App.avatar.place e.x, e.y
@@ -51,6 +66,7 @@ document.addEventListener 'turbolinks:load', (e) ->
         when 'hold' then hold data
         when 'drop' then drop data
         when 'place' then place data
+        when 'name' then name data
 
     hold: (avatarId) ->
       window.holdWait = avatarId
@@ -61,3 +77,7 @@ document.addEventListener 'turbolinks:load', (e) ->
 
     place: (x, y) ->
       @perform 'place', x: x, y: y, avatar_id: window.holding
+
+    name: (avatarNames) ->
+      @perform 'name', avatar_name: avatarNames
+
