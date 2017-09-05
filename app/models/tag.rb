@@ -13,6 +13,9 @@ class Tag < ApplicationRecord
   has_many :sound_tags, :dependent => :destroy
   has_many :sounds, :through => :sound_tags
 
+  has_many :backdrop_tags, :dependent => :destroy
+  has_many :backdrops, :through => :backdrop_tags
+
   validates :name, :presence => true, :uniqueness => true, :format => /[a-z0-9\-]/, :length => { maximum: 25 }
 
   def to_param

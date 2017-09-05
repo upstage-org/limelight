@@ -82,6 +82,9 @@ class TagsController < ApplicationController
       elsif params[:sound_slug].present?
         @perspective = Sound.find_by_slug!(params[:sound_slug])
         @create_path = new_sound_tag_path(@perspective)
+      elsif params[:backdrop_slug].present?
+        @perspective = Backdrop.find_by_slug!(params[:backdrop_slug])
+        @create_path = new_backdrop_tag_path(@perspective)
       else
         @create_path = new_tag_path
       end

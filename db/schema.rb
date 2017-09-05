@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170517032653) do
+ActiveRecord::Schema.define(version: 20170905075059) do
 
   create_table "announcements", force: :cascade do |t|
     t.string "title", null: false
@@ -58,6 +58,31 @@ ActiveRecord::Schema.define(version: 20170517032653) do
     t.datetime "source_updated_at"
     t.index ["deleted_at"], name: "index_avatars_on_deleted_at"
     t.index ["slug"], name: "index_avatars_on_slug"
+  end
+
+  create_table "backdrop_tags", force: :cascade do |t|
+    t.integer "backdrop_id", null: false
+    t.integer "tag_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["backdrop_id", "tag_id"], name: "index_backdrop_tags_on_backdrop_id_and_tag_id", unique: true
+    t.index ["backdrop_id"], name: "index_backdrop_tags_on_backdrop_id"
+    t.index ["tag_id"], name: "index_backdrop_tags_on_tag_id"
+  end
+
+  create_table "backdrops", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "deleted_at"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "source_file_name"
+    t.string "source_content_type"
+    t.integer "source_file_size"
+    t.datetime "source_updated_at"
+    t.index ["deleted_at"], name: "index_backdrops_on_deleted_at"
+    t.index ["slug", "deleted_at"], name: "index_backdrops_on_slug_and_deleted_at", unique: true
+    t.index ["slug"], name: "index_backdrops_on_slug"
   end
 
   create_table "media", force: :cascade do |t|
@@ -113,6 +138,15 @@ ActiveRecord::Schema.define(version: 20170517032653) do
     t.index ["deleted_at"], name: "index_sounds_on_deleted_at"
     t.index ["slug", "deleted_at"], name: "index_sounds_on_slug_and_deleted_at", unique: true
     t.index ["slug"], name: "index_sounds_on_slug"
+  end
+
+  create_table "stage_backdrops", force: :cascade do |t|
+    t.integer "backdrop_id"
+    t.integer "stage_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["backdrop_id"], name: "index_stage_backdrops_on_backdrop_id"
+    t.index ["stage_id"], name: "index_stage_backdrops_on_stage_id"
   end
 
   create_table "stage_sounds", force: :cascade do |t|

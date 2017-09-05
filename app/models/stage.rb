@@ -13,6 +13,8 @@ class Stage < ApplicationRecord
   has_many :stage_sounds, :dependent => :destroy
   has_many :sounds, :through => :stage_sounds
 
+  has_many :stage_backdrops, :dependent => :destroy
+  has_many :backdrops, :through => :stage_backdrops
 
   has_many :messages, dependent: :destroy
 
