@@ -56,22 +56,18 @@
             <span class="glyphicon glyphicon-minus"></span>
           </button>
         </div>
-        <div class="avatar" id="avatarNames">
-            <% @stage.avatars.each do |a| %>
-              <button class="btn btn-default avatar-name" title="<%= a.name %>" data-avatar-name="<%= a.name %>" data-avatar-id="<%= a.id %>" >
-                <%= a.name %>
-              </button>
-            <% end %>
-        </div> 
         <div id="avatar" class="tab-pane fade">
             <% @stage.avatars.each do |a| %>
-              <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-name="<%= a.name %>" data-avatar-id="<%= a.id %>" >
+              <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-avatar-name="<%= a.name %>" data-avatar-id="<%= a.id %>" >
                 <%= image_tag a.source.url(:thumb), :alt => a.name %>
               </button>
             <% end %>
             <div>
               <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
                 Drop
+              </button>
+              <button class="btn btn-default avatar-name" id="avatarName" disabled="disabled">
+                Show/Hide Name
               </button>
             </div>
         </div>
