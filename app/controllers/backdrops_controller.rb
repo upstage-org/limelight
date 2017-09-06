@@ -14,7 +14,7 @@ class BackdropsController < ApplicationController
   def create
     @backdrop = Backdrop.new(backdrop_params)
     if @backdrop.save
-      flash[:sucess] = "#{@backdrop.name} created"
+      flash[:success] = "#{@backdrop.name} created"
       redirect_to edit_backdrop_path(@backdrop)
     else
       flash.now[:danger] = 'Something went wrong'
