@@ -17,6 +17,6 @@ class Backdrop < ApplicationRecord
   validates_attachment_content_type :source, content_type: /\Aimage\/.*\z/
 
   def self.not_assigned(stage)
-    selft.all.reject { |s| stage.backdrops.include? s }
+    self.all.reject { |s| stage.backdrops.include? s }
   end
 end

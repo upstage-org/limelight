@@ -48,7 +48,7 @@ class BackdropsController < ApplicationController
 
   def destroy
     if @stage.present?
-      @stage.sounds.delete(@backdrop)
+      @stage.backdrops.delete(@backdrop)
       flash[:success] = "#{@backdrop.name} unassigned from #{@stage.name}"
       redirect_to @stage
     else
