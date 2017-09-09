@@ -9,6 +9,7 @@ place = (data) ->
     App.drawFrame()
   img.src = data['file']
 
+
 drop = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.removeAttribute 'disabled'
@@ -41,8 +42,30 @@ hold = (data) ->
     window.holding = data.avatar_id
 
 name = (data) ->
-  console.log("running name, data.avatar_name = " + data.avatar_name)
+  btn = document.querySelector ".avatar-selection[data-avatar-name='#{data.avatar_name}']"
+  btn.setAttribute 'disabled', 'disabled' 
+  btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
+  if `data.avatar_name == window.holdWait`
+    dropButton = document.querySelector '#dropAvatarButton'
+    dropButton.removeAttribute 'disabled'
+    dropButton.setAttribute 'title', "#{btn.dataset.avatar_name}"
+    window.holdWait = undefined
+    window.holding = data.avatar_name
+  else if `data.avatar_name == window.holding`
+    dropButton = document.querySelector '#dropAvatarButton'
+    dropButton.removeAttribute 'disabled'
+    dropButton.setAttribute 'title', "#{btn.dataset.name}"
+    window.holdWait = undefined
+    window.holding = data.avatar_name
 
+$('btn').click ->
+  btn = document.querySelector ".avatar-selection[data-avatar-name='#{data.avatar_name}']"
+  console.log(btn)
+  $('p').toggle()
+
+  console.log("running name, data.avatar_name = " + data.avatar_name)
+  
+  
 
 document.addEventListener 'turbolinks:load', (e) ->
   
@@ -55,21 +78,21 @@ document.addEventListener 'turbolinks:load', (e) ->
 
   document.querySelector('#dropAvatarButton').addEventListener 'mouseup', (e) ->
     App.avatar.drop()
-    console.log(this.dataset)
-
-  document.querySelector('#canvas').addEventListener 'mouseup', (e) ->
-    App.avatar.place e.x, e.y
 
   document.querySelector('#avatarName').addEventListener 'mouseup', (e) ->
     App.avatar.name AvatarName
+
+  document.querySelector('#canvas').addEventListener 'mouseup', (e) ->
+    App.avatar.place e.x, e.y
 
   App.avatar = App.cable.subscriptions.create { channel:"AvatarChannel", slug: App.slug },
     received: (data) ->
       switch data.action
         when 'hold' then hold data
         when 'drop' then drop data
+        when 'name' then name data
         when 'place' then place data
-        when 'name' then name data.avatar_name
+        
 
     hold: (avatarId) ->
       window.holdWait = avatarId
@@ -83,3 +106,4 @@ document.addEventListener 'turbolinks:load', (e) ->
 
     name: (avatarName) ->
       @perform 'name', avatar_name: avatarName
+
