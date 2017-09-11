@@ -53,8 +53,10 @@ gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.8'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
-
   gem 'rspec-rails', '~> 3.6'
+  # Use sqlite3 as the database for Active Record
+  gem 'sqlite3'
+  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
 end
 
 group :development do
@@ -64,20 +66,14 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  # Use sqlite3 as the database for Active Record
-  gem 'sqlite3'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-group :production, :test do
+group :production do
   # Use MySQL2 as the database for Active Record
   gem 'mysql2'
   # Use Redis adapter to run Action Cable
   gem 'redis', '~> 3.0'
-end
-
-group :test do
-  gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
 end

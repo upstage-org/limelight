@@ -4,11 +4,18 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 #
-development:
+development: &default
   adapter: sqlite3
   pool: 5
   timeout: 5000
   database: db/development.sqlite3
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: db/test.sqlite3
 
 # MySQL version 5.x
 #   gem install mysql2
@@ -16,19 +23,6 @@ development:
 #   Ensure the MySQL 2 gem is defined in your Gemfile
 #   gem 'mysql2'
 #
-
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
-test:
-  adapter: mysql2
-  encoding: utf8
-  pool: 5
-  username: <%= ENV['UPSTAGE_DB_USERNAME'] %>
-  password: <%= ENV['UPSTAGE_DB_PASSWORD'] %>
-  database: <%= ENV['UPSTAGE_DB_NAME'] || 'upstage_test' %>
-
-
 
 production:
   adapter: mysql2
