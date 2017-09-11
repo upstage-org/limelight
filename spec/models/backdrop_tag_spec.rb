@@ -10,7 +10,19 @@ describe BackdropTag do
     it { should validate_presence_of(:backdrop) }
     it { should validate_presence_of :tag }
 
-    it { should validate_uniqueness_of(:backdrop).scoped_to(:tag) }
-    it { should validate_uniqueness_of(:tag).scoped_to(:backdrop) }
+    it 'validates backdrop uniqueness' do
+      b = Backdrop.create(:name => "bg1")
+      t = Tag.create(:name => "tag1")
+      BackdropTag.create(:backdrop => b, :tag => t)
+      should validate_uniqueness_of(:backdrop).scoped_to(:tag_id)
+    end
+
+    it 'validates tag uniqueness' do
+      b = Backdrop.create(:name => "bg1")
+      t = Tag.create(:name => "tag1")
+      BackdropTag.create(:backdrop => b, :tag => t)
+      should validate_uniqueness_of(:tag).scoped_to(:backdrop_id)
+    end
+
   end
 end
