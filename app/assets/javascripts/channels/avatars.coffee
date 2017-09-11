@@ -10,6 +10,7 @@ place = (data) ->
   img.src = data['file']
 
 
+
 drop = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.removeAttribute 'disabled'
@@ -42,27 +43,8 @@ hold = (data) ->
     window.holding = data.avatar_id
 
 name = (data) ->
-  btn = document.querySelector ".avatar-selection[data-avatar-name='#{data.avatar_name}']"
-  btn.setAttribute 'disabled', 'disabled' 
-  btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
-  if `data.avatar_name == window.holdWait`
-    dropButton = document.querySelector '#dropAvatarButton'
-    dropButton.removeAttribute 'disabled'
-    dropButton.setAttribute 'title', "#{btn.dataset.avatar_name}"
-    window.holdWait = undefined
-    window.holding = data.avatar_name
-  else if `data.avatar_name == window.holding`
-    dropButton = document.querySelector '#dropAvatarButton'
-    dropButton.removeAttribute 'disabled'
-    dropButton.setAttribute 'title', "#{btn.dataset.name}"
-    window.holdWait = undefined
-    window.holding = data.avatar_name
-
-$('btn').click ->
-  btn = document.querySelector ".avatar-selection[data-avatar-name='#{data.avatar_name}']"
-  console.log(btn)
-  $('p').toggle()
-
+  testDiv = document.querySelector '#test'
+  testDiv.innerHTML = data.avatar_name
   console.log("running name, data.avatar_name = " + data.avatar_name)
   
   
