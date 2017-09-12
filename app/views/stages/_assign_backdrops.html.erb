@@ -6,7 +6,7 @@
         <h4 class="modal-title">Assign Backdrops</h4>
       </div>
       <div class="modal-body">
-        <%= select_tag :add_backdrop_path, options_for_select(Backdrop.not_assigned(@stage).map { |s| [ s.name, url_for([@stage, s])] }), :class => "form-control", :prompt => 'Select a Backdrop' %>
+        <%= select_tag :add_backdrop_path, options_for_select(Backdrop.not_assigned(@stage).map { |s| [ s.name, url_for([@stage, s])] }.sort), :class => "form-control", :prompt => 'Select a Backdrop' %>
       </div>
       <div class="modal-footer">
         <%= link_to '#', :method => :get, :class => "btn btn-primary", :id => 'backdropAssignmentButton', :disabled => true do %>
