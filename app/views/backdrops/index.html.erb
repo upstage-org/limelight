@@ -1,0 +1,31 @@
+<% @title = 'Backdrops' %>
+
+<div class="page-header">
+  <h1>
+    Backdrops
+    <small class="pull-right">
+      <span class="btn-group">
+        <%= link_to new_backdrop_path, :class => "btn btn-primary" do %>
+          <span class="glyphicon glyphicon-plus"></span>
+        <% end %>
+      </span>
+    </small>
+  </h1>
+</div>
+
+<table class="table table-striped">
+  <% @backdrops.each do |b| %>
+    <tr>
+      <td>
+        <%= link_to b.name, edit_backdrop_path(b) %>
+      </td>
+      <td>
+        <span class="btn-group pull-right">
+          <%= link_to b, :method => :delete, :data => { confirm: "#{b.name} will be removed" }, :class => "btn btn-danger" do %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+        </span>
+      </td>
+    </tr>
+  <% end %>
+</table>

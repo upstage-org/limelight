@@ -12,7 +12,11 @@ Rails.application.routes.draw do
   resources :stages, :param => :slug do
     resources :tags, :param => :name, :except => [ :edit, :update ]
     resources :sounds, :param => :slug, :only => [ :update, :destroy ]
+    resources :backdrops, :param => :slug, :only => [ :update, :destroy ]
     post '/clone', :to => "stages#clone", :as => 'clone'
+  end
+  resources :backdrops, :param => :slug do
+    resources :tags, :param => :name, :except => [ :edit, :update ]
   end
   resources :roles
   resources :users
