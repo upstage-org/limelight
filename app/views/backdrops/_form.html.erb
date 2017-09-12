@@ -12,7 +12,7 @@
 </div>
 
 <% unless @backdrop.new_record? %>
-  <%= image_tag @backdrop.source.url, :alt => "#{@backdrop.name}", :controls => true %>
+  <%= image_tag @backdrop.source.url, :alt => "#{@backdrop.name}" %>
 <% end %>
 
 <div class="form-group">
