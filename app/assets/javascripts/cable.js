@@ -19,6 +19,12 @@
     // Draw avatars
     App.state.avatars.forEach(function(avatar) {
       App.context.drawImage(avatar.image, avatar.x, avatar.y);
+        App.context.textAlign = "center";
+        App.context.textBaseline = "top";
+        console.log(avatar);
+        if(avatar.show == '1'){
+          App.context.fillText(avatar.name, avatar.text_x, avatar.text_y);
+        }
     });
 
     // Draw drawings

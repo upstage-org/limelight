@@ -27,7 +27,8 @@ class AvatarChannel < ApplicationCable::Channel
         avatar_id: data['avatar_id'],
         file: avatar.source.url(:original),
         x: data['x'],
-        y: data['y']
+        y: data['y'],
+        name: avatar.name
       }
     end
   end
