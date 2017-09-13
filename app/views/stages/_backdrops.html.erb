@@ -5,8 +5,10 @@
   <div class="panel-body">
     <% @stage.backdrops.order(:name).each do |s| %>
       <div class="row">
-        <div class="col-lg-10">
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
           <%= link_to s.name, s %>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <span class="btn-group btn-group-xs pull-right">
               <%= link_to [@stage, s], :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" do %>
                 <span class="glyphicon glyphicon-minus"></span>
