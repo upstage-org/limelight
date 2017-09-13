@@ -41,16 +41,4 @@ describe Backdrop do
       expect(Backdrop.not_assigned(s2)).to_not include(b)
     end
   end
-
-  describe ".sorted_by_name" do
-    it "should sort the backdrops by name" do
-      b = Backdrop.create(name: "backdrop2")
-      a = Backdrop.create(name: "backdrop1")
-      c = Backdrop.create(name: "backdrop3")
-      sorted = [ a, b, c ]
-
-      expect(Backdrop.all).to_not eq(sorted)
-      expect(Backdrop.all.sort_by_name).to eq(sorted)
-    end
-  end
 end

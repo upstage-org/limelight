@@ -19,8 +19,4 @@ class Backdrop < ApplicationRecord
   def self.not_assigned(stage)
     self.all.reject { |s| stage.backdrops.include? s }
   end
-
-  def self.sort_by_name
-    order("name ASC")
-  end
 end

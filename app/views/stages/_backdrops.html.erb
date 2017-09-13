@@ -3,7 +3,7 @@
     <h4 class="panel-title">Backdrops</h4>
   </div>
   <div class="panel-body">
-    <% @stage.backdrops.sort_by_name.each do |s| %>
+    <% @stage.backdrops.order(:name).each do |s| %>
       <div class="row">
         <div class="col-lg-10">
           <%= link_to s.name, s %>
