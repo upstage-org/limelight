@@ -1,13 +1,13 @@
 require 'rails_helper'
 
-describe backdrops_controller do
+describe BackdropsController do
 
 	let(:backdrops) { Backdrop.all }
 
 	describe "GET #index" do
 		it "assigns all backdrops to @backdrops" do
 			get :index
-			expect(assigns(:backdrops)).to eq(backdrops)
+			expect(assigns(:backdrops)).to eq(@backdrops)
 		end
 
 		it "is a sucess" do
@@ -15,7 +15,7 @@ describe backdrops_controller do
 		end
 
 		it "render 'index' template" do
-			expect(response).to render_template('backdrops')
+			expect(response).to render_template("backdrops")
 		end
 	end
 
