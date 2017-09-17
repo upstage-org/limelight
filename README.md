@@ -5,7 +5,7 @@ This is UpStage rebuilt as a Ruby on Rails app with the goal of eventually repla
 
 ## Dependencies
 
-- Ruby >= 2.3
+- Ruby >= 2.4
 - Rails >= 5.1
 
 
