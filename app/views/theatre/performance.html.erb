@@ -22,6 +22,7 @@
         <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
         <li><a data-toggle="tab" href="#audio">Audio</a></li>
         <li><a data-toggle="tab" href="#avatar">Avatars</a></li>
+        <li><a data-toggle="tab" href="#backdrop">Backdrops</a></li>
       </ul>
       <div class="tab-content">
         <div id="drawing" class="tab-pane fade in active">
@@ -84,6 +85,23 @@
             </br>
           </div>
         </div>
+
+        <div id="backdrop" class="tab-pane fade">
+          <div class="panel-footer">
+            <div class="carousel slide multi-item-carousel" id="theCarousel">
+              <div class="carousel-inner">
+                  <% @stage.backdrops.each do |b| %>
+                  <div class="item active">
+                    <div class="col-xs-4"><a href="#1"><%= image_tag b.source.url, :alt => b.name, :class => "img-responsive", :width => 50, :height => 50 %></a></div>
+                  </div>
+                  <% end %>
+              </div>
+              <a class="left carousel-control" href="#theCarousel" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+              <a class="right carousel-control" href="#theCarousel" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
 <% end %>
