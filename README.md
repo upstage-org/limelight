@@ -1,5 +1,5 @@
 # UpStage Limelight
-[![Build Status](https://travis-ci.org/upstage-org/limelight.svg?branch=dev)](https://travis-ci.org/upstage-org/limelight)
+[![Master](https://travis-ci.org/upstage-org/limelight.svg?branch=master)](https://travis-ci.org/upstage-org/limelight)
 
 This is UpStage rebuilt as a Ruby on Rails app with the goal of eventually replacing the UpStage software.
 
