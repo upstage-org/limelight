@@ -58,7 +58,6 @@ group :development, :test do
   gem 'sqlite3'
   gem 'shoulda-matchers', git: 'https://github.com/thoughtbot/shoulda-matchers.git', branch: 'rails-5'
   gem 'rails-controller-testing'
-  gem 'factory_girl_rails'
 end
 
 group :development do

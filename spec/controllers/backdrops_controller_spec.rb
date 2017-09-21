@@ -15,7 +15,10 @@ describe BackdropsController do
 		end
 
 		it "render 'index' template" do
-			expect(response).to render_template("backdrops")
+			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			cookies[:auth_token] = user.auth_token
+			get :index
+			expect(response).to render_template('index')
 		end
 	end
 
