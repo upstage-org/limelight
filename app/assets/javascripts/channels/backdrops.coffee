@@ -1,6 +1,5 @@
-show = (data) ->
-  # console.log("---------------")
-  backdrop = new Backdrop(data.backdrop_id).show()
+display = (data) ->
+  backdrop = new Backdrop(data.backdrop_id).display()
 
   App.state.backdrops[data.backdrop_id] = {
     image: backdrop
@@ -11,13 +10,13 @@ show = (data) ->
 document.addEventListener 'turbolinks:load', (e) ->
   document.querySelectorAll('.backdrop-selection').forEach (elem) ->
       elem.addEventListener 'mouseup', (e) ->
-        App.backdrop.show this.dataset.backdropId
+        App.backdrop.display this.dataset.backdropId
 
-    App.backdrop = App.cable.subscriptions.create {
-      channel:"BackdropChannel", slug: App.slug },
-        received: (data) ->
-          switch data.action
-            when 'show' then show data
+  App.backdrop = App.cable.subscriptions.create {
+    channel:"BackdropChannel", slug: App.slug },
+      received: (data) ->
+        switch data.action
+          when 'display' then display data
 
-        show: (backdropId) ->
-          @perform 'show', backdrop_id: backdropId
+      display: (backdropId) ->
+        @perform 'display', backdrop_id: backdropId
