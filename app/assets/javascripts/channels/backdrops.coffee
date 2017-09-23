@@ -1,9 +1,15 @@
 display = (data) ->
-  backdrop = new Backdrop(data.backdrop_id).display()
+  # delete App.state.backdrops
+  backdrop = new Image(data.backdrop_id)
+  backdrop.src = data['file']
+  unless App.state.backdrops.length or App.state.backdrops[data.backdrop_id] in App.state.backdrops
+    App.state.backdrops[data.backdrop_id] = {
+      image: backdrop
+    }
+  else
+    App.state.backdrops = []
 
-  App.state.backdrops[data.backdrop_id] = {
-    image: backdrop
-  }
+  # console.log(backdrop)
   App.drawFrame();
 
 

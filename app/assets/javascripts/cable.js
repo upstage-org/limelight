@@ -17,14 +17,13 @@
 
     App.context.clearRect(0, 0, canvas.width, canvas.height);
 
-    console.log("outside backdrop")
+    // Draw backdrop
     App.state.backdrops.forEach(function(backdrop){
-      console.log(backdrop)
       App.context.drawImage(backdrop.image, 0, 0, canvas.width,canvas.height);
     });
+
     // Draw avatars
     App.state.avatars.forEach(function(avatar) {
-      console.log(avatar)
       App.context.drawImage(avatar.image, avatar.x, avatar.y);
     });
 
