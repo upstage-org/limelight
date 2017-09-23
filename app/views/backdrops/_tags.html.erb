@@ -1,0 +1,27 @@
+<div id="tags">
+  <% @backdrop.tags.each do |t| %>
+    <span class="btn-group btn-group-xs">
+      <%= render t %>
+      <%= link_to backdrop_tag_path(@backdrop, t), :method => :delete , :class => 'btn btn-danger btn-xs' do %>
+        <span class="glyphicon glyphicon-remove"></span>
+      <% end %>
+    </span>
+  <% end %>
+  <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addTagModal">
+    <%= 'Add Tag' if @backdrop.tags.empty? %> <span class="glpyhicon glyphicon-plus"></span>
+  </button>
+</div>
+
+<div id="addTagModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Tags</h4>
+      </div>
+      <div class="modal-body">
+        <%= render :partial => 'tags/form', :locals => { tag: Tag.new, perspective: @backdrop } %>
+      </div>
+    </div>
+  </div>
+</div>

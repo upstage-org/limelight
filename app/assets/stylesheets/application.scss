@@ -60,8 +60,14 @@ a:hover{
   border-top: solid 1px $upstageGreen;
 }
 
-.table, th{
-	background-color: $upstageGreen;
+.table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th {
+  background-color: $upstageGreen;
+  color: #fff;
 }
 
 .panel-title {
@@ -69,7 +75,7 @@ a:hover{
 }
 
 .panel-title > a:hover {
-  color: #fff;
+  color: #000;
 }
 
 .navbar-toggle {

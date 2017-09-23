@@ -1,0 +1,35 @@
+<%= form_for @backdrop do |f| %>
+
+<div class="form-group">
+  <%= f.text_field :name, :class => "form-control", :placeholder => 'Name' %>
+  <% unless @backdrop.errors[:name].empty? %>
+    <p class="text-danger">
+      <% @backdrop.errors.full_messages_for(:name).each do |e| %>
+        <%= e %><br>
+      <% end %>
+    </p>
+  <% end %>
+</div>
+
+<% unless @backdrop.new_record? %>
+  <%= image_tag @backdrop.source.url, :alt => "#{@backdrop.name}" %>
+<% end %>
+
+<div class="form-group">
+  <%= f.file_field :source, :class => 'form-control', :placeholder => 'Choose File' %>
+  <% unless @backdrop.errors[:source].empty? %>
+    <p class="text-danger">
+      <% @backdrop.errors.full_messages_for(:source).each do |e| %>
+        <%= e %><br>
+      <% end %>
+    </p>
+  <% end %>
+</div>
+
+<div class="form-group">
+  <span class="btn-group">
+    <%= f.submit ( f.object.new_record? ? "Create" : "Update"), :class => "btn btn-primary" %>
+  </span>
+</div>
+
+<% end %>

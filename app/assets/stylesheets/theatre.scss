@@ -50,6 +50,11 @@ div#chat > div#chatInput {
   float: centre;
 }
 
+div.mirror {
+  border: solid 1px $upstageGreen;
+  text-align: center;
+}
+
 #avatarButtons {
   width: 4vw;
   height: 4vw;
