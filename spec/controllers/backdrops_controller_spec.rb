@@ -3,7 +3,7 @@ require 'rails_helper'
 describe BackdropsController do
 
 	#before(:each) do
-		#user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', 
+		#user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin',
 			#password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 		#cookies[:auth_token] = user.auth_token
 	#end
@@ -50,44 +50,44 @@ describe BackdropsController do
 		end
 	end
 
-	
+
 	describe "POST #create" do
 		context "Valid backdrop" do
 
-			a = (Backdrop.create(name: "Pass Type", source_content_type: "image/png"))
+			subject { post :create, :params => { :backdrop => { name: "Pass Type", source_name: "bg1", source_content_type: "image/png" } } }
 
 			it "should redirect to edit backdrop path" do
 				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 				cookies[:auth_token] = user.auth_token
 				#est2 :create, {backdrop: @test2, name: test2}
-				expect(response).to redirect_to(edit_backdrop_path(a))
+				expect(subject).to redirect_to(edit_backdrop_path(Backdrop.last))
 	 		end
 
 	 		it "should set flash[:success]" do
-	 			post :create
+				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+				cookies[:auth_token] = user.auth_token
+	 			backdrop = subject
 	 			expect(flash[:success]).to be_present
 	 		end
 	 	end
 
 	 	context "Invalid backdrop" do
-
-	 		b = Backdrop.create(name: "Fail Type", source_content_type: "audio/mp3")
+			subject { post :create, :params => { :backdrop => { name: "Fail Type", source_name: "fail", source_content_type: "audio/mp3" } } }
 
 	 		it "should render new template" do
-	 			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 				cookies[:auth_token] = user.auth_token
-				post :create	 			
-	 			expect(response).to render_template("new")
+	 			expect(subject).to render_template("new")
 	 		end
 
 	 		it "should set flash[:danger]" do
 	 			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-				cookies[:auth_token] = user.auth_token	 
+				cookies[:auth_token] = user.auth_token
 	 			expect(flash.now[:danger]).to be_present
 	 		end
 	 	end
 	 end
-	
+
 	describe "#show" do
 
 		b = Backdrop.create(name: "Pass Type", source_content_type: "image/png")
@@ -99,7 +99,7 @@ describe BackdropsController do
 			expect(response).to redirect_to(edit_backdrop_path(b))
 	 	end
 	end
-	
+
 	describe "update" do
 		context "stage is present" do
 
@@ -139,7 +139,7 @@ describe BackdropsController do
 			end
 		end
 	end
-	
+
 	describe "destroy" do
 		context "stage is present" do
 
@@ -177,5 +177,5 @@ describe BackdropsController do
 				end
 			end
 		end
-	end	
+	end
 end
