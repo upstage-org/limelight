@@ -1,4 +1,4 @@
-$( document ).ready(function() {
+$(document).ready(function() {
 
   $('#slider').carousel({
     interval: 0
@@ -18,20 +18,4 @@ $( document ).ready(function() {
       $(this).siblings(':first').children(':first-child').clone().appendTo($(this));
     }
   });
-
-  // $(".carousel-inner .item img").on ("click", function(){
-  //   console.log(this)
-  //   App.context.clearRect(0, 0, App.canvas.width, App.canvas.height);
-  //   // var canvas = document.getElementById("canvas");
-  //   console.log(canvas)
-  //   App.context.drawImage(this,0,0);
-  //   App.cable.drawFrame();
-  // });
-
 });
-
-// init = () ->
-  // $(document).on 'click', 'img', (e) ->
-  //   console.log(1)
-//
-// $(document).on 'turbolinks:load', init
