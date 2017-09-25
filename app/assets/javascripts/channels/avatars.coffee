@@ -3,8 +3,8 @@ place = (data) ->
   img.addEventListener 'load', (e) ->
     App.state.avatars[data.avatar_id] = {
       image: img,
-      x: data['x'] - (img.height / 2),
-      y: data['y'] - (img.width / 2)
+      x: data['x'] - (img.width / 2),
+      y: data['y'] - (img.height / 2)
     }
     App.drawFrame()
   img.src = data['file']
@@ -38,12 +38,13 @@ hold = (data) ->
 
     mirrorDiv = document.querySelector '#mirrorPane'
     mirrorImg = new Image
-    mirrorImg.height = 100
-    mirrorImg.width = 100
     mirrorImg.addEventListener 'load', (e) ->
       mirrorDiv.appendChild(mirrorImg)
       mirrorDiv.removeChild(mirrorDiv.childNodes[0])
     mirrorImg.src = data['file']
+    widthMultiplier = mirrorImg.width/mirrorImg.height
+    mirrorImg.height = 80
+    mirrorImg.width = 80*widthMultiplier
 
 document.addEventListener 'turbolinks:load', (e) ->
 

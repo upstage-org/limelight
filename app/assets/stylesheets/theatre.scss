@@ -22,18 +22,18 @@ div#sidebar {
 
 div#toolbox {
   width: 100%;
-  height: 20%;
+  height: 30%;
 }
 
 div#chat {
   width: 100%;
-  height: 80%;
+  height: 70%;
   display: flex;
   flex-direction: column;
 }
 
 div#chat > div#chat-body {
-  height: 85%;
+  height: 65%;
   overflow-y: scroll;
   border: solid 1px $upstageGreen;
 }
@@ -46,7 +46,7 @@ div#chat > div#chatInput {
 
 #avatar {
   overflow-y: scroll;
-  height: 14vh;
+  height: 25vh;
   float: centre;
 }
 
@@ -66,6 +66,10 @@ div.mirror {
   size: 100%;
   max-height: 100%;
   padding: 0;
+}
+
+div#drawing{
+  height: 25vh;
 }
 
 .red {
@@ -106,6 +110,10 @@ div.mirror {
 	padding:10px 15px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #283966;
+}
+
+div#audio{
+  height: 25vh;
 }
 
 .tab-pane {
