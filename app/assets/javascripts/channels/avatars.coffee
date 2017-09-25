@@ -48,16 +48,22 @@ name = (data) ->
   nameBtn = document.querySelector '#avatarName'
   if nameBtn.value == '1'
     nameBtn.value = '0'
-    console.log(nameBtn.value)
   else
     nameBtn.value = '1'
-  App.drawFrame() 
-
-  
-
+  avatar = App.state.avatars[data.avatar_id]
+  App.state.avatars[data.avatar_id] = {
+    image: avatar.image
+    x: avatar.x
+    y: avatar.y
+    name: avatar.name
+    text_x: avatar.text_x
+    text_y: avatar.text_y
+    show: nameBtn.value
+  }
+  App.drawFrame()
 
 document.addEventListener 'turbolinks:load', (e) ->
-  
+
   document.querySelectorAll('.avatar-selection').forEach (elem) ->
     elem.addEventListener 'mouseup', (e) ->
       App.avatar.hold this.dataset.avatarId
@@ -79,8 +85,6 @@ document.addEventListener 'turbolinks:load', (e) ->
         when 'name' then name data
         when 'place' then place data
 
-        
-
     hold: (avatarId) ->
       window.holdWait = avatarId
       @perform 'hold', avatar_id: avatarId
@@ -92,5 +96,4 @@ document.addEventListener 'turbolinks:load', (e) ->
       @perform 'place', x: x, y: y, name: name, avatar_id: window.holding
 
     name: () ->
-      @perform 'name'
-
+      @perform 'name', avatar_id: window.holding
