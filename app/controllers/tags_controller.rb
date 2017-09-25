@@ -72,13 +72,12 @@ class TagsController < ApplicationController
     end
 
     def set_perspective
-      if params[:avatar_id].present?
-        @perspective = Avatar.find_by_slug!(params[:avatar_id])
+      if params[:avatar_slug].present?
+        @perspective = Avatar.find_by_slug!(params[:avatar_slug])
         @create_path = new_avatar_tag_path(@perspective)
-      elsif params[:stage_id].present?
-        @perspective = Stage.find_by_slug!(params[:stage_id])
+      elsif params[:stage_slug].present?
+        @perspective = Stage.find_by_slug!(params[:stage_slug])
         @create_path = new_stage_tag_path(@perspective)
-        @create_path = new_avatar_tag_path(@perspective)
       elsif params[:sound_slug].present?
         @perspective = Sound.find_by_slug!(params[:sound_slug])
         @create_path = new_sound_tag_path(@perspective)

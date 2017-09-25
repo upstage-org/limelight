@@ -1,21 +1,18 @@
 <div id="assignAvatarsModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
-      <%= form_for AvatarStage.new({ stage: @stage }) do |f| %>
-      <%= f.hidden_field :stage_id %>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h4 class="modal-title">Assign Avatars</h4>
       </div>
       <div class="modal-body">
-        <%= f.select :avatar_id, Avatar.not_assigned(@stage).map { |a| [ a.name, a.id ] }, { :include_blank => 'Select an Avatar' }, :class => "form-control" %>
+        <%= select_tag :add_avatar_path, options_for_select(Avatar.not_assigned(@stage).map { |s| [ s.name, url_for([@stage, s])] }.sort), :class => "form-control", :prompt => 'Select an Avatar' %>
       </div>
       <div class="modal-footer">
-        <button type="submit" name="confirm" class="btn btn-success">
+        <%= link_to '#', :method => :get, :class => "btn btn-primary", :id => 'avatarAssignmentButton', :disabled => true do %>
           <span class="glyphicon glyphicon-ok"></span>
-        </button>
+        <% end %>
       </div>
-      <% end %>
     </div>
   </div>
 </div>
