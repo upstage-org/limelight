@@ -19,6 +19,7 @@
 
     // Draw backdrop
     App.state.backdrops.forEach(function(backdrop){
+      console.log(backdrop)
       App.context.drawImage(backdrop.image, 0, 0, canvas.width,canvas.height);
     });
 
