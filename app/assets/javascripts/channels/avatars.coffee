@@ -1,5 +1,4 @@
 place = (data) ->
-  console.log ("AVATAR PLACE")
   img = new Image
   img.addEventListener 'load', (e) ->
     App.state.avatars[data.avatar_id] = {
