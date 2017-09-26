@@ -94,13 +94,13 @@
                  <% if b == Backdrop.first %>
                    <div class="item active">
                      <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-                       <%= image_tag b.source.url, :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name, :height => 100, :width => 100 %>
+                       <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name %>
                      </div>
                    </div>
                  <% else %>
                    <div class="item">
                      <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
-                       <%= image_tag b.source.url, :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name, :height => 100, :width => 100 %>
+                       <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name %>
                      </div>
                    </div>
                  <% end %>
