@@ -9,7 +9,7 @@ class Backdrop < ApplicationRecord
   has_many :backdrop_tags, :dependent => :destroy
   has_many :tags, :through => :backdrop_tags
 
-  has_attached_file :source
+  has_attached_file :source, styles: { medium: "300x300>", thumb: "100x100" }, default_url: "/media/:styles/missing.png"
 
   friendly_id :name, :use => [ :slugged, :finders ]
 
