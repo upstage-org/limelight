@@ -59,7 +59,6 @@ describe BackdropsController do
 			it "should redirect to edit backdrop path" do
 				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 				cookies[:auth_token] = user.auth_token
-				#est2 :create, {backdrop: @test2, name: test2}
 				expect(subject).to redirect_to(edit_backdrop_path(Backdrop.last))
 	 		end
 
@@ -74,10 +73,10 @@ describe BackdropsController do
 	 	context "Invalid backdrop" do
 			subject { post :create, :params => { :backdrop => { name: "Fail Type", source_name: "fail", source_content_type: "audio/mp3" } } }
 
-	 		it "should render new template" do
+	 		it "should render 'new' template" do
 				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 				cookies[:auth_token] = user.auth_token
-	 			expect(subject).to render_template("new")
+	 			expect(subject).to redirect_to("new")
 	 		end
 
 	 		it "should set flash[:danger]" do
@@ -90,41 +89,62 @@ describe BackdropsController do
 
 	describe "#show" do
 
-		b = Backdrop.create(name: "Pass Type", source_content_type: "image/png")
+		#b = Backdrop.create(name: "Pass Type", source_content_type: "image/png")
+		subject { post :create, :params => { :backdrop => { name: "Pass Type", source_name: "bg1", source_content_type: "image/png" } } }
 
 	 	it "should redirect to edit backdrop path" do
 	 		user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token
-			#expect(response).to redirect_to '/backdrops_edit_url'
-			expect(response).to redirect_to(edit_backdrop_path(b))
+			expect(subject).to redirect_to(edit_backdrop_path(Backdrop.last))
 	 	end
 	end
 
 	describe "update" do
 		context "stage is present" do
 
-			#teststage = Stage.new({ owner: Admin })
+
+		#subject { post :create, :params => { :stage => { name: "Stage1" }}}
+		subject { post :create, :params => { :backdrop => { name: "Pass Type", source_name: "bg1", source_content_type: "image/png" } } }
+			before :each do
+				@backdrop = Backdrop.create(name: "bg1")
+				@stage = Stage.create(name: "testStage", user_id: "1")
+				@stage.backdrops << @bacdrop
+			end
 
 			it "should add backdrop to the stage" do
+				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+				cookies[:auth_token] = user.auth_token
+				# teststage.backdrops << Backdrop.last
+				backdrop = subject
+				patch :update, backdrop.name = "New name"
 				expect(assigns(:teststage)).to eq(@backdrop)
 			end
 
 			it "should flash success message" do
+				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+				cookies[:auth_token] = user.auth_token
+				teststage = subject
 				expect(flash[:success]).to be_present
 			end
 
 			it "should redirect to the stage" do
-				expect(response).to redirect_to(@stage)
+				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+				cookies[:auth_token] = user.auth_token
+				expect(response).to redirect_to(Stage.last)
 			end
 		end
 
 		context "stage not present" do
 			context "@backdrop.update(backdrop_params)" do
+
+				subject { patch :update, :params => { :backdrop => { name: "Update Type", source_name: "bg5" } } }
+
 				it "should flash success message" do
+					backdrop = subject
 					expect(flash[:success]).to be_present
 				end
 				it "should redirect to the edit backdrop path" do
-					expect(response).to redirect_to(edit_backdrop_path)
+					expect(response).to redirect_to(edit_backdrop_path(Backdrop.last))
 				end
 			end
 
