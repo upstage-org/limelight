@@ -5,13 +5,18 @@ multiCarousel = () ->
   $('#slider').carousel interval: false
   $('.carousel .item').each ->
     next = $(this).next()
+    
     if !next.length
       next = $(this).siblings(':first')
     next.children(':first-child').clone().appendTo $(this)
-    if next.next().length > 0
-      next.next().children(':first-child').clone().appendTo $(this)
-    else
-      $(this).siblings(':first').children(':first-child').clone().appendTo $(this)
+
+    i = 0
+    while i < 2
+      next = next.next()
+      if !next.length
+        next = $(this).siblings(':first')
+      next.children(':first-child').clone().appendTo $(this)
+      i++
     return
 
 $(document).on 'turbolinks:load', multiCarousel

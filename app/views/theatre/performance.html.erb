@@ -93,13 +93,13 @@
                 <% @stage.backdrops.each do |b| %>
                  <% if b == Backdrop.first %>
                    <div class="item active">
-                     <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                     <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3">
                        <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name %>
                      </div>
                    </div>
                  <% else %>
                    <div class="item">
-                     <div class="col-md-4 col-lg-4 col-xs-4 col-sm-4">
+                     <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3">
                        <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name %>
                      </div>
                    </div>
