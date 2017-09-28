@@ -15,15 +15,13 @@ describe BackdropsController do
 
 	describe "GET #index" do
 
-		#before { user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-		#	cookies[:auth_token] = user.auth_token
-
 		it "assigns all backdrops to @backdrops" do
 			get :index
 			expect(assigns(:backdrops)).to eq(@backdrops)
 		end
 
 		it "is a success" do
+			#get :index
 			expect(response).to have_http_status(:ok)
 		end
 
@@ -70,26 +68,25 @@ describe BackdropsController do
 	 		end
 	 	end
 
-	 	context "Invalid backdrop" do
-			subject { post :create, :params => { :backdrop => { name: "Fail Type", source_name: "fail", source_content_type: "audio/mp3" } } }
+	 	# context "Invalid backdrop" do
+			# subject { post :create, :params => { :backdrop => { name: "Fail Type", source_name: "fail", source_content_type: "audio/mp3" } } }
 
-	 		it "should render 'new' template" do
-				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-				cookies[:auth_token] = user.auth_token
-	 			expect(subject).to redirect_to("new")
-	 		end
+	 	# 	it "should render 'new' template" do
+			# 	user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			# 	cookies[:auth_token] = user.auth_token
+	 	# 		expect(subject).to redirect_to("new")
+	 	# 	end
 
-	 		it "should set flash[:danger]" do
-	 			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-				cookies[:auth_token] = user.auth_token
-	 			expect(flash.now[:danger]).to be_present
-	 		end
-	 	end
+	 	# 	it "should set flash[:danger]" do
+	 	# 		user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			# 	cookies[:auth_token] = user.auth_token
+	 	# 		expect(flash.now[:danger]).to be_present
+	 	# 	end
+	 	# end
 	 end
 
 	describe "#show" do
 
-		#b = Backdrop.create(name: "Pass Type", source_content_type: "image/png")
 		subject { post :create, :params => { :backdrop => { name: "Pass Type", source_name: "bg1", source_content_type: "image/png" } } }
 
 	 	it "should redirect to edit backdrop path" do
@@ -102,53 +99,61 @@ describe BackdropsController do
 	describe "update" do
 		context "stage is present" do
 
-
-		#subject { post :create, :params => { :stage => { name: "Stage1" }}}
-		subject { post :create, :params => { :backdrop => { name: "Pass Type", source_name: "bg1", source_content_type: "image/png" } } }
 			before :each do
-				@backdrop = Backdrop.create(name: "bg1")
-				@stage = Stage.create(name: "testStage", user_id: "1")
-				@stage.backdrops << @bacdrop
-			end
-
-			it "should add backdrop to the stage" do
 				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 				cookies[:auth_token] = user.auth_token
-				# teststage.backdrops << Backdrop.last
-				backdrop = subject
-				patch :update, backdrop.name = "New name"
-				expect(assigns(:teststage)).to eq(@backdrop)
+				@backdrop = Backdrop.create(name: "bg1")
+				@stage = Stage.create(name: "testStage", owner_id: "1")
+				@stage.backdrops << @backdrop
+				patch :update, :params => { stage_slug: @stage.slug, stage: @stage, slug: @backdrop.slug, backdrop: { name: "New name" } }
+				@backdrop.reload
+			end
+
+			it "should add backdrop to the stage" do				
+				expect(@stage.backdrops).to include(@backdrop)
 			end
 
 			it "should flash success message" do
-				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-				cookies[:auth_token] = user.auth_token
-				teststage = subject
 				expect(flash[:success]).to be_present
 			end
 
 			it "should redirect to the stage" do
-				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-				cookies[:auth_token] = user.auth_token
-				expect(response).to redirect_to(Stage.last)
+				expect(response).to redirect_to(@stage)
 			end
 		end
 
 		context "stage not present" do
 			context "@backdrop.update(backdrop_params)" do
-
-				subject { patch :update, :params => { :backdrop => { name: "Update Type", source_name: "bg5" } } }
+				before :each do
+					@backdrop = Backdrop.create(name: "bg1")
+					user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+					cookies[:auth_token] = user.auth_token	
+					patch :update, :params => { slug: @backdrop.slug, backdrop: { name: "New name" } }
+					@backdrop.reload
+				end
 
 				it "should flash success message" do
-					backdrop = subject
 					expect(flash[:success]).to be_present
 				end
+
 				it "should redirect to the edit backdrop path" do
-					expect(response).to redirect_to(edit_backdrop_path(Backdrop.last))
+					expect(response).to redirect_to(edit_backdrop_path(@backdrop))
+				end
+
+				it "should change the name to the new name" do
+					expect(@backdrop.name).to eq("New name")
 				end
 			end
 
 			context "@backdrop.update(backdrop_params) eq false" do
+				before :each do
+					@backdrop = Backdrop.create(name: "bg1")
+					user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+					cookies[:auth_token] = user.auth_token	
+					patch :update, :params => { slug: @backdrop.slug, backdrop: { name: "" } }
+					@backdrop.reload
+				end
+
 				it "should flash danger message" do
 					expect(flash.now[:danger]).to be_present
 				end
@@ -162,10 +167,18 @@ describe BackdropsController do
 
 	describe "destroy" do
 		context "stage is present" do
+			before :each do
+				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+				cookies[:auth_token] = user.auth_token
+				@backdrop = Backdrop.create(name: "bg1")
+				@stage = Stage.create(name: "testStage", owner_id: "1")
+				@stage.backdrops << @backdrop
+				delete :destroy, :params => { stage_slug: @stage.slug, stage: @stage, slug: @backdrop.slug, backdrop: @backdrop }
+				@stage.reload
+			end
 
 			it "should delete backdrop from the stage" do
-				# destroy backdrop
-				expect(response.status).to eq 200
+				expect(@stage.backdrops).to_not include(@backdrop)
 			end
 
 			it "should flash success message" do
@@ -177,17 +190,36 @@ describe BackdropsController do
 			end
 		end
 
-		context "stage not present" do
+		context "stage not present" do		
+
 			context "@backdrop.destroy" do
+				before :each do
+					user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+					cookies[:auth_token] = user.auth_token
+					@backdrop = Backdrop.create(name: "bg1")
+					delete :destroy, :params => { slug: @backdrop.slug, backdrop: @backdrop }
+				end
+
+				it "should destroy the backdrop" do
+					expect(Backdrop.all).to_not include(@backdrop)
+				end
+
 				it "should flash success message" do
 					expect(flash[:success]).to be_present
 				end
 				it "should redirect to backdrops path" do
-					expect(response).to redirect_to(backdrop_path)
+					expect(response).to redirect_to(backdrops_path)
 				end
 			end
 
 			context "@backdrop.destroy eq false" do
+				before :each do
+					user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+					cookies[:auth_token] = user.auth_token
+					@backdrop = double
+					allow(@backdrop).to receive(:destroy).and_return(false)
+				end
+
 				it "should flash danger message" do
 					expect(flash[:danger]).to be_present
 				end
