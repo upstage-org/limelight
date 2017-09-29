@@ -1,5 +1,9 @@
 display = (data) ->
   backdrop = new Image(data.backdrop_id)
+
+  backdrop.onload = ->
+    App.drawFrame();
+
   backdrop.src = data['file']
   unless App.state.backdrops.length
     App.state.backdrops[data.backdrop_id] = {
@@ -13,9 +17,6 @@ display = (data) ->
       }
     else
       App.state.backdrops = []
-
-  App.drawFrame();
-
 
 document.addEventListener 'turbolinks:load', (e) ->
   document.querySelectorAll('.backdrop-selection').forEach (elem) ->
