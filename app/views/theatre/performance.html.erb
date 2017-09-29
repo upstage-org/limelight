@@ -86,32 +86,17 @@
           </div>
         </div>
 
-        <div id="backdrop" class="tab-pane fade">
+        <div id="backdrop" class="tab-pane fade active">
           <div class="panel-footer">
-            <div id="slider" class="carousel slide">
-              <div class="carousel-inner">
-                <% @stage.backdrops.each do |b| %>
-                 <% if b == Backdrop.first %>
-                   <div class="item active">
-                     <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3">
-                       <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name %>
-                     </div>
-                   </div>
-                 <% else %>
-                   <div class="item">
-                     <div class="col-md-3 col-lg-3 col-xs-3 col-sm-3">
-                       <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name %>
-                     </div>
-                   </div>
-                 <% end %>
-               <% end %>
-              </div>
-            <a class="left carousel-control" href="#slider" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
-            <a class="right carousel-control" href="#slider" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+            <div class="scroller">
+              <% @stage.backdrops.each do |b| %>
+                <div class="backdropImages">
+                    <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name %>
+                </div>
+              <% end %>
             </div>
           </div>
         </div>
-
       </div>
     </div>
 <% end %>
