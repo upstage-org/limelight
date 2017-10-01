@@ -4,13 +4,10 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 #
-default: &default
+development: &default
   adapter: sqlite3
   pool: 5
   timeout: 5000
-
-development:
-  <<: *default
   database: db/development.sqlite3
 
 # Warning: The database defined as "test" will be erased and
@@ -20,7 +17,12 @@ test:
   <<: *default
   database: db/test.sqlite3
 
-
+# MySQL version 5.x
+#   gem install mysql2
+#
+#   Ensure the MySQL 2 gem is defined in your Gemfile
+#   gem 'mysql2'
+#
 
 production:
   adapter: mysql2

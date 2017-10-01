@@ -30,6 +30,9 @@ drop = (data) ->
     nameBtn.removeAttribute 'disabled', 'disabled'
     window.holding = undefined
 
+    mirrorDiv = document.querySelector '#mirrorPane'
+    mirrorDiv.innerHTML = ' '
+
 hold = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.setAttribute 'disabled', 'disabled'
@@ -42,7 +45,15 @@ hold = (data) ->
     nameBtn.removeAttribute 'disabled'
     window.holdWait = undefined
     window.holding = data.avatar_id
-
+    
+    mirrorDiv = document.querySelector '#mirrorPane'
+    mirrorImg = new Image
+    mirrorImg.height = 100
+    mirrorImg.width = 100
+    mirrorImg.addEventListener 'load', (e) ->
+      mirrorDiv.appendChild(mirrorImg)
+      mirrorDiv.removeChild(mirrorDiv.childNodes[0])
+    mirrorImg.src = data['file']
 
 name = (data) ->
   nameBtn = document.querySelector '#avatarName'

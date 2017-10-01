@@ -3,14 +3,14 @@
     <h4 class="panel-title">Avatars</h4>
   </div>
   <div class="panel-body">
-    <% @stage.avatar_stages.each do |i| %>
+    <% @stage.avatars.order(:name).each do |a| %>
       <div class="row">
-        <div class="col-lg-10">
-          <%= link_to i.avatar.name, i.avatar %>
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+          <%= link_to a.name, a %>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <span class="btn-group btn-group-xs pull-right">
-              <%= link_to i, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" do %>
+              <%= link_to [@stage, a], :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" do %>
                 <span class="glyphicon glyphicon-minus"></span>
               <% end %>
             </span>

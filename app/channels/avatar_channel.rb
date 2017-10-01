@@ -8,8 +8,9 @@ class AvatarChannel < ApplicationCable::Channel
   def hold(data)
     unless current_user.nil? || @avatar_allocation[data['avatar_id']] != nil
       @avatar_allocation[data['avatar_id']] = current_user
-      AvatarChannel.broadcast_to @stage, { username: current_user.nickname, action: 'hold', avatar_id: data['avatar_id'] }
-    end
+      avatar = Avatar.find_by_id!(data['avatar_id'])
+      AvatarChannel.broadcast_to @stage, { username: current_user.id, action: 'hold', avatar_id: data['avatar_id'], file: avatar.source.url(:original) }
+     end
   end
 
   def drop(data)

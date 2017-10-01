@@ -1,3 +1,6 @@
+@import 'slick';
+@import 'slick-theme';
+
 $upstageGreen: #5da332;
 
 html.theatre {
@@ -48,6 +51,11 @@ div#chat > div#chatInput {
   overflow-y: scroll;
   height: 14vh;
   float: centre;
+}
+
+div.mirror {
+  border: solid 1px $upstageGreen;
+  text-align: center;
 }
 
 #avatarButtons {
@@ -157,4 +165,27 @@ div.message > div.content.shout {
   color: #ff0000;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+.slick-prev::before, .slick-next::before {
+  color: #000;
+}
+
+.slick-next {
+  right: -5px;
+  z-index: 10;
+}
+
+.slick-prev {
+  left: -10px;
+  z-index: 10;
+}
+
+.slick-initialized .slick-slide {
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+    img{
+      width: 95%;
+    }
 }

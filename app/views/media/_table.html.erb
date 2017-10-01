@@ -1,10 +1,11 @@
-<table class="table table-striped">
+<%= javascript_include_tag "sorttable" %>
+<table id = "mediatable" class="table table-striped">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Stages</th>
-      <th>Tags</th>
+      <th onclick="sortTable(0)" style="cursor:pointer">Name</th>
+      <th onclick="sortTable(1)" style="cursor:pointer">Type</th>
+      <th onclick="sortTable(2)" style="cursor:pointer">Stages</th>
+      <th onclick="sortTable(3)" style="cursor:pointer">Tags</th>
       <th class="col-sm-1">Actions</th>
     </tr>
   </thead>
@@ -30,4 +31,6 @@
       </tr>
     <% end %>
   </tbody>
+    
 </table>
+

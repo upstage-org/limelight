@@ -29,13 +29,4 @@ class TheatreController < ApplicationController
     head :ok
   end
 
-
-
-  def audio_control
-    ActionCable.server.broadcast "audio_channel#{params[:stage_id]}",
-      audio_name: params[:audio_name],
-      play_mode: params[:play_mode]
-    head :ok
-  end
-
 end
