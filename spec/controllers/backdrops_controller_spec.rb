@@ -67,16 +67,15 @@ describe BackdropsController do
 	 		before :each do
 	 			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			 	cookies[:auth_token] = user.auth_token
+			 	post :create, :params => { :backdrop => { name: "" } }
 	 		end
 
-			subject { post :create, :params => { :backdrop => { name: "Fail Type", source_name: "fail", source_content_type: "audio/mp3" } } }
-
 	 	 	it "should render 'new' template" do
-	 	 		expect(subject).to redirect_to('/backdrops/fail-type/edit')
+	 	 		expect(response).to render_template('new')
 	 	 	end
 
 	 	 	it "should set flash[:danger]" do
-	 	 		expect( subject.request.flash[:danger]).to_not be_nil
+	 	 		expect(flash[:danger]).to be_present
 	 	 	end
 	 	 end
 	 end
@@ -211,18 +210,30 @@ describe BackdropsController do
 			context "@backdrop.destroy eq false" do
 				before :each do
 					user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-					cookies[:auth_token] = user.auth_token
-					@backdrop = instance_double("Fail_Backdrop")
-					allow(@backdrop).to receive(:destroy).and_return(false)
-				end
+					cookies[:auth_token] = user.auth_token	
+
+				end				
 
 				it "should flash danger message" do
-					#expect(flash[:danger]).to be_present
-					expect(flash[:danger]).to_not be_nil
+					backdrop = double
+					allow(Backdrop).to receive(:find_by_slug!).and_return(backdrop)
+					allow(backdrop).to receive(:slug).and_return("abc")
+					allow(backdrop).to receive(:destroy).and_return(false)
+
+					delete :destroy, :params => { slug: backdrop.slug, backdrop: backdrop }	
+					
+					expect(flash[:danger]).to be_present
 				end
 
 				it "should redirect to edit backdrop path" do
-					expect(response).to redirect_to(edit_backdrop_path(@backdrop))
+					backdrop = double
+					allow(Backdrop).to receive(:find_by_slug!).and_return(backdrop)
+					allow(backdrop).to receive(:slug).and_return("abc")
+					allow(backdrop).to receive(:destroy).and_return(false)
+
+					delete :destroy, :params => { slug: backdrop.slug, backdrop: backdrop }
+					
+					expect(response).to redirect_to(edit_backdrop_path(backdrop))
 				end
 			end
 		end
