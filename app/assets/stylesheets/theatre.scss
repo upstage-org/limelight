@@ -172,13 +172,18 @@ div.message > div.content.shout {
 }
 
 .slick-next {
-  right: -5px;
+  right: -10px;
   z-index: 10;
 }
 
 .slick-prev {
   left: -10px;
   z-index: 10;
+}
+
+.slick-dots li button:before{
+  font-size: 5px;
+  margin-top: -10px;
 }
 
 .slick-initialized .slick-slide {
