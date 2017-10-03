@@ -102,7 +102,7 @@
 <% end %>
     <!-- Chat -->
 
-      <div id="chat" style="height: <%= current_user.nil? ? '100%' : '80%' %>;">
+      <div id="chat" style="height: <%= current_user.nil? ? '100%' : '70%' %>;">
         <div id="chat-body" style="height: <%= current_user.nil? ? '92%' : '85%' %>;">
           <div id="messages" data-stage-id ="<%= @stage.id %>">
             <%= render @stage.messages %>
