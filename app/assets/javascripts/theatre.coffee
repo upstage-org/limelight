@@ -5,8 +5,8 @@ backdropSlick = () ->
   $('.scroller').slick({
     dots: true
     infinite: false
-    slidesToShow: 4
-    slidesToScroll: 4
+    slidesToShow: 6
+    slidesToScroll: 6
   })
 
 $(document).on 'turbolinks:load', backdropSlick

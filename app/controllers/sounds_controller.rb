@@ -53,7 +53,7 @@ class SoundsController < ApplicationController
     else
       if @sound.destroy
         flash[:success] = "#{@sound.name} removed"
-        redirect_to sounds_path
+        redirect_to media_path
       else
         flash[:danger] = 'Something went wrong'
         redirect_to edit_sound_path(@sound)
