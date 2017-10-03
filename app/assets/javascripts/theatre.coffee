@@ -16,19 +16,11 @@ multiCarousel = () ->
 
 rangeSlider = () ->
   slider = $('.range-slider')
-  range = $('.range-slider__range')
-  value = $('.range-slider__value')
+  range = $('.range-slider-range')
+  value = $('.range-slider-value')
 
-  slider.each ->
-    value.each ->
-      nValue = $(this).prev().attr('value')
-      value.html nValue
-      return
-    range.on 'input', ->
-      $(this).next(value).html @value
-      return
-    return
-  return
+  range.on 'input', ->
+    $(this).next(value).html @value
 
 
 $(document).on 'turbolinks:load', multiCarousel, rangeSlider
