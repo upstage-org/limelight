@@ -16,27 +16,27 @@ class TagsController < ApplicationController
   end
 
   def create
-    @tag = Tag.find_by_name(params[:tag][:name])
-    @tag = Tag.new(tag_params) unless @tag.present?
-    if @tag.new_record?
-      if @tag.save
-        flash[:success] = 'Tag created.'
-      else
-        flash.now[:danger] = 'Failed to create tag'
-        render :new
-      end
-    end
-    if @perspective.present?
-      unless @perspective.tags.exists?(@tag.id)
-        if @perspective.tags << @tag
-          flash[:success] = "#{@tag.name} assigned to #{@perspective.name}"
+    unless params[:tag][:name].blank?
+      @tag = Tag.find_by_name(params[:tag][:name].strip.downcase.gsub(/[^a-z0-9\s\-]/, '').gsub(/\s/, '-'))
+      @tag = Tag.new(tag_params) unless @tag.present?
+      if @tag.new_record?
+        if @tag.save
+          flash[:success] = 'Tag created.'
         else
-          flash.now[:danger] = "Failed to assign #{@tag.name} to #{@perspective.name}"
+          flash.now[:danger] = 'Failed to create tag'
+          render :new
         end
       end
-      redirect_to @perspective
-    else
-      redirect_to @tag
+      if @perspective.present?
+        unless @perspective.tags.exists?(@tag.id)
+          if @perspective.tags << @tag
+            flash[:success] = "#{@tag.name} assigned to #{@perspective.name}"
+          else
+            flash.now[:danger] = "Failed to assign #{@tag.name} to #{@perspective.name}"
+          end
+        end
+        redirect_to @perspective
+      end
     end
   end
 
