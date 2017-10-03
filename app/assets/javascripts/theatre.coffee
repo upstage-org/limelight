@@ -14,4 +14,21 @@ multiCarousel = () ->
       $(this).siblings(':first').children(':first-child').clone().appendTo $(this)
     return
 
-$(document).on 'turbolinks:load', multiCarousel
+rangeSlider = () ->
+  slider = $('.range-slider')
+  range = $('.range-slider__range')
+  value = $('.range-slider__value')
+
+  slider.each ->
+    value.each ->
+      nValue = $(this).prev().attr('value')
+      value.html nValue
+      return
+    range.on 'input', ->
+      $(this).next(value).html @value
+      return
+    return
+  return
+
+
+$(document).on 'turbolinks:load', multiCarousel, rangeSlider

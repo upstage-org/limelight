@@ -68,6 +68,52 @@ div.mirror {
   padding: 0;
 }
 
+.range-slider {
+  margin: 60px 0 0 0%;
+  width: 100%;
+}
+
+.range-slider__range {
+  width: calc(100% - (73px));
+  height: 10px;
+  border-radius: 5px;
+
+  //Range Handle
+  &::-webkit-slider-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background .15 ease-in-out;
+  }
+
+  &::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    bprder-radius: 50%;
+    cursor: pointer;
+    transition: background .15 ease-in-out;
+  }
+}
+
+.range-slider__value {
+  display:inline-block;
+  position: relative;
+  width: 60px;
+  line-height: 20px;
+  text-align: centre;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin-left: 8px;
+
+  &:after {
+    position: absolute;
+    top: 8px;
+    left: -7px;
+    content: '';
+  }
+}
+
 .red {
     color: red;
 }
