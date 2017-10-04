@@ -4,8 +4,6 @@ describe BackdropsController do
 
 	let(:backdrops) { Backdrop.all }
 	let(:backdrop) { Backdrop.new }
-	let(:test) { Backdrop.create(name: "test1", source: "test1") }
-	let(:teststage) { Stage.new }
 
 	describe "GET #index" do
 
@@ -43,12 +41,13 @@ describe BackdropsController do
 
 
 	describe "POST #create" do
-		context "Valid backdrop" do
 
-			before :each do
-				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-				cookies[:auth_token] = user.auth_token				
-			end
+		before :each do
+			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			cookies[:auth_token] = user.auth_token			
+		end
+
+		context "Valid backdrop" do
 
 			subject { post :create, :params => { :backdrop => { name: "Pass Type", source_name: "bg1", source_content_type: "image/png" } } }
 
@@ -64,17 +63,14 @@ describe BackdropsController do
 
 	 	context "Invalid backdrop" do
 
-	 		before :each do
-	 			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-			 	cookies[:auth_token] = user.auth_token
-			 	post :create, :params => { :backdrop => { name: "" } }
-	 		end
+	 		subject { post :create, :params => { :backdrop => { name: "" } } }
 
 	 	 	it "should render 'new' template" do
-	 	 		expect(response).to render_template('new')
+	 	 		expect(subject).to render_template('new')
 	 	 	end
 
 	 	 	it "should set flash[:danger]" do
+	 	 		backdrop = subject
 	 	 		expect(flash[:danger]).to be_present
 	 	 	end
 	 	 end
@@ -92,11 +88,15 @@ describe BackdropsController do
 	end
 
 	describe "#PATCH update" do
-		context "stage is present" do
+
+		before :each do
+			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			cookies[:auth_token] = user.auth_token			
+		end
+
+		context "when a stage is present" do
 
 			before :each do
-				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-				cookies[:auth_token] = user.auth_token
 				@backdrop = Backdrop.create(name: "bg1")
 				@stage = Stage.create(name: "testStage", owner_id: "1")
 				@stage.backdrops << @backdrop
@@ -117,12 +117,10 @@ describe BackdropsController do
 			end
 		end
 
-		context "stage not present" do
-			context "@backdrop.update(backdrop_params)" do
+		context "when a stage is not present" do
+			context "when @backdrop.update(backdrop_params) is true" do
 				before :each do
 					@backdrop = Backdrop.create(name: "bg1")
-					user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-					cookies[:auth_token] = user.auth_token	
 					patch :update, :params => { slug: @backdrop.slug, backdrop: { name: "New name" } }
 					@backdrop.reload
 				end
@@ -140,11 +138,9 @@ describe BackdropsController do
 				end
 			end
 
-			context "@backdrop.update(backdrop_params) eq false" do
+			context "when @backdrop.update(backdrop_params) is false" do
 				before :each do
 					@backdrop = Backdrop.create(name: "bg1")
-					user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-					cookies[:auth_token] = user.auth_token	
 					patch :update, :params => { slug: @backdrop.slug, backdrop: { name: "" } }
 					@backdrop.reload
 				end
@@ -161,10 +157,14 @@ describe BackdropsController do
 	end
 
 	describe "DELETE destroy" do
-		context "stage is present" do
+
+		before :each do
+			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			cookies[:auth_token] = user.auth_token			
+		end
+
+		context "when a stage is present" do
 			before :each do
-				user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-				cookies[:auth_token] = user.auth_token
 				@backdrop = Backdrop.create(name: "bg1")
 				@stage = Stage.create(name: "testStage", owner_id: "1")
 				@stage.backdrops << @backdrop
@@ -185,12 +185,10 @@ describe BackdropsController do
 			end
 		end
 
-		context "stage not present" do		
+		context "when a stage not present" do		
 
-			context "@backdrop.destroy" do
+			context "when @backdrop.destroy is true" do
 				before :each do
-					user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-					cookies[:auth_token] = user.auth_token
 					@backdrop = Backdrop.create(name: "bg1")
 					delete :destroy, :params => { slug: @backdrop.slug, backdrop: @backdrop }
 				end
@@ -207,12 +205,7 @@ describe BackdropsController do
 				end
 			end
 
-			context "@backdrop.destroy eq false" do
-				before :each do
-					user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-					cookies[:auth_token] = user.auth_token	
-
-				end				
+			context "when @backdrop.destroy is false" do		
 
 				it "should flash danger message" do
 					backdrop = double
