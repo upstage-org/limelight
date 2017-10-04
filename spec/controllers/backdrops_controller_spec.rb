@@ -6,7 +6,6 @@ describe BackdropsController do
 	let(:backdrop) { Backdrop.new }
 
 	describe "GET #index" do
-
 		it "assigns all backdrops to @backdrops" do
 			get :index
 			expect(assigns(:backdrops)).to eq(@backdrops)
@@ -25,7 +24,7 @@ describe BackdropsController do
 	end
 
 	describe "GET #new" do
-		it "assign bacdrop to @backdrop" do
+		it "assigns backdrop to @backdrop" do
 			get :new
 			expect(assigns(:backdrop)).to eq(@backdrop)
 		end
@@ -41,35 +40,32 @@ describe BackdropsController do
 
 
 	describe "POST #create" do
-
-		before :each do
+		before do
 			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token			
 		end
 
-		context "Valid backdrop" do
-
+		context "when there is a valid backdrop" do
 			subject { post :create, :params => { :backdrop => { name: "Pass Type", source_name: "bg1", source_content_type: "image/png" } } }
 
-			it "should redirect to edit backdrop path" do
+			it "redirects to edit backdrop path" do
 				expect(subject).to redirect_to(edit_backdrop_path(Backdrop.last))
 	 		end
 
-	 		it "should set flash[:success]" do
+	 		it "sets flash[:success]" do
 	 			backdrop = subject
 	 			expect(flash[:success]).to be_present
 	 		end
 	 	end
 
-	 	context "Invalid backdrop" do
-
+	 	context "when there is an invalid backdrop" do
 	 		subject { post :create, :params => { :backdrop => { name: "" } } }
 
-	 	 	it "should render 'new' template" do
+	 	 	it "renders 'new' template" do
 	 	 		expect(subject).to render_template('new')
 	 	 	end
 
-	 	 	it "should set flash[:danger]" do
+	 	 	it "sets flash[:danger]" do
 	 	 		backdrop = subject
 	 	 		expect(flash[:danger]).to be_present
 	 	 	end
@@ -77,10 +73,9 @@ describe BackdropsController do
 	 end
 
 	describe "#show" do
-
 		subject { post :create, :params => { :backdrop => { name: "Pass Type", source_name: "bg1", source_content_type: "image/png" } } }
 
-	 	it "should redirect to edit backdrop path" do
+	 	it "redirect to edit backdrop path" do
 	 		user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token
 			expect(subject).to redirect_to(edit_backdrop_path(Backdrop.last))
@@ -88,14 +83,12 @@ describe BackdropsController do
 	end
 
 	describe "#PATCH update" do
-
-		before :each do
+		before do
 			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token			
 		end
 
 		context "when a stage is present" do
-
 			before :each do
 				@backdrop = Backdrop.create(name: "bg1")
 				@stage = Stage.create(name: "testStage", owner_id: "1")
@@ -104,52 +97,52 @@ describe BackdropsController do
 				@backdrop.reload
 			end
 
-			it "should add backdrop to the stage" do				
+			it "add backdrop to the stage" do				
 				expect(@stage.backdrops).to include(@backdrop)
 			end
 
-			it "should flash success message" do
+			it "flash success message" do
 				expect(flash[:success]).to be_present
 			end
 
-			it "should redirect to the stage" do
+			it "redirect to the stage" do
 				expect(response).to redirect_to(@stage)
 			end
 		end
 
 		context "when a stage is not present" do
 			context "when @backdrop.update(backdrop_params) is true" do
-				before :each do
+				before do
 					@backdrop = Backdrop.create(name: "bg1")
 					patch :update, :params => { slug: @backdrop.slug, backdrop: { name: "New name" } }
 					@backdrop.reload
 				end
 
-				it "should flash success message" do
+				it "flash success message" do
 					expect(flash[:success]).to be_present
 				end
 
-				it "should redirect to the edit backdrop path" do
+				it "redirect to the edit backdrop path" do
 					expect(response).to redirect_to(edit_backdrop_path(@backdrop))
 				end
 
-				it "should change the name to the new name" do
+				it "change the name to the new name" do
 					expect(@backdrop.name).to eq("New name")
 				end
 			end
 
 			context "when @backdrop.update(backdrop_params) is false" do
-				before :each do
+				before do
 					@backdrop = Backdrop.create(name: "bg1")
 					patch :update, :params => { slug: @backdrop.slug, backdrop: { name: "" } }
 					@backdrop.reload
 				end
 
-				it "should flash danger message" do
+				it "flash danger message" do
 					expect(flash.now[:danger]).to be_present
 				end
 
-				it "should render edit" do
+				it "render edit" do
 					expect(response).to render_template("edit")
 				end
 			end
@@ -157,14 +150,13 @@ describe BackdropsController do
 	end
 
 	describe "DELETE destroy" do
-
-		before :each do
+		before do
 			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token			
 		end
 
 		context "when a stage is present" do
-			before :each do
+			before do
 				@backdrop = Backdrop.create(name: "bg1")
 				@stage = Stage.create(name: "testStage", owner_id: "1")
 				@stage.backdrops << @backdrop
@@ -172,42 +164,41 @@ describe BackdropsController do
 				@stage.reload
 			end
 
-			it "should delete backdrop from the stage" do
+			it "delete backdrop from the stage" do
 				expect(@stage.backdrops).to_not include(@backdrop)
 			end
 
-			it "should flash success message" do
+			it "flash success message" do
 				expect(flash[:success]).to be_present
 			end
 
-			it "should redirect to the stage" do
+			it "redirect to the stage" do
 				expect(response).to redirect_to(@stage)
 			end
 		end
 
 		context "when a stage not present" do		
-
 			context "when @backdrop.destroy is true" do
-				before :each do
+				before do
 					@backdrop = Backdrop.create(name: "bg1")
 					delete :destroy, :params => { slug: @backdrop.slug, backdrop: @backdrop }
 				end
 
-				it "should destroy the backdrop" do
+				it "destroy the backdrop" do
 					expect(Backdrop.all).to_not include(@backdrop)
 				end
 
-				it "should flash success message" do
+				it "flash success message" do
 					expect(flash[:success]).to be_present
 				end
-				it "should redirect to backdrops path" do
+
+				it "redirect to backdrops path" do
 					expect(response).to redirect_to(media_path)
 				end
 			end
 
 			context "when @backdrop.destroy is false" do		
-
-				it "should flash danger message" do
+				it "flash danger message" do
 					backdrop = double
 					allow(Backdrop).to receive(:find_by_slug!).and_return(backdrop)
 					allow(backdrop).to receive(:slug).and_return("abc")
@@ -218,7 +209,7 @@ describe BackdropsController do
 					expect(flash[:danger]).to be_present
 				end
 
-				it "should redirect to edit backdrop path" do
+				it "redirect to edit backdrop path" do
 					backdrop = double
 					allow(Backdrop).to receive(:find_by_slug!).and_return(backdrop)
 					allow(backdrop).to receive(:slug).and_return("abc")
