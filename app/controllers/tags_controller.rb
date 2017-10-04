@@ -17,16 +17,19 @@ class TagsController < ApplicationController
 
   def create
     unless params[:tag][:name].blank?
-      @tag = Tag.find_by_name(params[:tag][:name].strip.downcase.gsub(/[^a-z0-9\s\-]/, '').gsub(/\s/, '-'))
-      @tag = Tag.new(tag_params) unless @tag.present?
-      if @tag.new_record?
+      @tag = Tag.new(tag_params)
+
+      if @tag.valid?
         if @tag.save
           flash[:success] = 'Tag created.'
         else
           flash.now[:danger] = 'Failed to create tag'
           render :new
         end
+      else
+        @tag = Tag.find_by_name(format_params)
       end
+
       if @perspective.present?
         unless @perspective.tags.exists?(@tag.id)
           if @perspective.tags << @tag
@@ -36,6 +39,13 @@ class TagsController < ApplicationController
           end
         end
         redirect_to @perspective
+      end
+    else
+      flash[:danger] = "Name cannot be blank!"
+      if @perspective.present?
+        redirect_to @perspective
+      else
+        redirect_to tags_path
       end
     end
   end
@@ -69,6 +79,10 @@ class TagsController < ApplicationController
 
     def tag_params
       params.require(:tag).permit([:name])
+    end
+
+    def format_params
+      params[:tag][:name].strip.downcase.gsub(/[^a-z0-9\s\-]/, '').gsub(/\s/, '-')
     end
 
     def set_perspective
