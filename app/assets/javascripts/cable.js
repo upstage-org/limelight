@@ -10,11 +10,17 @@
 
   App.cable = ActionCable.createConsumer();
 
-  App.state = { avatars: [], drawings: [] };
+  App.state = { avatars: [], drawings: [], backdrops: [] };
 
   App.drawFrame = function() {
     // Clear frame
+
     App.context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw backdrop
+    App.state.backdrops.forEach(function(backdrop){
+      App.context.drawImage(backdrop.image, 0, 0, canvas.width,canvas.height);
+    });
 
     // Draw avatars
     App.state.avatars.forEach(function(avatar) {

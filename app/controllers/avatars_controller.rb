@@ -1,6 +1,7 @@
 class AvatarsController < ApplicationController
   before_action :reject_anonymous
-  before_action :set_avatar, :only => [ :show, :edit, :update, :destroy ]
+  before_action :set_avatar, :except => [ :index, :new, :create ]
+  before_action :set_stage, :only => [ :update, :destroy ]
 
   def index
     @avatars = Avatar.all
@@ -13,7 +14,7 @@ class AvatarsController < ApplicationController
   def create
     @avatar = Avatar.new(avatar_params)
     if @avatar.save
-      flash[:success] = 'Avatar created.'
+      flash[:success] = "#{@avatar.name} created"
       redirect_to edit_avatar_path(@avatar)
     else
       flash.now[:danger] = 'Something went wrong'
@@ -29,28 +30,44 @@ class AvatarsController < ApplicationController
   end
 
   def update
-    if @avatar.update(avatar_params)
-      flash[:success] = 'Avatar updated'
-      redirect_to edit_avatar_path(@avatar)
+    if @stage.present?
+      @stage.avatars << @avatar
+      flash[:success] = "#{@avatar.name} assigned to #{@stage.name}"
+      redirect_to @stage
     else
-      flash.now[:danger] = 'Something went wrong'
-      render :edit
+      if @avatar.update(avatar_params)
+        flash[:success] = "#{@avatar.name} updated"
+        redirect_to edit_avatar_path(@avatar)
+      else
+        flash.now[:danger] = 'Something went wrong'
+        render :edit
+      end
     end
   end
 
   def destroy
-    if @avatar.destroy
-      flash[:success] = 'Avatar removed'
-      redirect_to avatars_path
+    if @stage.present?
+      @stage.avatars.delete(@avatar)
+      flash[:success] = "#{@avatar.name} unassigned from #{@stage.name}"
+      redirect_to @stage
     else
-      flash[:danger] = 'Something went wrong'
-      redirect_to edit_avatar_path(@avatar)
+      if @avatar.destroy
+        flash[:success] = "#{@avatar.name} removed"
+        redirect_to media_path
+      else
+        flash[:danger] = 'Something went wrong'
+        redirect_to edit_avatar_path(@avatar)
+      end
     end
   end
 
   private
     def set_avatar
-      @avatar = Avatar.find_by_slug!(params[:id])
+      @avatar = Avatar.find_by_slug!(params[:slug])
+    end
+
+    def set_stage
+      @stage = Stage.find_by_slug(params[:stage_slug]) if params[:stage_slug].present?
     end
 
     def avatar_params

@@ -4,31 +4,28 @@
   <h1>
     Avatars
     <small class="pull-right">
-      <div class="btn-toolbar">
-        <div class="btn-group mr-2">
-          <%= link_to avatars_path, :class => 'btn btn-default' + (params[:v] != 'tab' ? ' active' : '') do %>
-            <span class="glyphicon glyphicon-th"></span>
-          <% end %>
-          <%= link_to (avatars_path :v => 'tab'), :class => 'btn btn-default' + (params[:v] == 'tab' ? ' active' : '') do %>
-            <span class="glyphicon glyphicon-th-list"></span>
-          <% end %>
-        </div>
-        <div class="btn-group">
-          <%= link_to new_avatar_path, :class => "btn btn-primary" do %>
-            <span class="glyphicon glyphicon-plus"></span>
-          <% end %>
-        </div>
-      </div>
+      <span class="btn-group">
+        <%= link_to new_avatar_path, :class => "btn btn-primary" do %>
+          <span class="glyphicon glyphicon-plus"></span>
+        <% end %>
+      </span>
     </small>
   </h1>
 </div>
 
-<% if params[:v] == 'tab' %>
-  <%= render 'table' %>
-<% else %>
-
+<table class="table table-striped">
   <% @avatars.each do |a| %>
-    <%= render :partial => 'panel', :locals => { avatar: a } %>
+    <tr>
+      <td>
+        <%= link_to a.name, edit_avatar_path(a) %>
+      </td>
+      <td>
+        <span class="btn-group pull-right">
+          <%= link_to a, :method => :delete, :data => { confirm: "#{a.name} will be removed" }, :class => "btn btn-danger" do %>
+            <span class="glyphicon glyphicon-remove"></span>
+          <% end %>
+        </span>
+      </td>
+    </tr>
   <% end %>
-
-<% end %>
+</table>
