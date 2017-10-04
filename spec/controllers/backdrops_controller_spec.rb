@@ -201,7 +201,7 @@ describe BackdropsController do
 					expect(flash[:success]).to be_present
 				end
 				it "should redirect to backdrops path" do
-					expect(response).to redirect_to(backdrops_path)
+					expect(response).to redirect_to(media_path)
 				end
 			end
 
