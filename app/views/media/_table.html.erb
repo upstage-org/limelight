@@ -25,10 +25,8 @@
           <% end %>
         </td>
         <td class="col-sm-1">
-          <span class="btn-group btn-group-sm">
-            <%= link_to m, :method => :delete, :data => { confirm: "The #{m.class.name.demodulize.downcase} \"#{m.name}\" will be removed?" }, :class => 'btn btn-sm btn-danger' do %>
+          <span class="btn-group btn-group-sm" data-toggle="modal" data-target="#modal-<%= "#{m.class.name.demodulize}-#{m.name}" %>">
               <span class="glyphicon glyphicon-trash"></span>
-            <% end %>
           </span>
         </td>
       </tr>

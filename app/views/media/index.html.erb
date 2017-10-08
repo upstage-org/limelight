@@ -11,7 +11,7 @@
         <ul class="dropdown-menu dropdown-menu-right">
           <li><%= link_to 'Avatar', new_avatar_path, :class => 'dropdown-item' %></li>
           <li><%= link_to 'Backdrop', new_backdrop_path, :class => 'dropdown-item' %></li>
-          <li><%= link_to 'Sound', new_sound_path, :class => 'dropdown-item' %></li>          
+          <li><%= link_to 'Sound', new_sound_path, :class => 'dropdown-item' %></li>
         </ul>
       </div>
     </small>
@@ -27,3 +27,21 @@
 <div id="tableView" class="visible-lg">
   <%= render 'table' %>
 </div>
+
+<% @media.each do |m| %>
+  <div id="modal-<%= "#{m.class.name.demodulize}-#{m.name}" %>" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-body">
+          <p><%= "The #{m.class.name.demodulize.downcase} \"#{m.name}\" will be removed?" %></p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+          <%= link_to m, :method => :delete, :class => 'btn btn-danger btn-sm' do %>
+            <span class="glyphicon glyphicon-trash"></span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
