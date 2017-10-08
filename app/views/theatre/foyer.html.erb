@@ -9,41 +9,91 @@
     <div class="panel-heading">
       <h4 class="panel-title">Stages</h4>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" style="padding-right: 40px;">
       <div class="row hidden-md hidden-sm hidden-xs">
-        <div class="col-lg-10 col-md-12">
-          <small>Name</small>
-        </div>
-        <div class="col-lg-1">
-          <small>Players</small>
-        </div>
-        <div class="col-lg-1">
-          <small>Audience</small>
-        </div>
+        <% if current_user.nil? %>
+          <div class="col-lg-10">
+            <strong>Name</strong>
+          </div>
+          <div class="col-lg-1">
+            <strong>Players</strong>
+          </div>
+          <div class="col-lg-1">
+            <strong>Audience</strong>
+          </div>
+        <% else %>
+          <div class="col-lg-9">
+            <strong>Name</strong>
+          </div>
+          <div class="col-lg-1">
+            <strong>Players</strong>
+          </div>
+          <div class="col-lg-1">
+            <strong>Audience</strong>
+          </div>
+          <div class="col-lg-1">
+            <strong>Accessibility</strong>
+          </div>
+        <% end %>
       </div>
       <% @stages.each do |s| %>
         <div class="row hidden-md hidden-sm hidden-xs">
-          <div class="col-lg-10 col-md-12">
-            <%= link_to s.name, performance_path(s) %>
-          </div>
-          <div class="col-lg-1">
-            0
-          </div>
-          <div class="col-lg-1">
-            0
-          </div>
+          <% if current_user.nil? %>
+            <div class="col-lg-10">
+              <%= link_to s.name, performance_path(s) %>
+            </div>
+            <div class="col-lg-1">
+              0
+            </div>
+            <div class="col-lg-1">
+              0
+            </div>
+          <% else %>
+            <div class="col-lg-9">
+              <%= link_to s.name, performance_path(s) %>
+            </div>
+            <div class="col-lg-1">
+              0
+            </div>
+            <div class="col-lg-1">
+              0
+            </div>
+            <div class="col-lg-1">
+              <% if s.owner == current_user %>
+                <%= "Owner"%>
+              <% else %>
+                <%= "Player"%>
+              <% end %>
+            </div>
+          <% end %>
         </div>
         <div class="hidden-lg hidden-sm hidden-xs col-md-12">
           <%= link_to s.name, performance_path(s) %>
           <br>
           <strong>Players:</strong> 0
           <strong>Audience:</strong> 0
+          <strong>Accessibility: </strong>
+          <% unless current_user.nil? %>
+            <% if s.owner == current_user %>
+              <%= "Owner"%>
+            <% else %>
+              <%= "Player"%>
+            <% end %>
+          <% end %>
         </div>
-        <div class="hidden-lg hidden-md col-sm-12">
+        <div class="hidden-lg hidden-md col-sm-12 col-xs-12">
           <%= link_to s.name, s %>
           <br>
           <strong>Players:</strong> 0
           <strong>Audience:</strong> 0
+          <strong>Accessibility: </strong>
+          <% unless current_user.nil? %>
+            <% if s.owner == current_user %>
+              <%= "Owner"%>
+            <% else %>
+              <%= "Player"%>
+            <% end %>
+          <% end %>
         </div>
       <% end %>
     </div>
