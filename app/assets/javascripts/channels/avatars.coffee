@@ -49,12 +49,13 @@ hold = (data) ->
     
     mirrorDiv = document.querySelector '#mirrorPane'
     mirrorImg = new Image
-    mirrorImg.height = 100
-    mirrorImg.width = 100
     mirrorImg.addEventListener 'load', (e) ->
       mirrorDiv.appendChild(mirrorImg)
       mirrorDiv.removeChild(mirrorDiv.childNodes[0])
     mirrorImg.src = data['file']
+    widthMultiplier = mirrorImg.width/mirrorImg.height
+    mirrorImg.height = 80
+    mirrorImg.width = 80*widthMultiplier
 
 name = (data) ->
   avatar = App.state.avatars[data.avatar_id]
