@@ -15,19 +15,21 @@ place = (data) ->
   img.width = img.width*multiplier
 
 size = (data) ->
-  backdropObj = App.state.avatars[data.avatar_id]
-  backdropTag = App.state.avatars[data.avatar_id].image
+  img = new Image
+  reSize = App.state.avatars[data.avatar_id]
+  img.src = data['file']
   multiplier = data.value/10
-  backdropTag.height = backdropTag.height*multiplier
-  backdropTag.width = backdropTag.width*multiplier
+  reSize.image.height = img.height*multiplier
+  reSize.image.width = img.width*multiplier
   App.state.avatars[data.avatar_id] = {
-    image: backdropTag,
-    x: backdropObj.x,
-    y: backdropObj.y,
-    height: backdropTag.height,
-    width: backdropTag.width
+    image: reSize.image,
+    x: reSize.x,
+    y: reSize.y,
+    height: reSize.image.height,
+    width: reSize.image.width
   }
   App.drawFrame()
+
 
 drop = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
@@ -71,7 +73,7 @@ document.addEventListener 'turbolinks:load', (e) ->
     elem.addEventListener 'mouseup', (e) ->
       App.avatar.hold this.dataset.avatarId
 
-  document.querySelector('#avatarSlider').addEventListener 'mouseup', (e) ->
+  document.querySelector('#avatarSlider').addEventListener 'change', (e) ->
     App.avatar.size document.querySelector('#avatarSlider').value
 
 
