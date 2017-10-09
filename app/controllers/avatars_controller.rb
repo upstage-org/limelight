@@ -53,7 +53,7 @@ class AvatarsController < ApplicationController
     else
       if @avatar.destroy
         flash[:success] = "#{@avatar.name} removed"
-        redirect_to avatars_path
+        redirect_to media_path
       else
         flash[:danger] = 'Something went wrong'
         redirect_to edit_avatar_path(@avatar)
