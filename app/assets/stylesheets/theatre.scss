@@ -1,3 +1,6 @@
+@import 'slick';
+@import 'slick-theme';
+
 $upstageGreen: #5da332;
 
 html.theatre {
@@ -10,35 +13,35 @@ body.stage {
   width: 100vw;
 }
 
-canvas#canvas {
+#canvas {
   width: 75%;
   height: 100%;
 }
 
-div#sidebar {
+#sidebar {
   width: 25%;
   height: 100%;
 }
 
-div#toolbox {
+#toolbox {
   width: 100%;
-  height: 20%;
+  height: 30%;
 }
 
-div#chat {
+#chat {
   width: 100%;
-  height: 80%;
+  height: 70%;
   display: flex;
   flex-direction: column;
 }
 
-div#chat > div#chat-body {
-  height: 85%;
+#chat > #chat-body {
+  height: 65%;
   overflow-y: scroll;
   border: solid 1px $upstageGreen;
 }
 
-div#chat > div#chatInput {
+#chat > #chatInput {
   height: 15%;
   border: solid 1px $upstageGreen;
   padding: 10px;
@@ -46,7 +49,7 @@ div#chat > div#chatInput {
 
 #avatar {
   overflow-y: scroll;
-  height: 14vh;
+  height: 25vh;
   float: centre;
 }
 
@@ -68,50 +71,8 @@ div.mirror {
   padding: 0;
 }
 
-.range-slider {
-  margin: 60px 0 0 0%;
-  width: 100%;
-}
-
-.range-slider__range {
-  width: calc(100% - (73px));
-  height: 10px;
-  border-radius: 5px;
-
-  //Range Handle
-  &::-webkit-slider-thumb {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background .15 ease-in-out;
-  }
-
-  &::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    bprder-radius: 50%;
-    cursor: pointer;
-    transition: background .15 ease-in-out;
-  }
-}
-
-.range-slider__value {
-  display:inline-block;
-  position: relative;
-  width: 60px;
-  line-height: 20px;
-  text-align: centre;
-  border-radius: 3px;
-  padding: 5px 10px;
-  margin-left: 8px;
-
-  &:after {
-    position: absolute;
-    top: 8px;
-    left: -7px;
-    content: '';
-  }
+#drawing{
+  height: 25vh;
 }
 
 .red {
@@ -152,6 +113,10 @@ div.mirror {
 	padding:10px 15px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #283966;
+}
+
+#audio{
+  height: 25vh;
 }
 
 .tab-pane {
@@ -208,4 +173,33 @@ div.message > div.content.shout {
   color: #ff0000;
   font-weight: bold;
   text-transform: uppercase;
+}
+
+#backdrop{
+  overflow-y: scroll;
+  height: 25vh;
+  float: centre;
+}
+
+.slick-prev::before, .slick-next::before {
+  color: #000;
+}
+
+.slick-next {
+  right: -5px;
+  z-index: 10;
+}
+
+.slick-prev {
+  left: -10px;
+  z-index: 10;
+}
+
+.slick-initialized .slick-slide {
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+    img{
+      width: 95%;
+    }
 }
