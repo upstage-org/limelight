@@ -9,61 +9,77 @@
     <div class="panel-heading">
       <h4 class="panel-title">Stages</h4>
     </div>
-    <div class="panel-body" style="padding-right: 40px;">
+    <div class="panel-body">
       <div class="row hidden-md hidden-sm hidden-xs">
         <% if current_user.nil? %>
-          <div class="col-lg-10">
-            <strong>Name</strong>
+          <div class="col-lg-9">
+            Name
           </div>
-          <div class="col-lg-1">
-            <strong>Players</strong>
-          </div>
-          <div class="col-lg-1">
-            <strong>Audience</strong>
+          <div class="col-lg-3">
+            <div class="row hidden-md hidden-sm hidden-xs">
+              <div class="col-lg-6 text-right">
+                Players
+              </div>
+              <div class="col-lg-6 text-right">
+                Audience
+              </div>
+            </div>
           </div>
         <% else %>
-          <div class="col-lg-9">
-            <strong>Name</strong>
+          <div class="col-lg-8">
+            Name
           </div>
-          <div class="col-lg-1">
-            <strong>Players</strong>
-          </div>
-          <div class="col-lg-1">
-            <strong>Audience</strong>
-          </div>
-          <div class="col-lg-1">
-            <strong>Accessibility</strong>
+          <div class="col-lg-4">
+            <div class="row hidden-md hidden-sm hidden-xs">
+              <div class="col-lg-3 text-right">
+                Players
+              </div>
+              <div class="col-lg-4 text-right">
+                Audience
+              </div>
+              <div class="col-lg-5 text-right">
+                Accessibility
+              </div>
+            </div>
           </div>
         <% end %>
       </div>
       <% @stages.each do |s| %>
         <div class="row hidden-md hidden-sm hidden-xs">
           <% if current_user.nil? %>
-            <div class="col-lg-10">
-              <%= link_to s.name, performance_path(s) %>
-            </div>
-            <div class="col-lg-1">
-              0
-            </div>
-            <div class="col-lg-1">
-              0
-            </div>
-          <% else %>
             <div class="col-lg-9">
               <%= link_to s.name, performance_path(s) %>
             </div>
-            <div class="col-lg-1">
-              0
+            <div class="col-lg-3">
+              <div class="row hidden-md hidden-sm hidden-xs">
+                <div class="col-lg-6 text-right">
+                  0
+                </div>
+                <div class="col-lg-6 text-right">
+                  0
+                </div>
+              </div>
             </div>
-            <div class="col-lg-1">
-              0
+          <% else %>
+            <div class="col-lg-8">
+              <%= link_to s.name, performance_path(s) %>
             </div>
-            <div class="col-lg-1">
-              <% if s.owner == current_user %>
-                <%= "Owner"%>
-              <% else %>
-                <%= "Player"%>
-              <% end %>
+            <div class="col-lg-4">
+              <div class="row hidden-md hidden-sm hidden-xs">
+                <div class="col-lg-3 text-right">
+                  0
+                </div>
+                <div class="col-lg-4 text-right">
+                  0
+                </div>
+                <div class="col-lg-5 text-right">
+                  <% if s.owner == current_user %>
+                    <%= "Owner"%>
+                  <% else %>
+                    <%= "Player"%>
+                  <% end %>
+                </div>
+              </div>
             </div>
           <% end %>
         </div>
@@ -72,8 +88,8 @@
           <br>
           <strong>Players:</strong> 0
           <strong>Audience:</strong> 0
-          <strong>Accessibility: </strong>
           <% unless current_user.nil? %>
+            <strong>Accessibility: </strong>
             <% if s.owner == current_user %>
               <%= "Owner"%>
             <% else %>
@@ -86,8 +102,8 @@
           <br>
           <strong>Players:</strong> 0
           <strong>Audience:</strong> 0
-          <strong>Accessibility: </strong>
           <% unless current_user.nil? %>
+          <strong>Accessibility: </strong>          
             <% if s.owner == current_user %>
               <%= "Owner"%>
             <% else %>
