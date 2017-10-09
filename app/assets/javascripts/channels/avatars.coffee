@@ -1,4 +1,7 @@
 place = (data) ->
+  value = '1'
+  if App.state.avatars[data.avatar_id] != undefined  
+    value = App.state.avatars[data.avatar_id].show
   img = new Image
   img.addEventListener 'load', (e) ->
     App.state.avatars[data.avatar_id] = {
@@ -8,10 +11,8 @@ place = (data) ->
       name: data['name'],
       text_x: data['x'],
       text_y: data['y'] + (img.height / 2) + 5,
-      show: document.querySelector('#avatarName').value
+      show: value
     }
-    console.log(data)
-    console.log(img.width + ' ' + img.height)
     App.drawFrame()
   img.src = data['file']
 
@@ -56,12 +57,11 @@ hold = (data) ->
     mirrorImg.src = data['file']
 
 name = (data) ->
-  nameBtn = document.querySelector '#avatarName'
-  if nameBtn.value == '1'
-    nameBtn.value = '0'
-  else
-    nameBtn.value = '1'
   avatar = App.state.avatars[data.avatar_id]
+  if avatar.show == '1'
+    avatar.image.title = '0'
+  else 
+    avatar.image.title = '1'
   App.state.avatars[data.avatar_id] = {
     image: avatar.image
     x: avatar.x
@@ -69,7 +69,7 @@ name = (data) ->
     name: avatar.name
     text_x: avatar.text_x
     text_y: avatar.text_y
-    show: nameBtn.value
+    show: avatar.image.title
   }
   App.drawFrame()
 
