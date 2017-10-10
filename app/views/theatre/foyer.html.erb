@@ -74,9 +74,9 @@
                 </div>
                 <div class="col-lg-5 text-right">
                   <% if s.owner == current_user %>
-                    <%= "Owner"%>
+                    Owner
                   <% else %>
-                    <%= "Player"%>
+                    Player
                   <% end %>
                 </div>
               </div>
@@ -91,9 +91,9 @@
           <% unless current_user.nil? %>
             <strong>Accessibility: </strong>
             <% if s.owner == current_user %>
-              <%= "Owner"%>
+              Owner
             <% else %>
-              <%= "Player"%>
+              Player
             <% end %>
           <% end %>
         </div>
@@ -103,11 +103,11 @@
           <strong>Players:</strong> 0
           <strong>Audience:</strong> 0
           <% unless current_user.nil? %>
-          <strong>Accessibility: </strong>          
+          <strong>Accessibility: </strong>
             <% if s.owner == current_user %>
-              <%= "Owner"%>
+              Owner
             <% else %>
-              <%= "Player"%>
+              Player
             <% end %>
           <% end %>
         </div>
