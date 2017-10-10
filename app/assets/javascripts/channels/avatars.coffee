@@ -30,7 +30,6 @@ size = (data) ->
   }
   App.drawFrame()
 
-
 drop = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.removeAttribute 'disabled'
