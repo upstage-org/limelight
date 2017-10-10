@@ -47,12 +47,15 @@ RSpec.describe TagsController, type: :controller do
           @tag = Tag.create(name: "test space")
         end
 
+        it "should format the tag name" do
+          expect(@tag.name).to eq("test-space")
+        end
+
         it "should add tag to stage" do
           stage = Stage.create(name: "test")
           stage.tags << @tag
 
           expect(stage.tags).to include(@tag)
-          expect(@tag.name).to eq("test-space")
         end
 
         it "should add tag to backdrop" do
@@ -60,7 +63,6 @@ RSpec.describe TagsController, type: :controller do
           backdrop.tags << @tag
 
           expect(backdrop.tags).to include(@tag)
-          expect(@tag.name).to eq("test-space")
         end
 
         it "should add tag to sound" do
@@ -68,7 +70,6 @@ RSpec.describe TagsController, type: :controller do
           sound.tags << @tag
 
           expect(sound.tags).to include(@tag)
-          expect(@tag.name).to eq("test-space")
         end
 
         it "should add tag to avatar" do
@@ -76,10 +77,21 @@ RSpec.describe TagsController, type: :controller do
           avatar.tags << @tag
 
           expect(avatar.tags).to include(@tag)
-          expect(@tag.name).to eq("test-space")
+        end
+      end
+
+      context "when the name is empty" do
+        before do
+          @tag = Tag.create(name: "")
+        end
+
+        it "flash danger when name is empty" do
+          stage = Stage.create(name: "test")
+          stage.tags << @tag
+
+          expect(flash[:danger]).to be_present
         end
       end
     end
   end
-
 end
