@@ -76,7 +76,6 @@ document.addEventListener 'turbolinks:load', (e) ->
   document.querySelector('#avatarSlider').addEventListener 'change', (e) ->
     App.avatar.size document.querySelector('#avatarSlider').value
 
-
   document.querySelector('#dropAvatarButton').addEventListener 'mouseup', (e) ->
     App.avatar.drop()
 
