@@ -24,7 +24,7 @@
 
     // Draw avatars
     App.state.avatars.forEach(function(avatar) {
-      App.context.drawImage(avatar.image, avatar.x, avatar.y);
+      App.context.drawImage(avatar.image, avatar.x, avatar.y, avatar.height, avatar.width);
     });
 
     // Draw drawings

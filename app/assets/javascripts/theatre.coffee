@@ -9,4 +9,12 @@ backdropSlick = () ->
     slidesToScroll: 6
   })
 
-$(document).on 'turbolinks:load', backdropSlick
+rangeSlider = () ->
+  slider = $('.range-slider')
+  range = $('.range-slider-range')
+  value = $('.range-slider-value')
+
+  range.on 'input', ->
+    $(this).next(value).html @value
+
+$(document).on 'turbolinks:load', backdropSlick, rangeSlider
