@@ -6,7 +6,7 @@
       <%= link_to edit_announcement_path(@announcement), :class => "btn btn-default" do %>
         <span class="glyphicon glyphicon-edit"></span>
       <% end %>
-      <%= link_to @announcement, :method => :delete, :data => { confirm: "This announcement will be removed" }, :class => "btn btn-danger" do %>
+      <%= link_to @announcement, :method => :delete, :data => { confirm: "This announcement will be removed?" }, :class => "btn btn-danger" do %>
         <span class="glyphicon glyphicon-trash"></span>
       <% end %>
     </span>

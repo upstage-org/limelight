@@ -54,7 +54,7 @@ class BackdropsController < ApplicationController
     else
       if @backdrop.destroy
         flash[:success] = "#{@backdrop.name} removed"
-        redirect_to backdrops_path
+        redirect_to media_path
       else
         flash[:danger] = 'Something went wrong'
         redirect_to edit_backdrop_path(@backdrop)
