@@ -34,10 +34,10 @@ class AvatarChannel < ApplicationCable::Channel
     end
   end
 
-  def name(data)
+  def nameToggle(data)
     unless current_user.nil? || @avatar_allocation[data['avatar_id']] != current_user
       AvatarChannel.broadcast_to @stage, {
-        action: 'name',
+        action: 'nameToggle',
         avatar_id: data['avatar_id']
       }
     end

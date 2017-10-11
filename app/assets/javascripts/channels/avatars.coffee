@@ -57,7 +57,7 @@ hold = (data) ->
     mirrorImg.height = 80
     mirrorImg.width = 80*widthMultiplier
 
-name = (data) ->
+nameToggle = (data) ->
   avatar = App.state.avatars[data.avatar_id]
   if avatar.show == '1'
     avatar.image.title = '0'
@@ -84,7 +84,7 @@ document.addEventListener 'turbolinks:load', (e) ->
     App.avatar.drop()
 
   document.querySelector('#avatarName').addEventListener 'mouseup', (e) ->
-    App.avatar.name()
+    App.avatar.nameToggle()
 
   document.querySelector('#canvas').addEventListener 'mouseup', (e) ->
     App.avatar.place e.x, e.y
@@ -94,7 +94,7 @@ document.addEventListener 'turbolinks:load', (e) ->
       switch data.action
         when 'hold' then hold data
         when 'drop' then drop data
-        when 'name' then name data
+        when 'nameToggle' then nameToggle data
         when 'place' then place data
 
     hold: (avatarId) ->
@@ -107,5 +107,5 @@ document.addEventListener 'turbolinks:load', (e) ->
     place: (x, y, name) ->
       @perform 'place', x: x, y: y, name: name, avatar_id: window.holding
 
-    name: () ->
-      @perform 'name', avatar_id: window.holding
+    nameToggle: () ->
+      @perform 'nameToggle', avatar_id: window.holding
