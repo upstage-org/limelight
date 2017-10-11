@@ -27,7 +27,7 @@ class TagsController < ApplicationController
           render :new
         end
       else
-        @tag = Tag.find_by_name(format_params)
+        @tag = Tag.find_by_name(@tag.name)
       end
 
       if @perspective.present?
@@ -79,10 +79,6 @@ class TagsController < ApplicationController
 
     def tag_params
       params.require(:tag).permit([:name])
-    end
-
-    def format_params
-      params[:tag][:name].strip.downcase.gsub(/[^a-z0-9\s\-]/, '').gsub(/\s/, '-')
     end
 
     def set_perspective
