@@ -1,7 +1,7 @@
 place = (data) ->
-  value = '1'
+  displayName = '1'
   if App.state.avatars[data.avatar_id] != undefined  
-    value = App.state.avatars[data.avatar_id].show
+    displayName = App.state.avatars[data.avatar_id].show
   img = new Image
   img.addEventListener 'load', (e) ->
     App.state.avatars[data.avatar_id] = {
@@ -11,7 +11,7 @@ place = (data) ->
       name: data['name'],
       text_x: data['x'],
       text_y: data['y'] + (img.height / 2) + 5,
-      show: value
+      show: displayName
     }
     App.drawFrame()
   img.src = data['file']
