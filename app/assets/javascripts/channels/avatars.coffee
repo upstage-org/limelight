@@ -10,23 +10,23 @@ place = (data) ->
     }
     App.drawFrame()
   img.src = data['file']
-  multiplier = data.value/10
+  multiplier = data.size/10
   img.height = img.height*multiplier
   img.width = img.width*multiplier
 
 size = (data) ->
   img = new Image
-  reSize = App.state.avatars[data.avatar_id]
+  resize = App.state.avatars[data.avatar_id]
   img.src = data['file']
   multiplier = data.value/10
-  reSize.image.height = img.height*multiplier
-  reSize.image.width = img.width*multiplier
+  resize.image.height = img.height*multiplier
+  resize.image.width = img.width*multiplier
   App.state.avatars[data.avatar_id] = {
-    image: reSize.image,
-    x: reSize.x,
-    y: reSize.y,
-    height: reSize.image.height,
-    width: reSize.image.width
+    image: resize.image,
+    x: resize.x,
+    y: resize.y,
+    height: resize.image.height,
+    width: resize.image.width
   }
   App.drawFrame()
 
@@ -101,5 +101,5 @@ document.addEventListener 'turbolinks:load', (e) ->
     drop: () ->
       @perform 'drop', avatar_id: window.holding
 
-    place: (x, y, value) ->
-      @perform 'place', x: x, y: y, value: value, avatar_id: window.holding
+    place: (x, y, size) ->
+      @perform 'place', x: x, y: y, size: size, avatar_id: window.holding
