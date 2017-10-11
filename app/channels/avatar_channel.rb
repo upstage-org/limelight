@@ -29,7 +29,8 @@ class AvatarChannel < ApplicationCable::Channel
         file: avatar.source.url(:original),
         x: data['x'],
         y: data['y'],
-        name: avatar.name
+        name: avatar.name,
+        size: data['size']
       }
     end
   end
@@ -43,4 +44,15 @@ class AvatarChannel < ApplicationCable::Channel
     end
   end
 
+  def size(data)
+    unless current_user.nil? || @avatar_allocation[data['avatar_id']] != current_user
+      avatar = Avatar.find_by_id!(data['avatar_id'])
+      AvatarChannel.broadcast_to @stage, { 
+        action: 'size', 
+        avatar_id: data['avatar_id'], 
+        value: data['value'],
+        file: avatar.source.url(:original)
+      }
+    end
+  end
 end
