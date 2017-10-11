@@ -172,7 +172,7 @@ RSpec.describe TagsController, type: :controller do
           }.to change{Tag.count}.by(0)
         end
 
-        it "backdrop should only have one tag" do
+        it "sound should only have one tag" do
           @controller = SoundsController.new
 
           post :create, :params => { :sound => { :name => "soundTest", :tag => {name: "test"} } }
