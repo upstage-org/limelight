@@ -8,88 +8,188 @@ RSpec.describe TagsController, type: :controller do
       cookies[:auth_token] = user.auth_token
     end
 
-    describe "when perspective present" do
+    describe "when perspective is present" do
       context "when name is without space" do
-        before do
-          @tag = Tag.create(name: "test")
-        end
-        it "should add tag to stage" do
-          stage = Stage.create(name: "test")
-          stage.tags << @tag
+        it "should redirect to stage" do
+          @controller = StagesController.new
 
-          expect(stage.tags).to include(@tag)
+          post :create, :params => { :stage => { :name => "sTest", :tag => {name: "test"} } }
+
+          expect(response).to redirect_to(Stage.last)
         end
 
-        it "should add tag to backdrop" do
-          backdrop = Backdrop.create(name: "test")
-          backdrop.tags << @tag
+        it "should redirect to backdrop" do
+          @controller = BackdropsController.new
 
-          expect(backdrop.tags).to include(@tag)
+          post :create, :params => { :backdrop => { :name => "bdTest", :tag => {name: "test"} } }
+
+          expect(response).to redirect_to(edit_backdrop_path(Backdrop.last))
         end
 
-        it "should add tag to sound" do
-          sound = Sound.create(name: "test")
-          sound.tags << @tag
+        it "should redirect to sound" do
+          @controller = SoundsController.new
 
-          expect(sound.tags).to include(@tag)
+          post :create, :params => { :sound => { :name => "soundTest", :tag => {name: "test"} } }
+
+          expect(response).to redirect_to(edit_sound_path(Sound.last))
         end
 
         it "should add tag to avatar" do
-          avatar = Avatar.create(name: "test")
-          avatar.tags << @tag
+          @controller = AvatarsController.new
 
-          expect(avatar.tags).to include(@tag)
+          post :create, :params => { :avatar => { :name => "avatarTest", :tag => {name: "test"} } }
+
+          expect(response).to redirect_to(edit_avatar_path(Avatar.last))
         end
       end
 
       context "when name is with space" do
-        before do
-          @tag = Tag.create(name: "test space")
+        it "should redirects to stage" do
+          @controller = StagesController.new
+
+          post :create, :params => { :stage => { :name => "stageTest", :tag => {name: "test space"} } }
+
+          expect(response).to redirect_to(Stage.last)
         end
 
-        it "should format the tag name" do
-          expect(@tag.name).to eq("test-space")
+        it "should redirects to backdrop" do
+          @controller = BackdropsController.new
+
+          post :create, :params => { :backdrop => { :name => "bdTest", :tag => {name: "test space"} } }
+
+          expect(response).to redirect_to(edit_backdrop_path(Backdrop.last))
         end
 
-        it "should add tag to stage" do
-          stage = Stage.create(name: "test")
-          stage.tags << @tag
+        it "should redirects to sound" do
+          @controller = SoundsController.new
 
-          expect(stage.tags).to include(@tag)
+          post :create, :params => { :sound => { :name => "soundTest", :tag => {name: "test space"} } }
+
+          expect(response).to redirect_to(edit_sound_path(Sound.last))
         end
 
-        it "should add tag to backdrop" do
-          backdrop = Backdrop.create(name: "test")
-          backdrop.tags << @tag
+        it "should redirects to avatar" do
+          @controller = AvatarsController.new
 
-          expect(backdrop.tags).to include(@tag)
-        end
+          post :create, :params => { :avatar => { :name => "avatarTest", :tag => {name: "test space"} } }
 
-        it "should add tag to sound" do
-          sound = Sound.create(name: "test")
-          sound.tags << @tag
-
-          expect(sound.tags).to include(@tag)
-        end
-
-        it "should add tag to avatar" do
-          avatar = Avatar.create(name: "test")
-          avatar.tags << @tag
-
-          expect(avatar.tags).to include(@tag)
+          expect(response).to redirect_to(edit_avatar_path(Avatar.last))
         end
       end
 
       context "when the name is empty" do
-        before do
-          @tag = Tag.create(name: "")
-        end
-
-        it "flash danger when name is empty" do
-          stage = Stage.create(name: "test")
-          stage.tags << @tag
+        it "should flash danger" do
+          post :create, :params => { :tag => { :name => "" } }
 
           expect(flash[:danger]).to be_present
+        end
+
+        it "should flash danger when backdrop is present" do
+          post :create, :params => { :tag => { :name => "", :backdrop => { :name => "bdTest" } } }
+
+          expect(flash[:danger]).to be_present
+        end
+
+        it "should flash danger when stage is present" do
+          post :create, :params => { :tag => { :name => "", :stage => { :name => "bdTest" } } }
+
+          expect(flash[:danger]).to be_present
+        end
+
+        it "should flash danger when sound is present" do
+          post :create, :params => { :tag => { :name => "", :sound => { :name => "bdTest" } } }
+
+          expect(flash[:danger]).to be_present
+        end
+
+        it "should flash danger when avatar is present" do
+          post :create, :params => { :tag => { :name => "", :avatar => { :name => "bdTest" } } }
+
+          expect(flash[:danger]).to be_present
+        end
+      end
+
+      context "when the tag already exist with space" do
+        it "stage should only have one tag" do
+          @controller = StagesController.new
+
+          post :create, :params => { :stage => { :name => "stageTest", :tag => {name: "test space"} } }
+
+          expect{
+            post :create, :params => { :stage => { :name => "stageTest", :tag => {name: "test space"} } }
+          }.to change{Tag.count}.by(0)
+        end
+
+        it "backdrop should only have one tag" do
+          @controller = BackdropsController.new
+
+          post :create, :params => { :backdrop => { :name => "bdTest", :tag => {name: "test space"} } }
+
+          expect{
+            post :create, :params => { :backdrop => { :name => "bdTest", :tag => {name: "test space"} } }
+          }.to change{Tag.count}.by(0)
+        end
+
+        it "backdrop should only have one tag" do
+          @controller = SoundsController.new
+
+          post :create, :params => { :sound => { :name => "soundTest", :tag => {name: "test space"} } }
+
+          expect{
+            post :create, :params => { :sound => { :name => "soundTest", :tag => {name: "test space"} } }
+          }.to change{Tag.count}.by(0)
+        end
+
+        it "avatar should only have one tag" do
+          @controller = AvatarsController.new
+
+          post :create, :params => { :avatar => { :name => "avatarTest", :tag => {name: "test space"} } }
+
+          expect{
+            post :create, :params => { :avatar => { :name => "avatarTest", :tag => {name: "test space"} } }
+          }.to change{Tag.count}.by(0)
+        end
+      end
+
+      context "when the tag already exist without space" do
+        it "stage should only have one tag" do
+          @controller = StagesController.new
+
+          post :create, :params => { :stage => { :name => "stageTest", :tag => {name: "test"} } }
+
+          expect{
+            post :create, :params => { :stage => { :name => "stageTest", :tag => {name: "test"} } }
+          }.to change{Tag.count}.by(0)
+        end
+
+        it "backdrop should only have one tag" do
+          @controller = BackdropsController.new
+
+          post :create, :params => { :backdrop => { :name => "bdTest", :tag => {name: "test"} } }
+
+          expect{
+            post :create, :params => { :backdrop => { :name => "bdTest", :tag => {name: "test"} } }
+          }.to change{Tag.count}.by(0)
+        end
+
+        it "backdrop should only have one tag" do
+          @controller = SoundsController.new
+
+          post :create, :params => { :sound => { :name => "soundTest", :tag => {name: "test"} } }
+
+          expect{
+            post :create, :params => { :sound => { :name => "soundTest", :tag => {name: "test"} } }
+          }.to change{Tag.count}.by(0)
+        end
+
+        it "avatar should only have one tag" do
+          @controller = AvatarsController.new
+
+          post :create, :params => { :avatar => { :name => "avatarTest", :tag => {name: "test"} } }
+
+          expect{
+            post :create, :params => { :avatar => { :name => "avatarTest", :tag => {name: "test"} } }
+          }.to change{Tag.count}.by(0)
         end
       end
     end
