@@ -25,11 +25,11 @@
     // Draw avatars
     App.state.avatars.forEach(function(avatar) {
       App.context.drawImage(avatar.image, avatar.x, avatar.y, avatar.height, avatar.width);
-        App.context.textAlign = "center";
-        App.context.textBaseline = "top";
-        if(avatar.show == '1'){
-          App.context.fillText(avatar.name, avatar.text_x, avatar.text_y);
-        }
+      App.context.textAlign = "center";
+      App.context.textBaseline = "top";
+      if(avatar.show == '1'){
+        App.context.fillText(avatar.name, avatar.text_x, avatar.text_y);
+      }
     });
 
     // Draw drawings

@@ -1,8 +1,12 @@
 place = (data) ->
+  img = new Image
+  img.src = data['file']
+  multiplier = data.size/10
+  img.height = img.height*multiplier
+  img.width = img.width*multiplier
   displayName = '1'
   if App.state.avatars[data.avatar_id] != undefined  
     displayName = App.state.avatars[data.avatar_id].show
-  img = new Image
   img.addEventListener 'load', (e) ->
     App.state.avatars[data.avatar_id] = {
       image: img,
@@ -16,26 +20,27 @@ place = (data) ->
       show: displayName
     }
     App.drawFrame()
-  img.src = data['file']
-  multiplier = data.size/10
-  img.height = img.height*multiplier
-  img.width = img.width*multiplier
 
 size = (data) ->
-  img = new Image
-  resize = App.state.avatars[data.avatar_id]
-  img.src = data['file']
-  multiplier = data.value/10
-  resize.image.height = img.height*multiplier
-  resize.image.width = img.width*multiplier
-  App.state.avatars[data.avatar_id] = {
-    image: resize.image,
-    x: resize.x,
-    y: resize.y,
-    height: resize.image.height,
-    width: resize.image.width
-  }
-  App.drawFrame()
+  if App.state.avatars[data.avatar_id] != undefined
+    img = new Image
+    resize = App.state.avatars[data.avatar_id]
+    img.src = data['file']
+    multiplier = data.value/10
+    resize.image.height = img.height*multiplier
+    resize.image.width = img.width*multiplier
+    App.state.avatars[data.avatar_id] = {
+      image: resize.image,
+      x: resize.x,
+      y: resize.y,
+      name: resize.name,
+      height: resize.image.height,
+      width: resize.image.width,
+      text_x: resize.x + (resize.image.width / 2),
+      text_y: resize.y + resize.image.height + 5,
+      show: resize.show
+    }
+    App.drawFrame()
 
 drop = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
@@ -80,18 +85,21 @@ hold = (data) ->
 
 nameToggle = (data) ->
   avatar = App.state.avatars[data.avatar_id]
+  nameShow = '1'
   if avatar.show == '1'
-    avatar.image.title = '0'
+    nameShow = '0'
   else 
-    avatar.image.title = '1'
+    nameShow = '1'
   App.state.avatars[data.avatar_id] = {
-    image: avatar.image
-    x: avatar.x
-    y: avatar.y
-    name: avatar.name
-    text_x: avatar.text_x
-    text_y: avatar.text_y
-    show: avatar.image.title
+    image: avatar.image,
+    x: avatar.x,
+    y: avatar.y,
+    height: avatar.image.height,
+    width: avatar.image.width,
+    name: avatar.name,
+    text_x: avatar.text_x,
+    text_y: avatar.text_y,
+    show: nameShow
   }
   App.drawFrame()
 
@@ -111,7 +119,7 @@ document.addEventListener 'turbolinks:load', (e) ->
     App.avatar.nameToggle()
 
   document.querySelector('#canvas').addEventListener 'mouseup', (e) ->
-    App.avatar.place e.x, e.y, document.querySelector('#avatarSlider').value
+    App.avatar.place e.x, e.y, document.querySelector('#avatarSlider').value, document.querySelector('.avatar-selection').avatarName
 
   App.avatar = App.cable.subscriptions.create { channel:"AvatarChannel", slug: App.slug },
     received: (data) ->
@@ -133,7 +141,7 @@ document.addEventListener 'turbolinks:load', (e) ->
     drop: () ->
       @perform 'drop', avatar_id: window.holding
 
-    place: (x, y, name) ->
+    place: (x, y, size, name) ->
       @perform 'place', x: x, y: y, size: size, name: name, avatar_id: window.holding
 
     nameToggle: () ->
