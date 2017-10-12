@@ -1,5 +1,5 @@
 class Tag < ApplicationRecord
-  before_validation :standardize_name
+  after_initialize :standardize_name
 
   has_many :medium_tags, :dependent => :destroy
   has_many :media, :through => :medium_tags

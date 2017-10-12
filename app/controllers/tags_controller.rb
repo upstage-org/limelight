@@ -18,18 +18,18 @@ class TagsController < ApplicationController
   def create
     unless params[:tag][:name].blank?
       @tag = Tag.new(tag_params)
-
-      if @tag.valid?
-        if @tag.save
-          flash[:success] = 'Tag created.'
-        else
-          flash.now[:danger] = 'Failed to create tag'
-          render :new
+      unless Tag.exists?(name: @tag.name)
+        if @tag.new_record?
+          if @tag.save
+            flash[:success] = 'Tag created.'
+          else
+            flash.now[:danger] = 'Failed to create tag'
+            render :new
+          end
         end
-      else
-        @tag = Tag.find_by_name(@tag.name)
       end
 
+      @tag = Tag.find_by_name(@tag.name)
       if @perspective.present?
         unless @perspective.tags.exists?(@tag.id)
           if @perspective.tags << @tag
@@ -39,6 +39,8 @@ class TagsController < ApplicationController
           end
         end
         redirect_to @perspective
+      else
+        redirect_to tags_path
       end
     else
       flash[:danger] = "Name cannot be blank!"
