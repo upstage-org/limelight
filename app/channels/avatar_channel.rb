@@ -29,7 +29,17 @@ class AvatarChannel < ApplicationCable::Channel
         file: avatar.source.url(:original),
         x: data['x'],
         y: data['y'],
+        name: avatar.name,
         size: data['size']
+      }
+    end
+  end
+
+  def nameToggle(data)
+    unless current_user.nil? || @avatar_allocation[data['avatar_id']] != current_user
+      AvatarChannel.broadcast_to @stage, {
+        action: 'nameToggle',
+        avatar_id: data['avatar_id']
       }
     end
   end
