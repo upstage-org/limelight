@@ -21,7 +21,7 @@
       <td>
         <span class="btn-group pull-right">
           <%= link_to 'Edit', edit_stage_path(s), :class => "btn btn-default" %>
-          <%= link_to 'Delete', s, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
+          <%= link_to 'Delete', s, :method => :delete, :data => { confirm: "The stage \"#{s.name}\" will be removed. Are you sure?", title: "Confirmation" }, :class => "btn btn-danger" %>
         </span>
       </td>
     </tr>

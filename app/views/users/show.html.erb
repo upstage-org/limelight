@@ -6,7 +6,7 @@
     <small class="pull-right">
       <span class="btn-group">
         <%= link_to 'Edit', edit_user_path(@user), :class => "btn btn-default" %>
-        <%= link_to 'Delete', @user, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
+        <%= link_to 'Delete', @user, :method => :delete, :data => { confirm: "The user \"#{@user.nickname}\" will be removed. Are you sure?", title: "Confirmation" }, :class => "btn btn-danger" %>
       </span>
     </small>
   </h1>
