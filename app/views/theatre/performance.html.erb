@@ -75,7 +75,7 @@
             <button class="btn btn-default" id="avatarName" disabled="disabled">
               Show/Hide Avatar Name
             </button>
-          </div> 
+          </div>
           <div class="range-slider">
             Size
             <input id = "avatarSlider" class = "range-slider-range" type="range" min="1" max="10" value = "5">
@@ -104,7 +104,7 @@
             <div class="scroller">
               <% @stage.backdrops.each do |b| %>
                 <div class="backdropImages">
-                    <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name %>
+                    <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name, :title => b.name %>
                 </div>
               <% end %>
             </div>

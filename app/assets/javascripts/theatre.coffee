@@ -17,4 +17,5 @@ rangeSlider = () ->
   range.on 'input', ->
     $(this).next(value).html @value
 
-$(document).on 'turbolinks:load', backdropSlick, rangeSlider
+$(document).on 'turbolinks:load', backdropSlick
+$(document).on 'turbolinks:load', rangeSlider
