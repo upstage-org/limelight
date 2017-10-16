@@ -19,7 +19,7 @@
       <td>
         <span class="btn-group pull-right">
           <%= link_to 'Edit', edit_role_path(r), :class => "btn btn-default" %>
-          <%= link_to 'Delete', r, :method => :delete, :data => { confirm: "Are you sure?" }, :class => "btn btn-danger" %>
+          <%= link_to 'Delete', r, :method => :delete, :data => { confirm: "The role \"#{r.name}\" will be removed. Are you sure?", title: "Confirmation" }, :class => "btn btn-danger" %>
         </span>
       </td>
     </tr>

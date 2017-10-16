@@ -16,5 +16,7 @@
 //= require turbolinks
 //= require bootstrap-wysihtml5
 //= require bootstrap-wysihtml5/locales
+//= require jquery.slick
 //= require_tree .
 //= require cable
+//= require data-confirm-modal

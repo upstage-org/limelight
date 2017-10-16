@@ -22,6 +22,7 @@
         <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
         <li><a data-toggle="tab" href="#audio">Audio</a></li>
         <li><a data-toggle="tab" href="#avatar">Avatars</a></li>
+        <li><a data-toggle="tab" href="#backdrop">Backdrops</a></li>
       </ul>
       <div class="tab-content">
         <div id="drawing" class="tab-pane fade in active">
@@ -58,20 +59,33 @@
         </div>
 
         <div id="avatar" class="tab-pane fade">
-            <div class="mirror" id="mirrorPane">
+          <div class="mirror" id="mirrorPane">
+          </div>
+          <% @stage.avatars.each do |a| %>
+            <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-avatar-name="<%= a.name %>" data-avatar-id="<%= a.id %>">
+              <%= image_tag a.source.url(:thumb), :alt => a.name %>
+            </button>
+          <% end %>
+          <div>
+            <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
+              Drop
+            </button>
+          </div>
+          <div >
+            <button class="btn btn-default" id="avatarName" disabled="disabled">
+              Show/Hide Avatar Name
+            </button>
+          </div> 
+          <div class="range-slider">
+            Size
+            <input id = "avatarSlider" class = "range-slider-range" type="range" min="1" max="10" value = "5">
+            <span class = "range-slider-value">-</span>
           </div>
           <div>
-             <% @stage.avatars.each do |a| %>
-               <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-name="<%= a.name %>" data-avatar-id="<%= a.id %>">
-                 <%= image_tag a.source.url(:thumb), :alt => a.name %>
-               </button>
-             <% end %>
+            <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
+              Drop
+            </button>
           </div>
-            <div>
-              <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
-                Drop
-              </button>
-            </div>
         </div>
 
         <div id="audio" class="tab-pane fade">
@@ -84,12 +98,24 @@
             </br>
           </div>
         </div>
+
+        <div id="backdrop" class="tab-pane fade active">
+          <div class="panel-footer">
+            <div class="scroller">
+              <% @stage.backdrops.each do |b| %>
+                <div class="backdropImages">
+                    <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 <% end %>
     <!-- Chat -->
 
-      <div id="chat" style="height: <%= current_user.nil? ? '100%' : '80%' %>;">
+      <div id="chat" style="height: <%= current_user.nil? ? '100%' : '70%' %>;">
         <div id="chat-body" style="height: <%= current_user.nil? ? '92%' : '85%' %>;">
           <div id="messages" data-stage-id ="<%= @stage.id %>">
             <%= render @stage.messages %>

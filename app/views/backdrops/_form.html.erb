@@ -12,7 +12,7 @@
 </div>
 
 <% unless @backdrop.new_record? %>
-  <%= image_tag @backdrop.source.url, :alt => "#{@backdrop.name}" %>
+  <%= image_tag @backdrop.source.url(:medium), :alt => "#{@backdrop.name}", :class => 'col-lg-4 col-lg-offset-4 img-rounded img-responsive' %>
 <% end %>
 
 <div class="form-group">
