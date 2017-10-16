@@ -31,7 +31,7 @@ class StagesController < ApplicationController
   def update
     if @stage.update(stage_params)
       flash[:success] = "Stage updated"
-      redirect_to @stage
+      redirect_to stages_path
     else
       flash.now[:danger] = "Something went wrong"
       render :edit

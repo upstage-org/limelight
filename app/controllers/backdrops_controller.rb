@@ -50,7 +50,7 @@ class BackdropsController < ApplicationController
     if @stage.present?
       @stage.backdrops.delete(@backdrop)
       flash[:success] = "#{@backdrop.name} unassigned from #{@stage.name}"
-      redirect_to @stage
+      redirect_to edit_backdrop_path(@backdrop)
     else
       if @backdrop.destroy
         flash[:success] = "#{@backdrop.name} removed"
