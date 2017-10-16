@@ -77,38 +77,6 @@ RSpec.describe TagsController, type: :controller do
         end
       end
 
-      context "when the name is empty" do
-        it "should flash danger" do
-          post :create, :params => { :tag => { :name => "" } }
-
-          expect(flash[:danger]).to be_present
-        end
-
-        it "should flash danger when backdrop is present" do
-          post :create, :params => { :tag => { :name => "", :backdrop => { :name => "bdTest" } } }
-
-          expect(flash[:danger]).to be_present
-        end
-
-        it "should flash danger when stage is present" do
-          post :create, :params => { :tag => { :name => "", :stage => { :name => "bdTest" } } }
-
-          expect(flash[:danger]).to be_present
-        end
-
-        it "should flash danger when sound is present" do
-          post :create, :params => { :tag => { :name => "", :sound => { :name => "bdTest" } } }
-
-          expect(flash[:danger]).to be_present
-        end
-
-        it "should flash danger when avatar is present" do
-          post :create, :params => { :tag => { :name => "", :avatar => { :name => "bdTest" } } }
-
-          expect(flash[:danger]).to be_present
-        end
-      end
-
       context "when the tag already exist with space" do
         it "stage should only have one tag" do
           @controller = StagesController.new
