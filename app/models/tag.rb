@@ -1,4 +1,5 @@
 class Tag < ApplicationRecord
+  after_initialize :standardize_name
   before_validation :standardize_name
 
   has_many :medium_tags, :dependent => :destroy
@@ -16,7 +17,7 @@ class Tag < ApplicationRecord
   has_many :backdrop_tags, :dependent => :destroy
   has_many :backdrops, :through => :backdrop_tags
 
-  validates :name, :presence => true, :uniqueness => true, :format => /[a-z0-9\-]/, :length => { maximum: 25 }
+  validates :name, :presence => true, :uniqueness => true, :length => { maximum: 25 }
 
   def to_param
     self.name
