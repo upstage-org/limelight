@@ -16,27 +16,39 @@ class TagsController < ApplicationController
   end
 
   def create
-    @tag = Tag.find_by_name(params[:tag][:name])
-    @tag = Tag.new(tag_params) unless @tag.present?
-    if @tag.new_record?
-      if @tag.save
-        flash[:success] = 'Tag created.'
-      else
-        flash.now[:danger] = 'Failed to create tag'
-        render :new
-      end
-    end
-    if @perspective.present?
-      unless @perspective.tags.exists?(@tag.id)
-        if @perspective.tags << @tag
-          flash[:success] = "#{@tag.name} assigned to #{@perspective.name}"
-        else
-          flash.now[:danger] = "Failed to assign #{@tag.name} to #{@perspective.name}"
+    unless params[:tag][:name].blank?
+      @tag = Tag.new(tag_params)
+      unless Tag.exists?(name: @tag.name)
+        if @tag.new_record?
+          if @tag.save
+            flash[:success] = 'Tag created.'
+          else
+            flash.now[:danger] = 'Failed to create tag'
+            render :new
+          end
         end
       end
-      redirect_to @perspective
+
+      @tag = Tag.find_by_name(@tag.name)
+      if @perspective.present?
+        unless @perspective.tags.exists?(@tag.id)
+          if @perspective.tags << @tag
+            flash[:success] = "#{@tag.name} assigned to #{@perspective.name}"
+          else
+            flash.now[:danger] = "Failed to assign #{@tag.name} to #{@perspective.name}"
+          end
+        end
+        redirect_to @perspective
+      else
+        redirect_to tags_path
+      end
     else
-      redirect_to @tag
+      flash[:danger] = "Name cannot be blank!"
+      if @perspective.present?
+        redirect_to @perspective
+      else
+        redirect_to tags_path
+      end
     end
   end
 
