@@ -1,14 +1,14 @@
 <div id="stages">
-  <% @backdrop.stages.each do |stage| %>
+  <% @sound.stages.each do |stage| %>
     <span class="btn-group btn-group-xs">
       <%= render stage %>
-      <%= link_to stage_backdrop_path(stage, @backdrop), :method => :delete , :class => 'btn btn-danger btn-xs' do %>
+      <%= link_to stage_backdrop_path(stage, @sound), :method => :delete , :class => 'btn btn-danger btn-xs' do %>
         <span class="glyphicon glyphicon-remove"></span>
       <% end %>
     </span>
   <% end %>
   <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addStageModal">
-    <%= 'Add to Stage' if @backdrop.stages.empty? %> <span class="glpyhicon glyphicon-plus"></span>
+    <%= 'Add to Stage' if @sound.stages.empty? %> <span class="glpyhicon glyphicon-plus"></span>
   </button>
 </div>
 
@@ -20,7 +20,7 @@
         <h4 class="modal-title">Add Stages</h4>
       </div>
       <div class="modal-body">
-        <%= select_tag :add_stage_path, options_for_select(@backdrop.stages.map { |stage| [ stage.name, url_for([stage, @backdrop]) ] }.sort ) , :class => "form-control", :prompt => 'Select a Stage' %>
+        <%= select_tag :add_stage_path, options_for_select(@sound.stages.map { |stage| [ stage.name, url_for([stage, @sound]) ] }.sort ) , :class => "form-control", :prompt => 'Select a Stage' %>
       </div>
       <div class="modal-footer">
         <%= link_to '#', :method => :patch, :class => "btn btn-primary", :id => 'stageAssignmentButton', :disabled => true do %>

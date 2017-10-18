@@ -23,4 +23,5 @@ class Stage < ApplicationRecord
 
   validates :name, :presence => true
   validates :owner, :presence => true
+  
 end

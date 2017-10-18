@@ -34,7 +34,7 @@ class BackdropsController < ApplicationController
     if @stage.present?
       @stage.backdrops << @backdrop
       flash[:success] = "#{@backdrop.name} assigned to #{@stage.name}"
-      redirect_to @stage
+      redirect_to edit_backdrop_path(@backdrop)
     else
       if @backdrop.update(backdrop_params)
         flash[:success] = "#{@backdrop.name} updated"
