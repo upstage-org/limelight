@@ -33,7 +33,7 @@ class AvatarsController < ApplicationController
     if @stage.present?
       @stage.avatars << @avatar
       flash[:success] = "#{@avatar.name} assigned to #{@stage.name}"
-      redirect_to @stage
+      redirect_to edit_avatar_path(@avatar)
     else
       if @avatar.update(avatar_params)
         flash[:success] = "#{@avatar.name} updated"
@@ -49,7 +49,7 @@ class AvatarsController < ApplicationController
     if @stage.present?
       @stage.avatars.delete(@avatar)
       flash[:success] = "#{@avatar.name} unassigned from #{@stage.name}"
-      redirect_to @stage
+      redirect_to edit_avatar_path(@avatar)
     else
       if @avatar.destroy
         flash[:success] = "#{@avatar.name} removed"

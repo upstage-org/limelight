@@ -20,7 +20,7 @@
         <h4 class="modal-title">Add Stages</h4>
       </div>
       <div class="modal-body">
-        <%= select_tag :add_stage_path, options_for_select(@backdrop.stages.map { |stage| [ stage.name, url_for([stage, @backdrop]) ] }.sort ) , :class => "form-control", :prompt => 'Select a Stage' %>
+        <%= select_tag :add_stage_path, options_for_select(Stage.not_assigned(@backdrop).map { |stage| [ stage.name, url_for([stage, @backdrop]) ] }.sort ) , :class => "form-control", :prompt => 'Select a Stage' %>
       </div>
       <div class="modal-footer">
         <%= link_to '#', :method => :patch, :class => "btn btn-primary", :id => 'stageAssignmentButton', :disabled => true do %>
