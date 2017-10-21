@@ -30,7 +30,8 @@
       var startingX = (canvas.width - newWidth) / 2
       var startingY = (canvas.height - newHeight) / 2
 
-      App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight,startingX,startingY, newWidth,newHeight);
+      App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight, 
+                            startingX, startingY, newWidth, newHeight);
     });
 
     // Draw avatars
