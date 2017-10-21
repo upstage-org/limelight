@@ -34,12 +34,7 @@ class BackdropsController < ApplicationController
     if @stage.present?
       @stage.backdrops << @backdrop
       flash[:success] = "#{@backdrop.name} assigned to #{@stage.name}"
-      redirect_to @stage
-      #if "Check view"
-      #  redirect_to edit_backdrop_path(@backdrop)
-      #else
-      #  redirect_to @stage
-      #end
+      redirect_to request.referer
     else
       if @backdrop.update(backdrop_params)
         flash[:success] = "#{@backdrop.name} updated"
@@ -55,7 +50,7 @@ class BackdropsController < ApplicationController
     if @stage.present?
       @stage.backdrops.delete(@backdrop)
       flash[:success] = "#{@backdrop.name} unassigned from #{@stage.name}"
-      redirect_to @stage
+      redirect_to request.referer
     else
       if @backdrop.destroy
         flash[:success] = "#{@backdrop.name} removed"

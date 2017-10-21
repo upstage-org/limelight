@@ -89,7 +89,8 @@ describe BackdropsController do
 		end
 
 		context "when a stage is present" do
-			before :each do
+			before do
+				request.env["HTTP_REFERER"] = "previous_page"
 				@backdrop = Backdrop.create(name: "bg1")
 				@stage = Stage.create(name: "testStage", owner_id: "1")
 				@stage.backdrops << @backdrop
@@ -105,8 +106,8 @@ describe BackdropsController do
 				expect(flash[:success]).to be_present
 			end
 
-			it "redirect to the stage" do
-				expect(response).to redirect_to(@stage)
+			it "redirects back to the referring page" do
+				expect(response).to redirect_to "previous_page"
 			end
 		end
 
@@ -157,6 +158,7 @@ describe BackdropsController do
 
 		context "when a stage is present" do
 			before do
+				request.env["HTTP_REFERER"] = "previous_page"
 				@backdrop = Backdrop.create(name: "bg1")
 				@stage = Stage.create(name: "testStage", owner_id: "1")
 				@stage.backdrops << @backdrop
@@ -172,8 +174,8 @@ describe BackdropsController do
 				expect(flash[:success]).to be_present
 			end
 
-			it "redirect to the stage" do
-				expect(response).to redirect_to(@stage)
+			it "redirects back to the referring page" do
+				expect(response).to redirect_to "previous_page"
 			end
 		end
 
