@@ -58,33 +58,34 @@
           </button>
         </div>
 
-        <div id="avatar" class="tab-pane fade">
-          <div class="mirror" id="mirrorPane">
+        <div id="avatar" class="tab-pane fade active">
+          <div class="panel-footer">
+            <div class="scroller">
+              <% @stage.avatars.each do |a| %>
+                <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-avatar-name="<%= a.name %>" data-avatar-id="<%= a.id %>">
+                  <%= image_tag a.source.url(:thumb), :alt => a.name %>
+                </button>
+              <% end %>
+            </div>
           </div>
-          <% @stage.avatars.each do |a| %>
-            <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-avatar-name="<%= a.name %>" data-avatar-id="<%= a.id %>">
-              <%= image_tag a.source.url(:thumb), :alt => a.name %>
-            </button>
-          <% end %>
-          <div>
-            <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
-              Drop
-            </button>
-          </div>
-          <div >
-            <button class="btn btn-default" id="avatarName" disabled="disabled">
-              Show/Hide Avatar Name
-            </button>
-          </div>
-          <div class="range-slider">
-            Size
-            <input id = "avatarSlider" class = "range-slider-range" type="range" min="1" max="10" value = "5">
-            <span class = "range-slider-value">-</span>
+          <div class="avatar-functions row">
+            <div class="buttons">
+              <button class="btn btn-default" id="avatarName" disabled="disabled">
+                Show/Hide Name
+              </button>
+              <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
+                Drop
+              </button>
+            </div>
           </div>
           <div>
-            <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
-              Drop
-            </button>
+            <div class="range-slider">
+              Size
+              <input id = "avatarSlider" class = "range-slider-range" type="range" min="1" max="10" value = "5">
+              <span class = "range-slider-value">-</span>
+            </div>
+            <div class="mirror" id="mirrorPane">
+            </div>
           </div>
         </div>
 

@@ -5,7 +5,7 @@ place = (data) ->
   img.height = img.height*multiplier
   img.width = img.width*multiplier
   displayName = '1'
-  if App.state.avatars[data.avatar_id] != undefined  
+  if App.state.avatars[data.avatar_id] != undefined
     displayName = App.state.avatars[data.avatar_id].show
   img.addEventListener 'load', (e) ->
     App.state.avatars[data.avatar_id] = {
@@ -72,7 +72,7 @@ hold = (data) ->
     nameBtn.removeAttribute 'disabled'
     window.holdWait = undefined
     window.holding = data.avatar_id
-    
+
     mirrorDiv = document.querySelector '#mirrorPane'
     mirrorImg = new Image
     mirrorImg.addEventListener 'load', (e) ->
@@ -88,7 +88,7 @@ nameToggle = (data) ->
   nameShow = '1'
   if avatar.show == '1'
     nameShow = '0'
-  else 
+  else
     nameShow = '1'
   App.state.avatars[data.avatar_id] = {
     image: avatar.image,
