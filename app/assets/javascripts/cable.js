@@ -19,21 +19,18 @@
 
     // Draw backdrop
     App.state.backdrops.forEach(function(backdrop){
-      var newHight;
-      var newWidth;
+      var ratio;
       if(backdrop.image.naturalHeight >= backdrop.image.naturalWidth){
-        var ratio = canvas.height/backdrop.image.naturalHeight;
-        newHight = backdrop.image.naturalHeight * ratio;
-        newWidth = backdrop.image.naturalWidth * ratio;
+        ratio = canvas.height/backdrop.image.naturalHeight;
       } else {
-        var ratio = canvas.width/backdrop.image.naturalWidth;
-        newHight = backdrop.image.naturalHeight * ratio;
-        newWidth = backdrop.image.naturalWidth * ratio;
+        ratio = canvas.width/backdrop.image.naturalWidth;
       }
+      var newHeight = backdrop.image.naturalHeight * ratio;
+      var newWidth = backdrop.image.naturalWidth * ratio;
       var startingX = (canvas.width - newWidth) / 2
-      var startingY = (canvas.height - newHight) / 2
+      var startingY = (canvas.height - newHeight) / 2
 
-      App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight,startingX,startingY, newWidth,newHight);
+      App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight,startingX,startingY, newWidth,newHeight);
     });
 
     // Draw avatars
