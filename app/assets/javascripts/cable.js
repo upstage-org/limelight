@@ -19,12 +19,29 @@
 
     // Draw backdrop
     App.state.backdrops.forEach(function(backdrop){
-      App.context.drawImage(backdrop.image, 0, 0, canvas.width,canvas.height);
+      var ratio;
+      if(backdrop.image.naturalHeight >= backdrop.image.naturalWidth){
+        ratio = canvas.height/backdrop.image.naturalHeight;
+      } else {
+        ratio = canvas.width/backdrop.image.naturalWidth;
+      }
+      var newHeight = backdrop.image.naturalHeight * ratio;
+      var newWidth = backdrop.image.naturalWidth * ratio;
+      var startingX = (canvas.width - newWidth) / 2
+      var startingY = (canvas.height - newHeight) / 2
+
+      App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight, 
+                            startingX, startingY, newWidth, newHeight);
     });
 
     // Draw avatars
     App.state.avatars.forEach(function(avatar) {
-      App.context.drawImage(avatar.image, avatar.x, avatar.y);
+      App.context.drawImage(avatar.image, avatar.x, avatar.y, avatar.height, avatar.width);
+      App.context.textAlign = "center";
+      App.context.textBaseline = "top";
+      if(avatar.show == '1'){
+        App.context.fillText(avatar.name, avatar.text_x, avatar.text_y);
+      }
     });
 
     // Draw drawings

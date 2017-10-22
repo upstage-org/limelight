@@ -48,6 +48,9 @@ gem 'paperclip', '~> 5.1.0'
 # Rich editor
 gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.8'
 
+# Uses Bootstrap modal in place of built-in confirm()
+gem 'data-confirm-modal'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
