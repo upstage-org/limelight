@@ -1,5 +1,5 @@
 <div id="stages">
-  <% @sound.stages.each do |stage| %>
+  <% @sound.stages.order('LOWER(name)').each do |stage| %>
     <span class="btn-group btn-group-xs">
       <%= render stage %>
       <%= link_to stage_sound_path(stage, @sound), :method => :delete , :class => 'btn btn-danger btn-xs' do %>

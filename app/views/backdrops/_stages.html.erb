@@ -1,5 +1,5 @@
 <div id="stages">
-  <% @backdrop.stages.each do |stage| %>
+  <% @backdrop.stages.order('LOWER(name)').each do |stage| %>
     <span class="btn-group btn-group-xs">
       <%= render stage %>
       <%= link_to stage_backdrop_path(stage, @backdrop), :method => :delete , :class => 'btn btn-danger btn-xs' do %>
