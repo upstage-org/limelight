@@ -68,10 +68,10 @@ jQuery(document).on 'turbolinks:load', ->
       prev.x = x
       prev.y = y
 
-    doc.bind 'mouseup mouseleave touchend', ->
+    canvas.bind 'mouseup mouseleave touchend', ->
       drawing = false
 
-    doc.on 'mousemove touchmove', (e) ->
+    canvas.on 'mousemove touchmove', (e) ->
       if(drawing && $.now() - timeSinceLastSend > 10)
         x = e.offsetX
         y = e.offsetY

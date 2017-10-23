@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :announcements, :param => :slug
 
-  resources :tags, :param => :name, :except => [ :edit, :update ]
+  resources :tags, :param => :name, :only => [ :index, :show, :destroy ]
   resources :avatar_stages, :only => [ :create, :destroy ]
   resources :sounds, :param => :slug do
     resources :tags, :param => :name, :except => [ :edit, :update ]

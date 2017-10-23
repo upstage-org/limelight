@@ -19,3 +19,4 @@
 //= require jquery.slick
 //= require_tree .
 //= require cable
+//= require data-confirm-modal
