@@ -30,7 +30,7 @@
       var startingX = (canvas.width - newWidth) / 2
       var startingY = (canvas.height - newHeight) / 2
 
-      App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight, 
+      App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight,
                             startingX, startingY, newWidth, newHeight);
     });
 
@@ -68,8 +68,7 @@
     App.canvas = document.querySelector('#canvas');
     App.context = App.canvas.getContext('2d');
     App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
-    window.addEventListener('resize', App.resizeCanvas());
-    App.resizeCanvas();
+    window.addEventListener('resize', App.resizeCanvas);
   });
 
 }).call(this);
