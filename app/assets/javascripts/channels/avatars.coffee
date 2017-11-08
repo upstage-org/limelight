@@ -68,7 +68,7 @@ hold = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.setAttribute 'disabled', 'disabled'
   btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
-  console.log(App.state.avatars)
+
   if `data.avatar_id == window.holdWait`
     dropButton = document.querySelector '#dropAvatarButton'
     dropButton.removeAttribute 'disabled'
@@ -113,7 +113,6 @@ document.addEventListener 'turbolinks:load', (e) ->
   document.querySelectorAll('.avatar-selection').forEach (elem) ->
     elem.addEventListener 'mouseup', (e) ->
       App.avatar.hold this.dataset.avatarId
-      console.log("image clicked: " + this.dataset.avatarId)
 
   document.querySelector('#avatarSlider').addEventListener 'change', (e) ->
     App.avatar.size document.querySelector('#avatarSlider').value
