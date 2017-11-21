@@ -21,14 +21,22 @@
     App.state.backdrops.forEach(function(backdrop){
       var ratio;
       if(backdrop.image.naturalHeight >= backdrop.image.naturalWidth){
-        ratio = canvas.height/backdrop.image.naturalHeight;
+        if(canvas.width * backdrop.image.naturalHeight / backdrop.image.naturalWidth > canvas.height){
+          ratio = canvas.height/backdrop.image.naturalHeight;
+        } else {
+          ratio = canvas.width/backdrop.image.naturalWidth;
+        }
       } else {
-        ratio = canvas.width/backdrop.image.naturalWidth;
+        if(canvas.height * backdrop.image.naturalWidth / backdrop.image.naturalHeight > canvas.width){
+          ratio = canvas.width/backdrop.image.naturalWidth;
+        } else {
+          ratio = canvas.height/backdrop.image.naturalHeight;
+        }
       }
       var newHeight = backdrop.image.naturalHeight * ratio;
       var newWidth = backdrop.image.naturalWidth * ratio;
-      var startingX = (canvas.width - newWidth) / 2
-      var startingY = (canvas.height - newHeight) / 2
+      var startingX = (canvas.width - newWidth) / 2;
+      var startingY = (canvas.height - newHeight) / 2;
 
       App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight,
                             startingX, startingY, newWidth, newHeight);
@@ -69,6 +77,7 @@
     App.context = App.canvas.getContext('2d');
     App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
     window.addEventListener('resize', App.resizeCanvas);
+    App.resizeCanvas();
   });
 
 }).call(this);
