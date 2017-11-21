@@ -1,3 +1,5 @@
+aName = "Avatar Name"
+
 place = (data) ->
   img = new Image
   img.src = data['file']
@@ -12,7 +14,7 @@ place = (data) ->
       image: img,
       x: data['x'] - (img.width / 2),
       y: data['y'] - (img.height / 2),
-      name: data['name'],
+      name: "#{aName}",
       height: img.height,
       width: img.width,
       text_x: data['x'],
@@ -47,6 +49,11 @@ drop = (data) ->
   btn.removeAttribute 'disabled'
   btn.setAttribute 'title', "#{btn.dataset.name}"
   delete App.state.avatars[data.avatar_id]
+  nameInput = document.querySelector '#editAvatarName'
+  nameInput.removeAttribute 'value'
+  nameInput.setAttribute 'disabled', 'disabled'
+  editNameBtn = document.querySelector '#editNameBtn'
+  editNameBtn.setAttribute 'disabled', 'disabled'
   App.drawFrame()
   if `data.avatar_id == window.holding`
     dropButton = document.querySelector '#dropAvatarButton'
@@ -64,6 +71,13 @@ hold = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.setAttribute 'disabled', 'disabled'
   btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
+  nameInput = document.querySelector '#editAvatarName'
+  nameInput.value = "#{btn.getAttribute 'title'}"
+  console.log("hold: " + btn.getAttribute 'title')
+  nameInput.removeAttribute 'disabled'
+  editBtn = document.querySelector '#editNameBtn'
+  editBtn.removeAttribute 'disabled'
+  aName = nameInput.value
   if `data.avatar_id == window.holdWait`
     dropButton = document.querySelector '#dropAvatarButton'
     dropButton.removeAttribute 'disabled'
@@ -96,24 +110,47 @@ nameToggle = (data) ->
     y: avatar.y,
     height: avatar.image.height,
     width: avatar.image.width,
-    name: avatar.name,
+    name: "#{aName}",
     text_x: avatar.text_x,
     text_y: avatar.text_y,
     show: nameShow
   }
   App.drawFrame()
 
+editName = (data) ->
+  console.log "test"
+
+  console.log "editName function"
+  nameInput = document.querySelector '#editAvatarName'
+  # aName = nameInput.value
+  nameToggle(data)
+  nameToggle(data)
+
+  avatar = App.state.avatars[data.avatar_id]
+  avatar.name = nameInput.value
+  # console.log avatar.name
+  # App.state.avatars[data.avatar_id] = {
+  #   name: "#{aName}"
+  # }
+  # App.state.avatars[data.avatar_id] = {
+  #   name: "#{aName}"
+  # }
+  App.drawFrame()
+
 document.addEventListener 'turbolinks:load', (e) ->
 
   document.querySelectorAll('.avatar-selection').forEach (elem) ->
     elem.addEventListener 'mouseup', (e) ->
-      App.avatar.hold this.dataset.avatarId
+      App.avatar.hold this.dataset.avatarId, this.dataset.avatarName
 
   document.querySelector('#avatarSlider').addEventListener 'change', (e) ->
     App.avatar.size document.querySelector('#avatarSlider').value
 
   document.querySelector('#dropAvatarButton').addEventListener 'mouseup', (e) ->
     App.avatar.drop()
+
+  document.querySelector('#editNameBtn').addEventListener 'mouseup', (e) ->
+    App.avatar.editName this.dataset.avatarId
 
   document.querySelector('#avatarName').addEventListener 'mouseup', (e) ->
     App.avatar.nameToggle()
@@ -129,6 +166,7 @@ document.addEventListener 'turbolinks:load', (e) ->
         when 'drop' then drop data
         when 'nameToggle' then nameToggle data
         when 'place' then place data
+        when 'editName' then editName data
 
     hold: (avatarId) ->
       window.holdWait = avatarId
@@ -146,3 +184,6 @@ document.addEventListener 'turbolinks:load', (e) ->
 
     nameToggle: () ->
       @perform 'nameToggle', avatar_id: window.holding
+
+    editName: () ->
+      @perform 'editName', avatar_id: window.holding
