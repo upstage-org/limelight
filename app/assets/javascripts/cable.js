@@ -30,7 +30,7 @@
       var startingX = (canvas.width - newWidth) / 2
       var startingY = (canvas.height - newHeight) / 2
 
-      App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight, 
+      App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight,
                             startingX, startingY, newWidth, newHeight);
     });
 
@@ -40,7 +40,7 @@
       App.context.textAlign = "center";
       App.context.textBaseline = "top";
       if(avatar.show == '1'){
-        App.context.fillText(avatar.name, avatar.text_x, avatar.text_y);
+        App.context.fillText(avatar.nickname, avatar.text_x, avatar.text_y);
       }
     });
 

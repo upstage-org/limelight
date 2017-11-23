@@ -9,7 +9,7 @@ class AvatarChannel < ApplicationCable::Channel
     unless current_user.nil? || @avatar_allocation[data['avatar_id']] != nil
       @avatar_allocation[data['avatar_id']] = current_user
       avatar = Avatar.find_by_id!(data['avatar_id'])
-      AvatarChannel.broadcast_to @stage, { username: current_user.id, action: 'hold', avatar_id: data['avatar_id'], file: avatar.source.url(:original) }
+      AvatarChannel.broadcast_to @stage, { username: current_user.id, action: 'hold', avatar_id: data['avatar_id'], file: avatar.source.url(:original), name: avatar.name }
      end
   end
 
