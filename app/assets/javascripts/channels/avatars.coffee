@@ -1,4 +1,4 @@
-nameObject = {}
+avatarName = {}
 
 place = (data) ->
   img = new Image
@@ -14,13 +14,12 @@ place = (data) ->
       image: img,
       x: data['x'] - (img.width / 2),
       y: data['y'] - (img.height / 2),
-      name: data['name'],
       height: img.height,
       width: img.width,
       text_x: data['x'],
       text_y: data['y'] + (img.height / 2) + 5,
       show: displayName,
-      nickname: nameObject[data.avatar_id]
+      nickname: avatarName[data.avatar_id]
     }
     App.drawFrame()
 
@@ -36,13 +35,12 @@ size = (data) ->
       image: resize.image,
       x: resize.x,
       y: resize.y,
-      name: resize.name,
       height: resize.image.height,
       width: resize.image.width,
       text_x: resize.x + (resize.image.width / 2),
       text_y: resize.y + resize.image.height + 5,
       show: resize.show
-      nickname: nameObject[data.avatar_id]
+      nickname: avatarName[data.avatar_id]
     }
     App.drawFrame()
 
@@ -73,10 +71,10 @@ hold = (data) ->
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.setAttribute 'disabled', 'disabled'
   btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
-  if nameObject[data.avatar_id] == undefined
-    nameObject[data.avatar_id] = data['name']
+  if avatarName[data.avatar_id] == undefined
+    avatarName[data.avatar_id] = data['name']
   nameInput = document.querySelector '#editAvatarName'
-  nameInput.value = nameObject[data.avatar_id]
+  nameInput.value = avatarName[data.avatar_id]
   nameInput.removeAttribute 'disabled'
   editBtn = document.querySelector '#editNameBtn'
   editBtn.removeAttribute 'disabled'
@@ -112,17 +110,16 @@ nameToggle = (data) ->
     y: avatar.y,
     height: avatar.image.height,
     width: avatar.image.width,
-    name: avatar.name,
     text_x: avatar.text_x,
     text_y: avatar.text_y,
     show: nameShow
-    nickname: nameObject[data.avatar_id]
+    nickname: avatarName[data.avatar_id]
   }
   App.drawFrame()
 
 editName = (data) ->
   nameInput = document.querySelector '#editAvatarName'
-  nameObject[data.avatar_id] = nameInput.value
+  avatarName[data.avatar_id] = nameInput.value
   avatar = App.state.avatars[data.avatar_id]
   App.state.avatars[data.avatar_id] = {
     image: avatar.image,
@@ -130,11 +127,10 @@ editName = (data) ->
     y: avatar.y,
     height: avatar.image.height,
     width: avatar.image.width,
-    name: avatar.name,
     text_x: avatar.text_x,
     text_y: avatar.text_y,
     show: avatar.show
-    nickname: nameObject[data.avatar_id]
+    nickname: avatarName[data.avatar_id]
   }
   App.drawFrame()
 
