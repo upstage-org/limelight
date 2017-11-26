@@ -10,7 +10,7 @@
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
             <span class="btn-group btn-group-xs pull-right">
-              <%= link_to [@stage, s], :method => :delete, :data => { confirm: "The sound \"#{s.name}\" will be unassigned. Are you sure?", title: "Confirmation" }, :class => "btn btn-danger" do %>
+              <%= link_to [@stage, s], :method => :delete, :data => { confirm: "The sound \"#{s.name}\" will be unassigned.", title: "Are you sure?" }, :class => "btn btn-danger" do %>
                 <span class="glyphicon glyphicon-minus"></span>
               <% end %>
             </span>
