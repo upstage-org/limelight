@@ -5,7 +5,7 @@
     <%= @sound.name %>
     <small class="pull-right">
       <span class="btn-group">
-        <%= link_to @sound, :method => :delete, :data => { confirm: "The sound \"#{@sound.name}\" will be removed?", title: "Confirmation" }, :class => "btn btn-danger" do %>
+        <%= link_to @sound, :method => :delete, :data => { confirm: "It will be deleted from the server and no longer available on any stages that it was assigned to.", title: "Are you sure you want to delete the sound \"#{@sound.name}\"?" }, :class => "btn btn-danger" do %>
           <span class="glyphicon glyphicon-trash"></span>
         <% end %>
       </span>
