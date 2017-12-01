@@ -49,13 +49,13 @@ drop = (data) ->
   btn.removeAttribute 'disabled'
   btn.setAttribute 'title', "#{btn.dataset.name}"
   delete App.state.avatars[data.avatar_id]
-  nameInput = document.querySelector '#editAvatarName'
-  nameInput.removeAttribute 'value'
-  nameInput.setAttribute 'disabled', 'disabled'
-  editNameBtn = document.querySelector '#editNameBtn'
-  editNameBtn.setAttribute 'disabled', 'disabled'
   App.drawFrame()
   if `data.avatar_id == window.holding`
+    nameInput = document.querySelector '#editAvatarName'
+    nameInput.removeAttribute 'value'
+    nameInput.setAttribute 'disabled', 'disabled'
+    editNameBtn = document.querySelector '#editNameBtn'
+    editNameBtn.setAttribute 'disabled', 'disabled'
     dropButton = document.querySelector '#dropAvatarButton'
     dropButton.setAttribute 'disabled', 'disabled'
     dropButton.removeAttribute 'title'
@@ -73,12 +73,12 @@ hold = (data) ->
   btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
   if avatarName[data.avatar_id] == undefined
     avatarName[data.avatar_id] = data['name']
-  nameInput = document.querySelector '#editAvatarName'
-  nameInput.value = avatarName[data.avatar_id]
-  nameInput.removeAttribute 'disabled'
-  editBtn = document.querySelector '#editNameBtn'
-  editBtn.removeAttribute 'disabled'
   if `data.avatar_id == window.holdWait`
+    nameInput = document.querySelector '#editAvatarName'
+    nameInput.value = avatarName[data.avatar_id]
+    nameInput.removeAttribute 'disabled'
+    editBtn = document.querySelector '#editNameBtn'
+    editBtn.removeAttribute 'disabled'
     dropButton = document.querySelector '#dropAvatarButton'
     dropButton.removeAttribute 'disabled'
     dropButton.setAttribute 'title', "#{btn.dataset.name}"
