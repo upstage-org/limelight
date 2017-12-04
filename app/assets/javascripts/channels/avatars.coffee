@@ -1,6 +1,7 @@
 avatarName = {}
 
 place = (data) ->
+  avatarName = data.names
   img = new Image
   img.src = data['file']
   multiplier = data.size/10
@@ -68,6 +69,7 @@ drop = (data) ->
     mirrorDiv.innerHTML = ' '
 
 hold = (data) ->
+  avatarName = data.names
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.setAttribute 'disabled', 'disabled'
   btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
@@ -118,10 +120,11 @@ nameToggle = (data) ->
   App.drawFrame()
 
 editName = (data) ->
+  avatarName = data.names
   nameInput = document.querySelector '#editAvatarName'
-  avatarName[data.avatar_id] = nameInput.value
-  avatar = App.state.avatars[data.avatar_id]
-  App.state.avatars[data.avatar_id] = {
+  avatarName[window.holding] = nameInput.value
+  avatar = App.state.avatars[window.holding]
+  App.state.avatars[window.holding] = {
     image: avatar.image,
     x: avatar.x,
     y: avatar.y,
@@ -130,7 +133,7 @@ editName = (data) ->
     text_x: avatar.text_x,
     text_y: avatar.text_y,
     show: avatar.show
-    nickname: avatarName[data.avatar_id]
+    nickname: avatarName[window.holding]
   }
   App.drawFrame()
 
@@ -167,7 +170,7 @@ document.addEventListener 'turbolinks:load', (e) ->
 
     hold: (avatarId, name) ->
       window.holdWait = avatarId
-      @perform 'hold', avatar_id: avatarId, name: name
+      @perform 'hold', avatar_id: avatarId, name: name, names: avatarName
 
     size: (value) ->
       if window.holding != undefined
@@ -177,10 +180,10 @@ document.addEventListener 'turbolinks:load', (e) ->
       @perform 'drop', avatar_id: window.holding
 
     place: (x, y, size, name) ->
-      @perform 'place', x: x, y: y, size: size, name: name, avatar_id: window.holding
+      @perform 'place', x: x, y: y, size: size, name: name, avatar_id: window.holding, names: avatarName
 
     nameToggle: () ->
       @perform 'nameToggle', avatar_id: window.holding
 
     editName: () ->
-      @perform 'editName', avatar_id: window.holding
+      @perform 'editName', avatar_id: window.holding, names: avatarName

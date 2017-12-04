@@ -6,10 +6,17 @@ class AvatarChannel < ApplicationCable::Channel
   end
 
   def hold(data)
-    unless current_user.nil? || @avatar_allocation[data['avatar_id']] != nil
+    unless current_user.nil? || @avatar_allocation[data['avatar_id']] != nil && @avatar_allocation[data['avatar_id']] != current_user
       @avatar_allocation[data['avatar_id']] = current_user
       avatar = Avatar.find_by_id!(data['avatar_id'])
-      AvatarChannel.broadcast_to @stage, { username: current_user.id, action: 'hold', avatar_id: data['avatar_id'], file: avatar.source.url(:original), name: avatar.name }
+      AvatarChannel.broadcast_to @stage, {
+        username: current_user.id,
+        action: 'hold',
+        avatar_id: data['avatar_id'],
+        file: avatar.source.url(:original),
+        name: avatar.name,
+        names: data['names']
+      }
      end
   end
 
@@ -23,7 +30,11 @@ class AvatarChannel < ApplicationCable::Channel
   def editName(data)
     unless current_user.nil? || @avatar_allocation[data['avatar_id']] != current_user
       avatar = Avatar.find_by_id!(data['avatar_id'])
-      AvatarChannel.broadcast_to @stage, { action: 'editName', avatar_id: data['avatar_id'] }
+      AvatarChannel.broadcast_to @stage, {
+        action: 'editName',
+        avatar_id: data['avatar_id'],
+        names: data['names']
+      }
     end
   end
 
@@ -37,7 +48,8 @@ class AvatarChannel < ApplicationCable::Channel
         x: data['x'],
         y: data['y'],
         name: avatar.name,
-        size: data['size']
+        size: data['size'],
+        names: data['names']
       }
     end
   end
