@@ -33,7 +33,7 @@ class SoundsController < ApplicationController
     if @stage.present?
       @stage.sounds << @sound
       flash[:success] = "#{@sound.name} assigned to #{@stage.name}"
-      redirect_to @stage
+      redirect_to request.referer
     else
       if @sound.update(sound_params)
         flash[:success] = "#{@sound.name} updated"
@@ -49,7 +49,7 @@ class SoundsController < ApplicationController
     if @stage.present?
       @stage.sounds.delete(@sound)
       flash[:success] = "#{@sound.name} unassigned from #{@stage.name}"
-      redirect_to @stage
+      redirect_to request.referer
     else
       if @sound.destroy
         flash[:success] = "#{@sound.name} removed"
