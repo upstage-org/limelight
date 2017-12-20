@@ -61,9 +61,14 @@ drop = (data) ->
     mirrorDiv.innerHTML = ' '
 
 hold = (data) ->
+  if data.holding != null
+    holdbtn = document.querySelector ".avatar-selection[data-avatar-id='#{data.holding}']"
+    holdbtn.removeAttribute 'disabled'
+    holdbtn.setAttribute 'title', "#{holdbtn.getAttribute 'data-avatar-name'}"
   btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
   btn.setAttribute 'disabled', 'disabled'
   btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
+
   if `data.avatar_id == window.holdWait`
     dropButton = document.querySelector '#dropAvatarButton'
     dropButton.removeAttribute 'disabled'
@@ -132,7 +137,7 @@ document.addEventListener 'turbolinks:load', (e) ->
 
     hold: (avatarId) ->
       window.holdWait = avatarId
-      @perform 'hold', avatar_id: avatarId
+      @perform 'hold', avatar_id: avatarId, holding: window.holding
 
     size: (value) ->
       if window.holding != undefined
