@@ -75,6 +75,10 @@ hold = (data) ->
   btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
   if avatarName[data.avatar_id] == undefined
     avatarName[data.avatar_id] = data['name']
+  if data.holding != null
+    holdbtn = document.querySelector ".avatar-selection[data-avatar-id='#{data.holding}']"
+    holdbtn.removeAttribute 'disabled'
+    holdbtn.setAttribute 'title', "#{holdbtn.getAttribute 'data-avatar-name'}"
   if `data.avatar_id == window.holdWait`
     nameInput = document.querySelector '#editAvatarName'
     nameInput.value = avatarName[data.avatar_id]
@@ -170,7 +174,8 @@ document.addEventListener 'turbolinks:load', (e) ->
 
     hold: (avatarId, name) ->
       window.holdWait = avatarId
-      @perform 'hold', avatar_id: avatarId, name: name, names: avatarName
+      @perform 'hold', avatar_id: avatarId, holding: window.holding, name: name, names: avatarName
+
 
     size: (value) ->
       if window.holding != undefined

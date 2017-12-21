@@ -15,9 +15,10 @@ class AvatarChannel < ApplicationCable::Channel
         avatar_id: data['avatar_id'],
         file: avatar.source.url(:original),
         name: avatar.name,
-        names: data['names']
+        names: data['names'],
+        holding: data['holding']
       }
-     end
+    end
   end
 
   def drop(data)
