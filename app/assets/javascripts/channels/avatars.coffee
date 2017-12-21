@@ -109,7 +109,7 @@ nameToggle = (data) ->
   App.drawFrame()
 
 document.addEventListener 'turbolinks:load', (e) ->
-  if document.querySelector '#toolbox' != null
+  if document.querySelector('#toolbox') != null
     document.querySelectorAll('.avatar-selection').forEach (elem) ->
       elem.addEventListener 'mouseup', (e) ->
         App.avatar.hold this.dataset.avatarId
