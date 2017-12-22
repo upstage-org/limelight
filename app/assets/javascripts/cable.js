@@ -48,7 +48,7 @@
       App.context.textAlign = "center";
       App.context.textBaseline = "top";
       if(avatar.show == '1'){
-        App.context.fillText(avatar.name, avatar.text_x, avatar.text_y);
+        App.context.fillText(avatar.nickname, avatar.text_x, avatar.text_y);
       }
     });
 
