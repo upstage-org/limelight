@@ -30,10 +30,10 @@ class AvatarChannel < ApplicationCable::Channel
 
   def editName(data)
     unless current_user.nil? || @avatar_allocation[data['avatar_id']] != current_user
-      avatar = Avatar.find_by_id!(data['avatar_id'])
       AvatarChannel.broadcast_to @stage, {
         action: 'editName',
         avatar_id: data['avatar_id'],
+        nickname: data['nickname'],
         names: data['names']
       }
     end

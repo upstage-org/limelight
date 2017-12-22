@@ -40,7 +40,7 @@ size = (data) ->
       width: resize.image.width,
       text_x: resize.x + (resize.image.width / 2),
       text_y: resize.y + resize.image.height + 5,
-      show: resize.show
+      show: resize.show,
       nickname: avatarName[data.avatar_id]
     }
     App.drawFrame()
@@ -118,7 +118,7 @@ nameToggle = (data) ->
     width: avatar.image.width,
     text_x: avatar.text_x,
     text_y: avatar.text_y,
-    show: nameShow
+    show: nameShow,
     nickname: avatarName[data.avatar_id]
   }
   App.drawFrame()
@@ -126,9 +126,9 @@ nameToggle = (data) ->
 editName = (data) ->
   avatarName = data.names
   nameInput = document.querySelector '#editAvatarName'
-  avatarName[window.holding] = nameInput.value
-  avatar = App.state.avatars[window.holding]
-  App.state.avatars[window.holding] = {
+  avatarName[data.avatar_id] = nameInput.value
+  avatar = App.state.avatars[data.avatar_id]
+  App.state.avatars[data.avatar_id] = {
     image: avatar.image,
     x: avatar.x,
     y: avatar.y,
@@ -136,8 +136,8 @@ editName = (data) ->
     width: avatar.image.width,
     text_x: avatar.text_x,
     text_y: avatar.text_y,
-    show: avatar.show
-    nickname: avatarName[window.holding]
+    show: avatar.show,
+    nickname: data.nickname
   }
   App.drawFrame()
 
@@ -154,7 +154,7 @@ document.addEventListener 'turbolinks:load', (e) ->
     App.avatar.drop()
 
   document.querySelector('#editNameBtn').addEventListener 'mouseup', (e) ->
-    App.avatar.editName()
+    App.avatar.editName(document.querySelector('#editAvatarName').value)
 
   document.querySelector('#avatarName').addEventListener 'mouseup', (e) ->
     App.avatar.nameToggle()
@@ -176,7 +176,6 @@ document.addEventListener 'turbolinks:load', (e) ->
       window.holdWait = avatarId
       @perform 'hold', avatar_id: avatarId, holding: window.holding, name: name, names: avatarName
 
-
     size: (value) ->
       if window.holding != undefined
         @perform 'size', avatar_id: window.holding, value: value
@@ -190,5 +189,5 @@ document.addEventListener 'turbolinks:load', (e) ->
     nameToggle: () ->
       @perform 'nameToggle', avatar_id: window.holding
 
-    editName: () ->
-      @perform 'editName', avatar_id: window.holding, names: avatarName
+    editName: (nickname) ->
+      @perform 'editName', avatar_id: window.holding, names: avatarName, nickname: nickname
