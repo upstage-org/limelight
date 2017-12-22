@@ -125,8 +125,7 @@ nameToggle = (data) ->
 
 editName = (data) ->
   avatarName = data.names
-  nameInput = document.querySelector '#editAvatarName'
-  avatarName[data.avatar_id] = nameInput.value
+  avatarName[data.avatar_id] = data.nickname
   avatar = App.state.avatars[data.avatar_id]
   App.state.avatars[data.avatar_id] = {
     image: avatar.image,
