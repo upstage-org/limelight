@@ -147,8 +147,8 @@ document.addEventListener 'turbolinks:load', (e) ->
         App.avatar.hold this.dataset.avatarId
 
     document.querySelectorAll('.avatar-selection').forEach (elem) ->
-    elem.addEventListener 'mouseup', (e) ->
-      App.avatar.hold this.dataset.avatarId, this.dataset.avatarName
+      elem.addEventListener 'mouseup', (e) ->
+        App.avatar.hold this.dataset.avatarId, this.dataset.avatarName
 
     document.querySelector('#dropAvatarButton').addEventListener 'mouseup', (e) ->
       App.avatar.drop()
