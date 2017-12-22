@@ -87,8 +87,8 @@
           <div>
             <div class="range-slider">
               Size
-              <input id = "avatarSlider" class = "range-slider-range" type="range" min="1" max="10" value = "5">
-              <span class = "range-slider-value">-</span>
+              <input id="avatarSlider" class="range-slider-range" type="range" min="1" max="10" value="5">
+              <span class="range-slider-value">-</span>
             </div>
             <div class="mirror" id="mirrorPane">
             </div>
@@ -142,16 +142,16 @@
             </div>
           <% end %>
           <div class="input-group">
-            <input type="text" id = "chat-speak" class="form-control" data-behavior="chat-speak", placeholder="Say something...">
+            <input type="text" id="chat-speak" class="form-control" data-behavior="chat-speak", placeholder="Say something...">
             <span class="input-group-btn">
               <button id="sendChat" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-send"></span>
               </button>
             </span>
           </div>
-          <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
-          <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user ? current_user.id : 0 %>">
-          <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user ? current_user.nickname : 'Guest' %>">
+          <input type="hidden" id="stage-id" name ="stage-id" value ="<%= @stage.id %>">
+          <input type="hidden" id="user-id" name ="user-id" value ="<%= current_user ? current_user.id : 0 %>">
+          <input type="hidden" id="user-name" name ="user-name" value ="<%= current_user ? current_user.nickname : 'Guest' %>">
         </div>
       </div>
     </div>
