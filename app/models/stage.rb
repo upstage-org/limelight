@@ -23,4 +23,8 @@ class Stage < ApplicationRecord
 
   validates :name, :presence => true
   validates :owner, :presence => true
+  
+  def self.not_assigned(media)
+    self.all.reject { |m| media.stages.include? m }
+  end
 end

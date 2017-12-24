@@ -58,33 +58,40 @@
           </button>
         </div>
 
-        <div id="avatar" class="tab-pane fade">
-          <div class="mirror" id="mirrorPane">
+        <div id="avatar" class="tab-pane fade active">
+          <div class="panel-footer">
+            <div class="scroller">
+              <% @stage.avatars.each do |a| %>
+                <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-avatar-name="<%= a.name %>" data-avatar-id="<%= a.id %>">
+                  <%= image_tag a.source.url(:thumb), :alt => a.name %>
+                </button>
+              <% end %>
+            </div>
           </div>
-          <% @stage.avatars.each do |a| %>
-            <button class="btn btn-default avatar-selection" title="<%= a.name %>" data-avatar-name="<%= a.name %>" data-avatar-id="<%= a.id %>">
-              <%= image_tag a.source.url(:thumb), :alt => a.name %>
-            </button>
-          <% end %>
+          <div class="avatar-functions row">
+            <div class="edit-name">
+              <input placeholder="name" disabled id="editAvatarName">
+              <button class="btn btn-default" id="editNameBtn" disabled="disabled">
+                Edit
+              </button>
+            </div>
+            <div class="buttons">
+              <button class="btn btn-default" id="avatarName" disabled="disabled">
+                Show/Hide Name
+              </button>
+              <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
+                Drop
+              </button>
+            </div>
+          </div>
           <div>
-            <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
-              Drop
-            </button>
-          </div>
-          <div >
-            <button class="btn btn-default" id="avatarName" disabled="disabled">
-              Show/Hide Avatar Name
-            </button>
-          </div> 
-          <div class="range-slider">
-            Size
-            <input id = "avatarSlider" class = "range-slider-range" type="range" min="1" max="10" value = "5">
-            <span class = "range-slider-value">-</span>
-          </div>
-          <div>
-            <button class="btn btn-default" id="dropAvatarButton" disabled="disabled">
-              Drop
-            </button>
+            <div class="range-slider">
+              Size
+              <input id="avatarSlider" class="range-slider-range" type="range" min="1" max="10" value="5">
+              <span class="range-slider-value">-</span>
+            </div>
+            <div class="mirror" id="mirrorPane">
+            </div>
           </div>
         </div>
 
@@ -104,7 +111,7 @@
             <div class="scroller">
               <% @stage.backdrops.each do |b| %>
                 <div class="backdropImages">
-                    <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name %>
+                    <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name, :title => b.name %>
                 </div>
               <% end %>
             </div>
@@ -135,16 +142,16 @@
             </div>
           <% end %>
           <div class="input-group">
-            <input type="text" id = "chat-speak" class="form-control" data-behavior="chat-speak", placeholder="Say something...">
+            <input type="text" id="chat-speak" class="form-control" data-behavior="chat-speak", placeholder="Say something...">
             <span class="input-group-btn">
               <button id="sendChat" type="button" class="btn btn-primary">
                 <span class="glyphicon glyphicon-send"></span>
               </button>
             </span>
           </div>
-          <input type="hidden" id = "stage-id" name ="stage-id" value ="<%= @stage.id %>">
-          <input type="hidden" id = "user-id" name ="user-id" value ="<%= current_user ? current_user.id : 0 %>">
-          <input type="hidden" id = "user-name" name ="user-name" value ="<%= current_user ? current_user.nickname : 'Guest' %>">
+          <input type="hidden" id="stage-id" name ="stage-id" value ="<%= @stage.id %>">
+          <input type="hidden" id="user-id" name ="user-id" value ="<%= current_user ? current_user.id : 0 %>">
+          <input type="hidden" id="user-name" name ="user-name" value ="<%= current_user ? current_user.nickname : 'Guest' %>">
         </div>
       </div>
     </div>

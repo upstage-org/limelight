@@ -1,7 +1,11 @@
 # Place all the behaviors and hooks related to the matching controller here.
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
-backdropSlick = () ->
+init = () ->
+  slickSlider()
+  rangeSlider()
+
+slickSlider = () ->
   $('.scroller').slick({
     dots: true
     infinite: false
@@ -17,4 +21,4 @@ rangeSlider = () ->
   range.on 'input', ->
     $(this).next(value).html @value
 
-$(document).on 'turbolinks:load', backdropSlick, rangeSlider
+$(document).on 'turbolinks:load', init

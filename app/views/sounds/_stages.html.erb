@@ -1,0 +1,32 @@
+<div id="stages">
+  <% @sound.stages.order('LOWER(name)').each do |stage| %>
+    <span class="btn-group btn-group-xs">
+      <%= render stage %>
+      <%= link_to stage_sound_path(stage, @sound), :method => :delete , :class => 'btn btn-danger btn-xs' do %>
+        <span class="glyphicon glyphicon-remove"></span>
+      <% end %>
+    </span>
+  <% end %>
+  <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addStageModal">
+    <%= 'Add to Stage' if @sound.stages.empty? %> <span class="glpyhicon glyphicon-plus"></span>
+  </button>
+</div>
+
+<div id="addStageModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Add Stages</h4>
+      </div>
+      <div class="modal-body">
+        <%= select_tag :add_stage_path, options_for_select(Stage.not_assigned(@sound).map { |stage| [ stage.name, url_for([stage, @sound]) ] }.sort ) , :class => "form-control", :prompt => 'Select a Stage' %>
+      </div>
+      <div class="modal-footer">
+        <%= link_to '#', :method => :patch, :class => "btn btn-primary", :id => 'stageAssignmentButton', :disabled => true do %>
+          <span class="glyphicon glyphicon-ok"></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
