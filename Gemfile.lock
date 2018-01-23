@@ -104,7 +104,7 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.1)
       mini_portile2 (~> 2.3.0)
-    paperclip (5.1.0)
+    paperclip (5.2.0)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
       cocaine (~> 0.5.5)
@@ -230,7 +230,7 @@ DEPENDENCIES
   jquery-slick-rails
   listen (~> 3.0.5)
   mysql2
-  paperclip (~> 5.1.0)
+  paperclip (~> 5.2.0)
   paranoia (~> 2.3.1)
   puma (~> 3.0)
   rails (~> 5.1.0)
