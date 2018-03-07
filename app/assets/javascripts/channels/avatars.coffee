@@ -25,7 +25,10 @@ place = (data) ->
     App.drawFrame()
 
 size = (data) ->
+  console.log("size method is called")
   if App.state.avatars[data.avatar_id] != undefined
+    console.log("there is an image")
+    console.log("data value: " + data.value)
     img = new Image
     resize = App.state.avatars[data.avatar_id]
     img.src = data['file']
@@ -152,16 +155,16 @@ document.addEventListener 'turbolinks:load', (e) ->
 
     document.querySelector('#dropAvatarButton').addEventListener 'mouseup', (e) ->
       App.avatar.drop()
-      
-    document.querySelector('#dropAvatarButton').addEventListener 'mouseup', (e) ->
-      App.avatar.drop()
+
+    document.querySelector('#avatarSlider').addEventListener 'mouseup', (e) ->
+      App.avatar.size document.querySelector('#avatarSlider').value
 
     document.querySelector('#editNameBtn').addEventListener 'mouseup', (e) ->
       App.avatar.editName(document.querySelector('#editAvatarName').value)
 
     document.querySelector('#avatarName').addEventListener 'mouseup', (e) ->
       App.avatar.nameToggle()
-  
+
   document.querySelector('#canvas').addEventListener 'mouseup', (e) ->
     App.avatar.place e.x, e.y, document.querySelector('#avatarSlider').value, document.querySelector('.avatar-selection').avatarName
 
