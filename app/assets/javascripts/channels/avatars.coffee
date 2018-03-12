@@ -25,10 +25,7 @@ place = (data) ->
     App.drawFrame()
 
 size = (data) ->
-  console.log("size method is called")
   if App.state.avatars[data.avatar_id] != undefined
-    console.log("there is an image")
-    console.log("data value: " + data.value)
     img = new Image
     resize = App.state.avatars[data.avatar_id]
     img.src = data['file']
@@ -145,10 +142,6 @@ editName = (data) ->
 
 document.addEventListener 'turbolinks:load', (e) ->
   if document.querySelector('#toolbox') != null
-    document.querySelectorAll('.avatar-selection').forEach (elem) ->
-      elem.addEventListener 'mouseup', (e) ->
-        App.avatar.hold this.dataset.avatarId
-
     document.querySelectorAll('.avatar-selection').forEach (elem) ->
       elem.addEventListener 'mouseup', (e) ->
         App.avatar.hold this.dataset.avatarId, this.dataset.avatarName
