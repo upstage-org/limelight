@@ -44,7 +44,7 @@
 
     // Draw avatars
     App.state.avatars.forEach(function(avatar) {
-      App.context.drawImage(avatar.image, avatar.x, avatar.y, avatar.height, avatar.width);
+      App.context.drawImage(avatar.image, avatar.x, avatar.y, avatar.width, avatar.height);
       App.context.textAlign = "center";
       App.context.textBaseline = "top";
       if(avatar.show == '1'){

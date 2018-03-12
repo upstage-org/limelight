@@ -144,24 +144,20 @@ document.addEventListener 'turbolinks:load', (e) ->
   if document.querySelector('#toolbox') != null
     document.querySelectorAll('.avatar-selection').forEach (elem) ->
       elem.addEventListener 'mouseup', (e) ->
-        App.avatar.hold this.dataset.avatarId
-
-    document.querySelectorAll('.avatar-selection').forEach (elem) ->
-      elem.addEventListener 'mouseup', (e) ->
         App.avatar.hold this.dataset.avatarId, this.dataset.avatarName
 
     document.querySelector('#dropAvatarButton').addEventListener 'mouseup', (e) ->
       App.avatar.drop()
-      
-    document.querySelector('#dropAvatarButton').addEventListener 'mouseup', (e) ->
-      App.avatar.drop()
+
+    document.querySelector('#avatarSlider').addEventListener 'mouseup', (e) ->
+      App.avatar.size document.querySelector('#avatarSlider').value
 
     document.querySelector('#editNameBtn').addEventListener 'mouseup', (e) ->
       App.avatar.editName(document.querySelector('#editAvatarName').value)
 
     document.querySelector('#avatarName').addEventListener 'mouseup', (e) ->
       App.avatar.nameToggle()
-  
+
   document.querySelector('#canvas').addEventListener 'mouseup', (e) ->
     App.avatar.place e.x, e.y, document.querySelector('#avatarSlider').value, document.querySelector('.avatar-selection').avatarName
 
