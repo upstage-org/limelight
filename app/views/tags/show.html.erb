@@ -8,3 +8,24 @@
     </small>
   </h1>
 </div>
+
+
+
+<table id = "tagtable" class="table table-striped">
+	<thead>
+		<tr>
+			<th onclick="sortTable(0)" style="cursor:pointer">Name</th>
+			<th onclick="sortTable(1)" style="cursor:pointer">Type</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%= tag.each do |m| %>
+  			<tr>
+  				<td>
+  					<%= @tag.name %>
+  					<%= @media.tag %>
+ 		 		</td>
+  			</tr>
+		<% end %>
+	</tbody>
+</table>
