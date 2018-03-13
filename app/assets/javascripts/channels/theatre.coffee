@@ -15,6 +15,7 @@ jQuery(document).on 'turbolinks:load', ->
     drawing = false
     timeSinceLastSend = $.now()
     size = 1
+    dragging = false
 
     $('.color-option').click  ->
       color = $(this).data("color")
@@ -55,24 +56,40 @@ jQuery(document).on 'turbolinks:load', ->
           document.getElementById("brushSize").innerHTML = size
 
     canvas.on 'mousedown touchstart', (e) ->
-      e.preventDefault()
-      x = e.offsetX
-      y = e.offsetY
-
-      if e.originalEvent.changedTouches
-        e = e.originalEvent.changedTouches[0]
+      if(window.holding != undefined)
+        avatar = App.state.avatars[window.holding]
+      if(avatar != undefined && e.clientX >= avatar.x && e.clientX <= (avatar.width + avatar.x) && e.clientY >= avatar.y && e.clientY <= (avatar.height + avatar.y))
+        dragging = true
+      else
+        e.preventDefault()
         x = e.offsetX
         y = e.offsetY
 
-      drawing = true
-      prev.x = x
-      prev.y = y
+        if e.originalEvent.changedTouches
+          e = e.originalEvent.changedTouches[0]
+          x = e.offsetX
+          y = e.offsetY
+
+        drawing = true
+        prev.x = x
+        prev.y = y
 
     canvas.bind 'mouseup mouseleave touchend', ->
       drawing = false
+      dragging = false
 
     canvas.on 'mousemove touchmove', (e) ->
-      if(drawing && $.now() - timeSinceLastSend > 10)
+      if(dragging)
+        avatar = App.state.avatars[window.holding]
+        img = new Image()
+        img.onload = ->
+          context.clearRect(0, 0, innerWidth, innerHeight);
+          App.drawFrame()
+          context.globalAlpha = 0.4
+          context.drawImage(img, e.clientX-avatar.width/2, e.clientY-avatar.height/2, avatar.width, avatar.height)
+          context.globalAlpha = 1.0
+        img.src = avatar.image.src
+      else if(drawing && $.now() - timeSinceLastSend > 10)
         x = e.offsetX
         y = e.offsetY
         stage_id = $('#stage-id').val()
