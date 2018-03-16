@@ -5,12 +5,12 @@ place = (data) ->
   img = new Image
   img.src = data['file']
   multiplier = data.size/10
-  img.height = img.height*multiplier
-  img.width = img.width*multiplier
   displayName = '1'
   if App.state.avatars[data.avatar_id] != undefined
     displayName = App.state.avatars[data.avatar_id].show
   img.addEventListener 'load', (e) ->
+    img.height = img.height*multiplier
+    img.width = img.width*multiplier
     App.state.avatars[data.avatar_id] = {
       image: img,
       x: data['x'] - (img.width / 2),
@@ -46,62 +46,64 @@ size = (data) ->
     App.drawFrame()
 
 drop = (data) ->
-  btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
-  btn.removeAttribute 'disabled'
-  btn.setAttribute 'title', "#{btn.dataset.name}"
   delete App.state.avatars[data.avatar_id]
   App.drawFrame()
-  if `data.avatar_id == window.holding`
-    nameInput = document.querySelector '#editAvatarName'
-    nameInput.removeAttribute 'value'
-    nameInput.setAttribute 'disabled', 'disabled'
-    editNameBtn = document.querySelector '#editNameBtn'
-    editNameBtn.setAttribute 'disabled', 'disabled'
-    dropButton = document.querySelector '#dropAvatarButton'
-    dropButton.setAttribute 'disabled', 'disabled'
-    dropButton.removeAttribute 'title'
-    dropButton.dataset.avatarId = undefined
-    nameBtn = document.querySelector '#avatarName'
-    nameBtn.removeAttribute 'disabled', 'disabled'
-    window.holding = undefined
+  if document.querySelector('#toolbox') != null
+    btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
+    btn.removeAttribute 'disabled'
+    btn.setAttribute 'title', "#{btn.dataset.name}"
+    if `data.avatar_id == window.holding`
+      nameInput = document.querySelector '#editAvatarName'
+      nameInput.removeAttribute 'value'
+      nameInput.setAttribute 'disabled', 'disabled'
+      editNameBtn = document.querySelector '#editNameBtn'
+      editNameBtn.setAttribute 'disabled', 'disabled'
+      dropButton = document.querySelector '#dropAvatarButton'
+      dropButton.setAttribute 'disabled', 'disabled'
+      dropButton.removeAttribute 'title'
+      dropButton.dataset.avatarId = undefined
+      nameBtn = document.querySelector '#avatarName'
+      nameBtn.removeAttribute 'disabled', 'disabled'
+      window.holding = undefined
 
-    mirrorDiv = document.querySelector '#mirrorPane'
-    mirrorDiv.innerHTML = ' '
+      mirrorDiv = document.querySelector '#mirrorPane'
+      mirrorDiv.innerHTML = ' '
 
 hold = (data) ->
-  avatarName = data.names
-  btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
-  btn.setAttribute 'disabled', 'disabled'
-  btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
-  if avatarName[data.avatar_id] == undefined
-    avatarName[data.avatar_id] = data['name']
-  if data.holding != null
-    holdbtn = document.querySelector ".avatar-selection[data-avatar-id='#{data.holding}']"
-    holdbtn.removeAttribute 'disabled'
-    holdbtn.setAttribute 'title', "#{holdbtn.getAttribute 'data-avatar-name'}"
-  if `data.avatar_id == window.holdWait`
-    nameInput = document.querySelector '#editAvatarName'
-    nameInput.value = avatarName[data.avatar_id]
-    nameInput.removeAttribute 'disabled'
-    editBtn = document.querySelector '#editNameBtn'
-    editBtn.removeAttribute 'disabled'
-    dropButton = document.querySelector '#dropAvatarButton'
-    dropButton.removeAttribute 'disabled'
-    dropButton.setAttribute 'title', "#{btn.dataset.name}"
-    nameBtn = document.querySelector '#avatarName'
-    nameBtn.removeAttribute 'disabled'
-    window.holdWait = undefined
-    window.holding = data.avatar_id
+  if document.querySelector('#toolbox') != null
+    avatarName = data.names
+    btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
+    btn.setAttribute 'disabled', 'disabled'
+    btn.setAttribute 'title', "#{btn.getAttribute 'title'} (#{data.username})"
+    if avatarName[data.avatar_id] == undefined
+      avatarName[data.avatar_id] = data['name']
+    if data.holding != null
+      holdbtn = document.querySelector ".avatar-selection[data-avatar-id='#{data.holding}']"
+      holdbtn.removeAttribute 'disabled'
+      holdbtn.setAttribute 'title', "#{holdbtn.getAttribute 'data-avatar-name'}"
+    if `data.avatar_id == window.holdWait`
+      nameInput = document.querySelector '#editAvatarName'
+      nameInput.value = avatarName[data.avatar_id]
+      nameInput.removeAttribute 'disabled'
+      editBtn = document.querySelector '#editNameBtn'
+      editBtn.removeAttribute 'disabled'
+      dropButton = document.querySelector '#dropAvatarButton'
+      dropButton.removeAttribute 'disabled'
+      dropButton.setAttribute 'title', "#{btn.dataset.name}"
+      nameBtn = document.querySelector '#avatarName'
+      nameBtn.removeAttribute 'disabled'
+      window.holdWait = undefined
+      window.holding = data.avatar_id
 
-    mirrorDiv = document.querySelector '#mirrorPane'
-    mirrorImg = new Image
-    mirrorImg.addEventListener 'load', (e) ->
-      mirrorDiv.appendChild(mirrorImg)
-      mirrorDiv.removeChild(mirrorDiv.childNodes[0])
-    mirrorImg.src = data['file']
-    widthMultiplier = mirrorImg.width/mirrorImg.height
-    mirrorImg.height = 80
-    mirrorImg.width = 80*widthMultiplier
+      mirrorDiv = document.querySelector '#mirrorPane'
+      mirrorImg = new Image
+      mirrorImg.addEventListener 'load', (e) ->
+        mirrorDiv.appendChild(mirrorImg)
+        mirrorDiv.removeChild(mirrorDiv.childNodes[0])
+      mirrorImg.src = data['file']
+      widthMultiplier = mirrorImg.width/mirrorImg.height
+      mirrorImg.height = 80
+      mirrorImg.width = 80*widthMultiplier
 
 nameToggle = (data) ->
   avatar = App.state.avatars[data.avatar_id]
