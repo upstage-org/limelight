@@ -4,7 +4,7 @@ class Tag < ApplicationRecord
   has_many :medium_tags, :dependent => :destroy
   has_many :media, :through => :medium_tags
 
-  has_many :avatars_tags, :dependent => :destroy
+  has_many :avatar_tags, :dependent => :destroy
   has_many :avatars, :through => :avatar_tags
 
   has_many :stage_tags, :dependent => :destroy

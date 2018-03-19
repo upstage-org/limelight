@@ -17,29 +17,31 @@
 		</tr>
 	</thead>
 	<tbody>
-    <%= @tag.stages.each do |s| %>
+  <tr>
+  </tr>
+   <% @tag.stages.each do |s| %>
       <tr>
         <td><%= link_to s.name, s %></td>
         <td><%= s.class.name %></td>
       </tr>
     <% end %>
-    <%= @tag.sounds.each do |s| %>
+    <% @tag.sounds.each do |s| %>
       <tr>
         <td><%= link_to s.name, s %></td>
         <td><%= s.class.name %></td>
       </tr>
     <% end %>
-    <%= @tag.backdrops.each do |b| %>
+    <% @tag.backdrops.each do |b| %>
       <tr>
         <td><%= link_to b.name, b %></td>
         <td><%= b.class.name %></td>
       </tr>
     <% end %>    	
-    <%= @tag.avatars.each do |a| %>
+    <% @tag.avatars.each do |a| %>
       <tr>
         <td><%= link_to a.name, a %></td>
         <td><%= a.class.name %></td>
       </tr>
-    <% end %>     
+    <% end %>
 	</tbody>
 </table>
