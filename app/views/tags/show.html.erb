@@ -18,10 +18,12 @@
 		</tr>
 	</thead>
 	<tbody>
-		<%= @tags.each do |m| %>
+		<%= @tags.each do |t| %>
   			<tr>
-  				<td><%= link_to m.name, m %></td>
-          <td><%= m.class.name %></td>
+  				<td><%= link_to @medium, t %></td>
+          <td><%= link_to @tags.name, t %></td>
+          <td><%= t.class.name %></td>
+          <td><%= t.class.name %></td>
   			</tr>
 		<% end %>
 	</tbody>
