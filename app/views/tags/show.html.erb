@@ -1,3 +1,4 @@
+<%= javascript_include_tag "sorttable" %>
 <div class="page-header">
   <h1>
     <%= @tag.name %>
@@ -12,13 +13,11 @@
 <table id = "tagtable" class="table table-striped">
 	<thead>
 		<tr>
-			<th onclick="sortTable(0)" style="cursor:pointer">Name</th>
-			<th onclick="sortTable(1)" style="cursor:pointer">Type</th>
+			<th onclick="sortTable(0, tagtable)" style="cursor:pointer">Name</th>
+			<th onclick="sortTable(1, tagtable)" style="cursor:pointer">Type</th>
 		</tr>
 	</thead>
 	<tbody>
-  <tr>
-  </tr>
    <% @tag.stages.each do |s| %>
       <tr>
         <td><%= link_to s.name, s %></td>

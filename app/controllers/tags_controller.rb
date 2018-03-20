@@ -42,8 +42,6 @@ class TagsController < ApplicationController
 
   def show
     @tags = Tag.all
-    # Need to use media controller to show media that have a specific tag
-    # E.G. tag1 will show AVAT1
   end
 
   def destroy
