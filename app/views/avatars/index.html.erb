@@ -21,7 +21,7 @@
       </td>
       <td>
         <span class="btn-group pull-right">
-          <%= link_to a, :method => :delete, :data => { confirm: "The avatar \"#{a.name}\" will be removed?" }, :class => "btn btn-danger" do %>
+          <%= link_to a, :method => :delete, :data => { confirm: "It will be deleted from the server and no longer available on any stages that it was assigned to.", title: "Are you sure you want to delete the avatar \"#{a.name}\"?" }, :class => "btn btn-danger" do %>
             <span class="glyphicon glyphicon-remove"></span>
           <% end %>
         </span>

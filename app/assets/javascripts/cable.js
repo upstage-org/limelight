@@ -19,12 +19,37 @@
 
     // Draw backdrop
     App.state.backdrops.forEach(function(backdrop){
-      App.context.drawImage(backdrop.image, 0, 0, canvas.width,canvas.height);
+      var ratio;
+      if(backdrop.image.naturalHeight >= backdrop.image.naturalWidth){
+        if(canvas.width * backdrop.image.naturalHeight / backdrop.image.naturalWidth > canvas.height){
+          ratio = canvas.height/backdrop.image.naturalHeight;
+        } else {
+          ratio = canvas.width/backdrop.image.naturalWidth;
+        }
+      } else {
+        if(canvas.height * backdrop.image.naturalWidth / backdrop.image.naturalHeight > canvas.width){
+          ratio = canvas.width/backdrop.image.naturalWidth;
+        } else {
+          ratio = canvas.height/backdrop.image.naturalHeight;
+        }
+      }
+      var newHeight = backdrop.image.naturalHeight * ratio;
+      var newWidth = backdrop.image.naturalWidth * ratio;
+      var startingX = (canvas.width - newWidth) / 2;
+      var startingY = (canvas.height - newHeight) / 2;
+
+      App.context.drawImage(backdrop.image, 0, 0, backdrop.image.naturalWidth, backdrop.image.naturalHeight,
+                            startingX, startingY, newWidth, newHeight);
     });
 
     // Draw avatars
     App.state.avatars.forEach(function(avatar) {
-      App.context.drawImage(avatar.image, avatar.x, avatar.y);
+      App.context.drawImage(avatar.image, avatar.x, avatar.y, avatar.width, avatar.height);
+      App.context.textAlign = "center";
+      App.context.textBaseline = "top";
+      if(avatar.show == '1'){
+        App.context.fillText(avatar.nickname, avatar.text_x, avatar.text_y);
+      }
     });
 
     // Draw drawings
@@ -51,7 +76,7 @@
     App.canvas = document.querySelector('#canvas');
     App.context = App.canvas.getContext('2d');
     App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
-    window.addEventListener('resize', App.resizeCanvas());
+    window.addEventListener('resize', App.resizeCanvas);
     App.resizeCanvas();
   });
 

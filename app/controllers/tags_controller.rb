@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
   before_action :reject_anonymous
-  before_action :set_perspective
-  before_action :set_tag, :except => [ :index, :create, :new ]
+  before_action :set_perspective, :except => [ :show ]
+  before_action :set_tag, :only => [ :show, :destroy ]
 
   def index
     if @perspective.present?
@@ -11,33 +11,22 @@ class TagsController < ApplicationController
     end
   end
 
-  def new
-    @tag = Tag.new
-  end
-
   def create
-    @tag = Tag.find_by_name(params[:tag][:name])
-    @tag = Tag.new(tag_params) unless @tag.present?
+    @tag = Tag.new tag_params
+    @tag = Tag.find_by_name(@tag.name) if Tag.exists?(name: @tag.name)
     if @tag.new_record?
       if @tag.save
-        flash[:success] = 'Tag created.'
+        flash[:success] = "Tag \'#{@tag.name}\' created"
       else
-        flash.now[:danger] = 'Failed to create tag'
-        render :new
+        flash[:danger] = @tag.errors.full_messages.to_sentence
+        return redirect_to @perspective
       end
     end
-    if @perspective.present?
-      unless @perspective.tags.exists?(@tag.id)
-        if @perspective.tags << @tag
-          flash[:success] = "#{@tag.name} assigned to #{@perspective.name}"
-        else
-          flash.now[:danger] = "Failed to assign #{@tag.name} to #{@perspective.name}"
-        end
-      end
-      redirect_to @perspective
-    else
-      redirect_to @tag
+    unless @perspective.tags.exists?(@tag.id)
+      @perspective.tags << @tag
+      flash[:success] = "Assigned #{@tag.name} to #{@perspective.name}"
     end
+    redirect_to @perspective
   end
 
   def show
@@ -54,7 +43,7 @@ class TagsController < ApplicationController
       redirect_to @perspective
     else
       if @tag.destroy
-        flash[:success] = 'Tag removed.'
+        flash[:success] = "Tag #{@tag.name} removed"
         redirect_to tags_path
       else
         flash.now[:danger] = 'Something went wrong'
@@ -64,12 +53,12 @@ class TagsController < ApplicationController
   end
 
   private
-    def set_tag
-      @tag = Tag.find_by_name!(params[:name])
-    end
-
     def tag_params
       params.require(:tag).permit([:name])
+    end
+
+    def set_tag
+      @tag = Tag.find_by_name!(params[:name])
     end
 
     def set_perspective
@@ -85,8 +74,6 @@ class TagsController < ApplicationController
       elsif params[:backdrop_slug].present?
         @perspective = Backdrop.find_by_slug!(params[:backdrop_slug])
         @create_path = new_backdrop_tag_path(@perspective)
-      else
-        @create_path = new_tag_path
       end
     end
 end
