@@ -103,7 +103,7 @@ GEM
     minitest (5.10.3)
     multi_json (1.12.2)
     mysql2 (0.4.9)
-    nio4r (2.1.0)
+    nio4r (2.3.0)
     nokogiri (1.8.2)
       mini_portile2 (~> 2.3.0)
     paperclip (5.2.0)
