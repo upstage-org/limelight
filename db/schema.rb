@@ -99,6 +99,7 @@ ActiveRecord::Schema.define(version: 20170905075038) do
     t.text "content"
     t.integer "sender_id"
     t.integer "stage_id"
+    t.text "nickname"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "message_type"

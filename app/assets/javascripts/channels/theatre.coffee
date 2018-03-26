@@ -149,6 +149,7 @@ jQuery(document).on 'turbolinks:load', ->
     App.global_chat = App.cable.subscriptions.create { channel:"ChatChannel", stage: messages.data('stage-id') },
       connected: ->
         # Called when the subscription is ready for use on the server
+        console.log "1"
         nick = $('#user-name').val()
 
         if nick != null
@@ -168,8 +169,8 @@ jQuery(document).on 'turbolinks:load', ->
         $messages.append(data)
         messages_to_bottom()
 
-      speak: (content, stage_id, user_id, username) ->
-        @perform 'speak', content: content, stage_id: stage_id, user_id: user_id, username: username
+      speak: (content, stage_id, user_id, username, avatarName) ->
+        @perform 'speak', content: content, stage_id: stage_id, user_id: user_id, username: username, avatarName: avatarName
 
     # ActionCable for Drawing
     App.global_draw = App.cable.subscriptions.create { channel:"DrawingChannel", stage: messages.data('stage-id') },
@@ -202,11 +203,15 @@ jQuery(document).on 'turbolinks:load', ->
 
 # Sends the chat message through the websocket
 utter = () ->
+  avatar = ""
+  if window.holding
+    avatar = App.state.avatars[window.holding].nickname
   App.global_chat.speak(
     content: ($("input:radio[name ='chat-modifier']:checked").val() || '') + $('#chat-speak').val(),
     stage_id: $('#stage-id').val(),
     user_id: $('#user-id').val(),
     username: $('#user-name').val()
+    avatarName: avatar
   )
   if window.holding
     App.dialog.utter $('#chat-speak').val()
