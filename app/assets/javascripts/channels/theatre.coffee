@@ -149,7 +149,6 @@ jQuery(document).on 'turbolinks:load', ->
     App.global_chat = App.cable.subscriptions.create { channel:"ChatChannel", stage: messages.data('stage-id') },
       connected: ->
         # Called when the subscription is ready for use on the server
-        console.log "1"
         nick = $('#user-name').val()
 
         if nick != null
