@@ -15,7 +15,7 @@
         <td><%= link_to m.name, m %></td>
         <td><%= m.class.name %>
         <td class="text-muted">
-           <% m.stages.order('LOWER(name)').each do |s| %>
+          <% m.stages.order('LOWER(name)').each do |s| %>
             <%= render s %>
           <% end %>
         </td>
@@ -34,5 +34,4 @@
       </tr>
     <% end %>
   </tbody>
-
 </table>

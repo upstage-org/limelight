@@ -1,7 +1,7 @@
 class Tag < ApplicationRecord
   after_initialize :standardize_name
   before_validation :standardize_name
-  
+
   has_many :avatar_tags, :dependent => :destroy
   has_many :avatars, :through => :avatar_tags
 
