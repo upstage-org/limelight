@@ -1,3 +1,4 @@
+<%= javascript_include_tag "sorttable" %>
 <div class="page-header">
   <h1>
     <%= @tag.name %>
@@ -8,3 +9,38 @@
     </small>
   </h1>
 </div>
+
+<table id="tagtable" class="table table-striped">
+  <thead>
+    <tr>
+      <th onclick="sortTable(0, tagtable)" style="cursor:pointer">Name</th>
+      <th onclick="sortTable(1, tagtable)" style="cursor:pointer">Type</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tag.stages.each do |s| %>
+      <tr>
+        <td><%= link_to s.name, s %></td>
+        <td><%= s.class.name %></td>
+      </tr>
+    <% end %>
+    <% @tag.sounds.each do |s| %>
+      <tr>
+        <td><%= link_to s.name, s %></td>
+        <td><%= s.class.name %></td>
+      </tr>
+    <% end %>
+    <% @tag.backdrops.each do |b| %>
+      <tr>
+        <td><%= link_to b.name, b %></td>
+        <td><%= b.class.name %></td>
+      </tr>
+    <% end %>
+    <% @tag.avatars.each do |a| %>
+      <tr>
+        <td><%= link_to a.name, a %></td>
+        <td><%= a.class.name %></td>
+      </tr>
+    <% end %>
+	</tbody>
+</table>
