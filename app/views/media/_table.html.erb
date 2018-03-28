@@ -2,10 +2,10 @@
 <table id = "mediatable" class="table table-striped">
   <thead>
     <tr>
-      <th onclick="sortTable(0)" style="cursor:pointer">Name</th>
-      <th onclick="sortTable(1)" style="cursor:pointer">Type</th>
-      <th onclick="sortTable(2)" style="cursor:pointer">Stages</th>
-      <th onclick="sortTable(3)" style="cursor:pointer">Tags</th>
+      <th onclick="sortTable(0, mediatable)" style="cursor:pointer">Name</th>
+      <th onclick="sortTable(1, mediatable)" style="cursor:pointer">Type</th>
+      <th onclick="sortTable(2, mediatable)" style="cursor:pointer">Stages</th>
+      <th onclick="sortTable(3, mediatable)" style="cursor:pointer">Tags</th>
       <th class="col-sm-1">Actions</th>
     </tr>
   </thead>
@@ -15,7 +15,7 @@
         <td><%= link_to m.name, m %></td>
         <td><%= m.class.name %>
         <td class="text-muted">
-           <% m.stages.order('LOWER(name)').each do |s| %>
+          <% m.stages.order('LOWER(name)').each do |s| %>
             <%= render s %>
           <% end %>
         </td>
@@ -34,5 +34,4 @@
       </tr>
     <% end %>
   </tbody>
-
 </table>
