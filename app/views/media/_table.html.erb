@@ -26,7 +26,7 @@
         </td>
         <td class="col-sm-1">
           <span class="btn-group btn-group-sm">
-            <%= link_to m, :method => :delete, :data => { confirm: "It will be deleted from the server and no longer available on any stages that it was assigned to.", title: "Are you sure you want to delete the #{m.class.name.demodulize.downcase} \"#{m.name}\"?" }, :class => 'btn btn-sm btn-danger' do %>
+            <%= link_to m, :method => :delete, :data => { confirm: "This will be deleted immediately and no longer be available on any stages that it was assigned to.", title: "Are you sure you want to delete the #{m.class.name.demodulize.downcase} \"#{m.name}\"?" }, :class => 'btn btn-sm btn-danger' do %>
               <span class="glyphicon glyphicon-trash"></span>
             <% end %>
           </span>
