@@ -9,7 +9,7 @@
           <a class="btn btn-default" href="#" data-toggle="modal" data-target="#cloneStageModal">
             Clone
           </a>
-        <%= link_to 'Delete', @stage, :method => :delete, :data => { confirm: "This stage will be deleted from the server and no longer be available.", title: "Are you sure you want to delete the stage \"#{@stage.name}\"?" }, :class => "btn btn-danger" %>
+        <%= link_to 'Delete', @stage, :method => :delete, :data => { confirm: "This stage will be deleted immediately and no longer be available.", title: "Are you sure you want to delete the stage \"#{@stage.name}\"?" }, :class => "btn btn-danger" %>
       </span>
     </small>
     <br>

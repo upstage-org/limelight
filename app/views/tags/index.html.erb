@@ -18,7 +18,7 @@
       </td>
       <td>
         <span class="btn-group pull-right">
-          <%= link_to @perspective.present? ? 'Unassign' : 'Delete', [@perspective, t], :method => :delete, :data => { confirm: "This tag will be deleted from the server and no be longer available on any stages that it was assigned to.", title: "Are you sure you want to delete the tag \"#{t.name}\"?" }, :class => "btn btn-danger" %>
+          <%= link_to @perspective.present? ? 'Unassign' : 'Delete', [@perspective, t], :method => :delete, :data => { confirm: "This tag will be deleted immediately and no longer be available on any stages that it was assigned to.", title: "Are you sure you want to delete the tag \"#{t.name}\"?" }, :class => "btn btn-danger" %>
         </span>
       </td>
     </tr>

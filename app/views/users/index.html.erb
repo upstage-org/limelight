@@ -31,7 +31,7 @@
       <td>
         <span class="btn-group pull-right">
           <%= link_to 'Edit', edit_user_path(u), :class => "btn btn-default" %>
-          <%= link_to 'Delete', u, :method => :delete, :data => { confirm: "This user will be deleted from the server and no be longer available.", title: "Are you sure you want to delete the user \"#{u.nickname}\"?" }, :class => "btn btn-danger" %>
+          <%= link_to 'Delete', u, :method => :delete, :data => { confirm: "This user will be deleted immediately and no longer be available.", title: "Are you sure you want to delete the user \"#{u.nickname}\"?" }, :class => "btn btn-danger" %>
         </span>
       </td>
     </tr>
