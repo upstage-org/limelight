@@ -4,7 +4,7 @@
     <%= @tag.name %>
     <small class="pull-right">
       <span class="btn-group">
-        <%= link_to 'Delete', @tag, :method => :delete, :data => { confirm: "Are you sure you want to delete the tag \"#{@tag.name}\"?", title: "Confirmation" }, :class => "btn btn-danger" %>
+        <%= link_to 'Delete', @tag, :method => :delete, :data => { confirm: "This tag will be deleted immediately and no longer be available on any stages that it was assigned to.", title: "Are you sure you want to delete the tag \"#{@tag.name}\"?" }, :class => "btn btn-danger" %>
       </span>
     </small>
   </h1>
