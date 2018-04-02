@@ -204,13 +204,13 @@ jQuery(document).on 'turbolinks:load', ->
 utter = () ->
   avatarName = ""
   if window.holding
-    avatar = App.state.avatars[window.holding].nickname
+    avatarName = App.state.avatars[window.holding].nickname
   App.global_chat.speak(
     content: ($("input:radio[name ='chat-modifier']:checked").val() || '') + $('#chat-speak').val(),
     stage_id: $('#stage-id').val(),
     user_id: $('#user-id').val(),
     username: $('#user-name').val()
-    avatarName: avatar
+    avatarName: avatarName
   )
   if window.holding
     App.dialog.utter $('#chat-speak').val()
