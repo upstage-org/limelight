@@ -202,7 +202,7 @@ jQuery(document).on 'turbolinks:load', ->
 
 # Sends the chat message through the websocket
 utter = () ->
-  avatar = ""
+  avatarName = ""
   if window.holding
     avatar = App.state.avatars[window.holding].nickname
   App.global_chat.speak(
