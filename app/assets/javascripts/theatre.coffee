@@ -19,6 +19,6 @@ rangeSlider = () ->
   value = $('.range-slider-value')
 
   range.on 'input', ->
-    $(this).next(value).html @value
+    $(this).next(value).html @value*10
 
 $(document).on 'turbolinks:load', init
