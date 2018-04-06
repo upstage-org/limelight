@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170905075038) do
+ActiveRecord::Schema.define(version: 20180403235530) do
 
   create_table "announcements", force: :cascade do |t|
     t.string "title", null: false
@@ -102,6 +102,7 @@ ActiveRecord::Schema.define(version: 20170905075038) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "message_type"
+    t.text "nickname"
     t.index ["sender_id"], name: "index_messages_on_sender_id"
     t.index ["stage_id"], name: "index_messages_on_stage_id"
   end

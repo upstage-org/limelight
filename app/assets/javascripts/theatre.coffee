@@ -4,6 +4,8 @@
 init = () ->
   slickSlider()
   rangeSlider()
+  $('a[data-toggle="tab"]').on 'shown.bs.tab', (e) ->
+    $('.scroller').slick('setPosition');
 
 slickSlider = () ->
   $('.scroller').slick({
