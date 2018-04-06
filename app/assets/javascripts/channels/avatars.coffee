@@ -151,16 +151,16 @@ document.addEventListener 'turbolinks:load', (e) ->
     document.querySelector('#dropAvatarButton').addEventListener 'mouseup', (e) ->
       App.avatar.drop()
 
-    mouseMoved = false
+    mousedown = false
     document.querySelector('#avatarSlider').addEventListener 'mousedown', (e) ->
-      mouseMoved = true
+      mousedown = true
 
     document.querySelector('#avatarSlider').addEventListener 'mouseup', (e) ->
-      mouseMoved = false
+      mousedown = false
       App.avatar.size document.querySelector('#avatarSlider').value
 
     document.querySelector('#avatarSlider').addEventListener 'mousemove', (e) ->
-      if mouseMoved
+      if mousedown
           App.avatar.size document.querySelector('#avatarSlider').value
 
     document.querySelector('#editNameBtn').addEventListener 'mouseup', (e) ->
