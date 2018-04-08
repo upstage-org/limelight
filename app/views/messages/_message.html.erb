@@ -7,7 +7,13 @@
 <% end %>
 
 <div class="message">
-  <span class="sender"><%= message.sender.nil? ? '' : message.sender.nickname %></span>
+  <span class="sender">
+    <% unless message.nickname == "" %>
+      <%= message.nickname %>
+    <% else %>
+      <%= message.sender.nil? ? '' : message.sender.nickname %>
+    <%end%>
+  </span>
   <div class="content <%= cls %>">
       <%= auto_link(message.formatted_content, html: { target: '_blank' }) %>
   </div>
