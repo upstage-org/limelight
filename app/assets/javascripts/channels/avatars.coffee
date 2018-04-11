@@ -170,7 +170,8 @@ document.addEventListener 'turbolinks:load', (e) ->
       App.avatar.nameToggle()
 
   document.querySelector('#canvas').addEventListener 'mouseup', (e) ->
-    App.avatar.place e.x, e.y, document.querySelector('#avatarSlider').value, document.querySelector('.avatar-selection').avatarName
+    if $("#avatar").hasClass('active')
+      App.avatar.place e.x, e.y, document.querySelector('#avatarSlider').value, document.querySelector('.avatar-selection').avatarName
 
   App.avatar = App.cable.subscriptions.create { channel:"AvatarChannel", slug: App.slug },
     received: (data) ->
