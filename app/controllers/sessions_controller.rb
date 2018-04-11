@@ -7,6 +7,9 @@ class SessionsController < ApplicationController
 
   def create
     user = User.find_by_email(params[:email])
+    unless params[:email].include? "@"
+      user = User.find_by_nickname(params[:email])
+    end
     if user && user.authenticate(params[:password])
       if user.is_active
         if user.email_confirmed.nil?
