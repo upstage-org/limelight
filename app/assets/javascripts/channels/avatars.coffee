@@ -205,8 +205,8 @@ document.addEventListener 'turbolinks:load', (e) ->
     drop: () ->
       @perform 'drop', avatar_id: window.holding
 
-    place: (x, y, size, name, chold) ->
-      @perform 'place', x: x, y: y, size: size, name: name, avatar_id: window.holding, names: avatarName, chold: chold
+    place: (x, y, size, name) ->
+      @perform 'place', x: x, y: y, size: size, name: name, avatar_id: window.holding, names: avatarName
 
     nameToggle: () ->
       @perform 'nameToggle', avatar_id: window.holding
