@@ -51,7 +51,7 @@ drop = (data) ->
   if document.querySelector('#toolbox') != null
     btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
     btn.removeAttribute 'disabled'
-    btn.setAttribute 'title', "#{btn.dataset.name}"
+    btn.setAttribute 'title', "#{btn.dataset.avatarName}"
     if `data.avatar_id == window.holding`
       nameInput = document.querySelector '#editAvatarName'
       nameInput.removeAttribute 'value'
@@ -125,6 +125,14 @@ nameToggle = (data) ->
   }
   App.drawFrame()
 
+clearUnheld = (data) ->
+  for i in [0..App.state.avatars.length - 1]
+    if i
+      btn = document.querySelector(".avatar-selection[data-avatar-id='#{i}']")
+      if btn.getAttribute('title') == btn.getAttribute('data-avatar-name')
+         delete App.state.avatars[i]
+  App.drawFrame()
+
 editName = (data) ->
   avatarName = data.names
   avatarName[data.avatar_id] = data.nickname
@@ -163,6 +171,9 @@ document.addEventListener 'turbolinks:load', (e) ->
       if mousedown
           App.avatar.size document.querySelector('#avatarSlider').value
 
+    document.querySelector('#clearunheld').addEventListener 'click', (e) ->
+      App.avatar.clearUnheld()
+
     document.querySelector('#editNameBtn').addEventListener 'mouseup', (e) ->
       App.avatar.editName(document.querySelector('#editAvatarName').value)
 
@@ -181,6 +192,7 @@ document.addEventListener 'turbolinks:load', (e) ->
         when 'nameToggle' then nameToggle data
         when 'place' then place data
         when 'editName' then editName data
+        when 'clearUnheld' then clearUnheld data
 
     hold: (avatarId, name) ->
       window.holdWait = avatarId
@@ -193,11 +205,14 @@ document.addEventListener 'turbolinks:load', (e) ->
     drop: () ->
       @perform 'drop', avatar_id: window.holding
 
-    place: (x, y, size, name) ->
-      @perform 'place', x: x, y: y, size: size, name: name, avatar_id: window.holding, names: avatarName
+    place: (x, y, size, name, chold) ->
+      @perform 'place', x: x, y: y, size: size, name: name, avatar_id: window.holding, names: avatarName, chold: chold
 
     nameToggle: () ->
       @perform 'nameToggle', avatar_id: window.holding
 
     editName: (nickname) ->
       @perform 'editName', avatar_id: window.holding, names: avatarName, nickname: nickname
+
+    clearUnheld: () ->
+      @perform 'clearUnheld', avatar_id: window.holding
