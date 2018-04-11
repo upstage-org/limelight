@@ -80,6 +80,19 @@ jQuery(document).on 'turbolinks:load', ->
       drawing = false
       dragging = false
 
+    canvas.on 'mouseover', (e) ->
+      if $("#drawing").hasClass('active')
+        $("#canvas").css("cursor: url(pencil.png), 2 2, crosshair", "crosshair")
+
+      if $("#avatar").hasClass('active')
+        $("#canvas").css("cursor","pointer")
+
+      if $("#audio").hasClass('active')
+        $("#canvas").css("cursor","alias")
+
+      if $("#backdrop").hasClass('active')
+        $("#canvas").css("cursor","wait")
+
     canvas.on 'mousemove touchmove', (e) ->
       if(dragging)
         avatar = App.state.avatars[window.holding]
