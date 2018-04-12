@@ -128,7 +128,6 @@ nameToggle = (data) ->
 clearUnheld = (data) ->
   for index in [0..App.state.avatars.length - 1]
     if App.state.avatars[index]
-      console.log index
       btn = document.querySelector(".avatar-selection[data-avatar-id='#{index}']")
       if btn.getAttribute('title') == btn.getAttribute('data-avatar-name')
          delete App.state.avatars[index]
