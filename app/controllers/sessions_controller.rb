@@ -6,7 +6,10 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_email(params[:email])
+    user = User.find_by_email(params[:uid])
+    unless EmailValidator.valid?(params[:uid])
+      user = User.find_by_nickname(params[:uid])
+    end
     if user && user.authenticate(params[:password])
       if user.is_active
         if user.email_confirmed.nil?
