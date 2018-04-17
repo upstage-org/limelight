@@ -1,5 +1,6 @@
 class SessionsController < ApplicationController
   before_action :reject_anonymous, :except => [ :new, :create ]
+  before_action :force_lowercase_uid
   invisible_captcha :only => [ :create ], :honeypot => :bucket
 
   def new
@@ -36,4 +37,9 @@ class SessionsController < ApplicationController
     flash[:success] = "Successfully logged out"
     redirect_to root_url
   end
+
+  private
+    def force_lowercase_uid
+      params[:uid] = params[:uid].downcase unless params[:uid].nil?
+    end
 end

@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   before_create { generate_token(:auth_token) }
   before_create { generate_token(:confirmation_token) }
+  before_validation { self.username = self.username.downcase }
 
   after_create :send_email_confirmation
   after_update :send_activation_email
