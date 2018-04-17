@@ -11,7 +11,7 @@
     <% unless message.nickname == "" %>
       <%= message.nickname %>
     <% else %>
-      <%= message.sender.nil? ? '' : message.sender.nickname %>
+      <%= message.sender.nil? ? '' : message.sender.username %>
     <%end%>
   </span>
   <div class="content <%= cls %>">

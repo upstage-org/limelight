@@ -16,7 +16,7 @@ describe BackdropsController do
 		end
 
 		it "render 'index' template" do
-			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token
 			get :index
 			expect(response).to render_template('index')
@@ -41,8 +41,8 @@ describe BackdropsController do
 
 	describe "POST #create" do
 		before do
-			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-			cookies[:auth_token] = user.auth_token			
+			user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			cookies[:auth_token] = user.auth_token
 		end
 
 		context "when there is a valid backdrop" do
@@ -76,7 +76,7 @@ describe BackdropsController do
 		subject { post :create, :params => { :backdrop => { name: "Pass Type", source_name: "bg1", source_content_type: "image/png" } } }
 
 	 	it "redirect to edit backdrop path" do
-	 		user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+	 		user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token
 			expect(subject).to redirect_to(edit_backdrop_path(Backdrop.last))
 	 	end
@@ -84,8 +84,8 @@ describe BackdropsController do
 
 	describe "#PATCH update" do
 		before do
-			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-			cookies[:auth_token] = user.auth_token			
+			user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			cookies[:auth_token] = user.auth_token
 		end
 
 		context "when a stage is present" do
@@ -98,7 +98,7 @@ describe BackdropsController do
 				@backdrop.reload
 			end
 
-			it "add backdrop to the stage" do				
+			it "add backdrop to the stage" do
 				expect(@stage.backdrops).to include(@backdrop)
 			end
 
@@ -152,8 +152,8 @@ describe BackdropsController do
 
 	describe "DELETE destroy" do
 		before do
-			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
-			cookies[:auth_token] = user.auth_token			
+			user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			cookies[:auth_token] = user.auth_token
 		end
 
 		context "when a stage is present" do
@@ -179,7 +179,7 @@ describe BackdropsController do
 			end
 		end
 
-		context "when a stage not present" do		
+		context "when a stage not present" do
 			context "when @backdrop.destroy is true" do
 				before do
 					@backdrop = Backdrop.create(name: "bg1")
@@ -199,15 +199,15 @@ describe BackdropsController do
 				end
 			end
 
-			context "when @backdrop.destroy is false" do		
+			context "when @backdrop.destroy is false" do
 				it "flash danger message" do
 					backdrop = double
 					allow(Backdrop).to receive(:find_by_slug!).and_return(backdrop)
 					allow(backdrop).to receive(:slug).and_return("abc")
 					allow(backdrop).to receive(:destroy).and_return(false)
 
-					delete :destroy, :params => { slug: backdrop.slug, backdrop: backdrop }	
-					
+					delete :destroy, :params => { slug: backdrop.slug, backdrop: backdrop }
+
 					expect(flash[:danger]).to be_present
 				end
 
@@ -218,7 +218,7 @@ describe BackdropsController do
 					allow(backdrop).to receive(:destroy).and_return(false)
 
 					delete :destroy, :params => { slug: backdrop.slug, backdrop: backdrop }
-					
+
 					expect(response).to redirect_to(edit_backdrop_path(backdrop))
 				end
 			end

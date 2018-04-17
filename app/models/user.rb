@@ -18,10 +18,10 @@ class User < ApplicationRecord
   has_many :announcements
 
   validates :email, :email => true, :presence => true, :uniqueness => true
-  validates :nickname, :presence => true, :length => { minimum: 3 }, :uniqueness => true
+  validates :username, :presence => true, :length => { minimum: 3 }, :uniqueness => true
 
 
-  friendly_id :nickname, use: [ :slugged, :finders ]
+  friendly_id :username, use: [ :slugged, :finders ]
 
   def request_password_reset
     generate_token(:password_reset_token)
