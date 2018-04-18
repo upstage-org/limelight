@@ -3,7 +3,7 @@ class User < ApplicationRecord
 
   before_create { generate_token(:auth_token) }
   before_create { generate_token(:confirmation_token) }
-  before_validation { self.username = self.username.downcase }
+  before_validation :downcase_credentials
 
   after_create :send_email_confirmation
   after_update :send_activation_email
@@ -47,5 +47,10 @@ class User < ApplicationRecord
       if self.is_active_was == false && self.is_active
         UserMailer.account_activated(self).deliver_now
       end
+    end
+
+    def downcase_credentials
+      self.username = self.username.downcase
+      self.email = self.email.downcase
     end
 end
