@@ -18,6 +18,10 @@
   </h1>
 </div>
 
+<div id="searchView">
+  <%= render 'search' %>
+</div>
+
 <div id="panelView" class="hidden-lg">
   <% @media.each do |m| %>
     <%= render :partial => 'panel', :locals => { medium: m } %>

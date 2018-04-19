@@ -1,0 +1,11 @@
+<div>
+  <h4>Search and Filter:</h4>
+
+  <label>Name or Tag:</label>
+
+  <%= form_tag(media_path, method: :get) do %>
+    <%= text_field_tag :term %>
+    <%= submit_tag 'Search' %>
+  <% end %>
+
+</div>
