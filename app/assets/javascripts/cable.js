@@ -80,9 +80,9 @@
       window.addEventListener('resize', App.resizeCanvas);
       App.resizeCanvas();
     }else if (App.state.avatars.length != 0 || App.state.backdrops.length != 0 || App.state.drawings.length != 0 ){
-      App.avatar.drop()
+      App.avatar.drop();
       App.state = { avatars: [], drawings: [], backdrops: [] };
-      window.holding = undefined
+      window.holding = undefined;
     }
   });
 
