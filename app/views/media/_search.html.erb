@@ -1,11 +1,35 @@
 <div>
   <h4>Search and Filter:</h4>
 
-  <label>Name or Tag:</label>
+  <%= form_for(media_path, method: :get) do |f| %>
+    <div>
+      <label>Name or Tag:</label>
+      <%= f.text_field :term %>
+      <%= submit_tag 'Search' %>
+    </div>
 
-  <%= form_tag(media_path, method: :get) do %>
-    <%= text_field_tag :term %>
-    <%= submit_tag 'Search' %>
+    <div class="row">
+      <div class="field col-sm-3">
+        <%= label_tag :user %>
+        <%= f.select :type, options_for_select(User.all.map { |user| [ user.nickname, user.id ] }.sort ) , :class => "form-control", :prompt => 'Select a User' %>
+      </div>
+
+      <div class="field col-sm-3">
+        <%= label_tag :type %>
+        <%= f.select :type, options_for_select(["Avatar", "Backdrop", "Sound"]) , :class => "form-control", :prompt => 'Select a Type' %>
+      </div>
+
+      <div class="field col-sm-3">
+        <%= label_tag :stage %>
+        <%= f.select :stage, options_for_select(Stage.all.map { |stage| [ stage.name, stage.id ] }.sort ) , :class => "form-control", :prompt => 'Select a Stage' %>
+      </div>
+
+      <div class="field col-sm-3">
+        <%= label_tag :tag %>
+        <%= f.select :tag, options_for_select(Tag.all.map { |tag| [ tag.name, tag.id ] }.sort ) , :class => "form-control", :prompt => 'Select a Tag' %>
+      </div>
+    </div>
   <% end %>
+
 
 </div>
