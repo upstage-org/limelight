@@ -62,7 +62,7 @@
       App.context.moveTo(drawing.fromX, drawing.fromY);
       App.context.lineTo(drawing.toX, drawing.toY);
 
-      App.context.stroke()
+      App.context.stroke();
     });
   };
 
@@ -74,10 +74,16 @@
 
   document.addEventListener('turbolinks:load', function(e) {
     App.canvas = document.querySelector('#canvas');
-    App.context = App.canvas.getContext('2d');
-    App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
-    window.addEventListener('resize', App.resizeCanvas);
-    App.resizeCanvas();
+    if (App.canvas != null) {
+      App.context = App.canvas.getContext('2d');
+      App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
+      window.addEventListener('resize', App.resizeCanvas);
+      App.resizeCanvas();
+    }else if (App.state.avatars.length != 0 || App.state.backdrops.length != 0 || App.state.drawings.length != 0 ){
+      App.avatar.drop()
+      App.state = { avatars: [], drawings: [], backdrops: [] };
+      window.holding = undefined
+    }
   });
 
 }).call(this);
