@@ -1,35 +1,33 @@
 <div>
   <h4>Search and Filter:</h4>
 
-  <%= form_for(media_path, method: :get) do |f| %>
+  <%= form_tag(media_path, method: :get) do %>
     <div>
       <label>Name or Tag:</label>
-      <%= f.text_field :term %>
+      <%= text_field_tag :term, params[:term] %>
       <%= submit_tag 'Search' %>
     </div>
 
     <div class="row">
       <div class="field col-sm-3">
         <%= label_tag :user %>
-        <%= f.select :type, options_for_select(User.all.map { |user| [ user.nickname, user.id ] }.sort ) , :class => "form-control", :prompt => 'Select a User' %>
+        <%= select_tag :user, options_for_select(User.all.map { |user| [ user.nickname, user.id ] }.sort, :selected => params[:user]) , :class => "form-control", :prompt => 'Select a User' %>
       </div>
 
       <div class="field col-sm-3">
         <%= label_tag :type %>
-        <%= f.select :type, options_for_select(["Avatar", "Backdrop", "Sound"]) , :class => "form-control", :prompt => 'Select a Type' %>
+        <%= select_tag :type, options_for_select(["Avatar", "Backdrop", "Sound"], :selected => params[:type]), :class => "form-control", :prompt => 'Select a Type' %>
       </div>
 
       <div class="field col-sm-3">
         <%= label_tag :stage %>
-        <%= f.select :stage, options_for_select(Stage.all.map { |stage| [ stage.name, stage.id ] }.sort ) , :class => "form-control", :prompt => 'Select a Stage' %>
+        <%= select_tag :stage, options_for_select(Stage.all.map { |stage| [ stage.name, stage.id ] }.sort, :selected => params[:stage]), :class => "form-control", :prompt => 'Select a Stage' %>
       </div>
 
       <div class="field col-sm-3">
         <%= label_tag :tag %>
-        <%= f.select :tag, options_for_select(Tag.all.map { |tag| [ tag.name, tag.id ] }.sort ) , :class => "form-control", :prompt => 'Select a Tag' %>
+        <%= select_tag :tag, options_for_select(Tag.all.map { |tag| [ tag.name, tag.id ] }.sort, :selected => params[:tag]), :class => "form-control", :prompt => 'Select a Tag' %>
       </div>
     </div>
   <% end %>
-
-
 </div>

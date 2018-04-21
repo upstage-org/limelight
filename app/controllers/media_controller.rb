@@ -37,7 +37,7 @@ class MediaController < ApplicationController
         when "Sound"
           med = s
         end
-      else        
+      else
         med = avt + s + bd
       end
       med.each do |m|
