@@ -154,7 +154,7 @@
           </div>
           <input type="hidden" id="stage-id" name ="stage-id" value ="<%= @stage.id %>">
           <input type="hidden" id="user-id" name ="user-id" value ="<%= current_user ? current_user.id : 0 %>">
-          <input type="hidden" id="user-name" name ="user-name" value ="<%= current_user ? current_user.nickname : 'Guest' %>">
+          <input type="hidden" id="user-name" name ="user-name" value ="<%= current_user ? current_user.username : 'Guest' %>">
         </div>
       </div>
     </div>

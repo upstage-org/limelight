@@ -6,7 +6,7 @@
       <%= @announcement.subtitle unless @announcement.subtitle.blank? %>
     </small>
   </h1>
-  <p>by <%= @announcement.author.nickname %></p>
+  <p>by <%= @announcement.author.username %></p>
   <p>Last Modified: <%= localize(@announcement.updated_at, :format => :long) %></p>
 </div>
 

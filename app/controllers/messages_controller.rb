@@ -23,6 +23,6 @@ class MessagesController < ApplicationController
   end
 
   def user
-    return current_user.nickname
+    return current_user.username
   end
 end
