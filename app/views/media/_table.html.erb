@@ -6,6 +6,7 @@
       <th onclick="sortTable(1, mediatable)" style="cursor:pointer">Type</th>
       <th onclick="sortTable(2, mediatable)" style="cursor:pointer">Stages</th>
       <th onclick="sortTable(3, mediatable)" style="cursor:pointer">Tags</th>
+      <th onclick="sortTable(4, mediatable)" style="cursor:pointer">Date</th>
       <th class="col-sm-1">Actions</th>
     </tr>
   </thead>
@@ -13,7 +14,7 @@
     <% @media.each do |m| %>
       <tr>
         <td><%= link_to m.name, m %></td>
-        <td><%= m.class.name %>
+        <td><%= m.class.name %></td>
         <td class="text-muted">
           <% m.stages.order('LOWER(name)').each do |s| %>
             <%= render s %>
@@ -24,6 +25,7 @@
             <%= render t %>
           <% end %>
         </td>
+        <td><%= m.created_at.strftime("%m/%d/%y @ %I:%M %p") %></td>
         <td class="col-sm-1">
           <span class="btn-group btn-group-sm">
             <%= link_to m, :method => :delete, :data => { confirm: "This will be deleted immediately and no longer be available on any stages that it was assigned to.", title: "Are you sure you want to delete the #{m.class.name.demodulize.downcase} \"#{m.name}\"?" }, :class => 'btn btn-sm btn-danger' do %>

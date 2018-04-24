@@ -21,7 +21,7 @@ class MediaController < ApplicationController
 
     if params[:term].present?
       avt = avatars.where("avatars.name NOT LIKE ?", "%#{params[:term]}%")
-      s = sounds.where("sounds.name NOT LIKE ?", "%#{params[:term]}%")
+      sd = sounds.where("sounds.name NOT LIKE ?", "%#{params[:term]}%")
       bd = backdrops.where("backdrops.name NOT LIKE ?", "%#{params[:term]}%")
 
       avatars = avatars.where("avatars.name LIKE ?", "%#{params[:term]}%")
@@ -35,10 +35,10 @@ class MediaController < ApplicationController
         when "Backdrop"
           med = bd
         when "Sound"
-          med = s
+          med = sd
         end
       else
-        med = avt + s + bd
+        med = avt + sd + bd
       end
       med.each do |m|
           m.tags.each do |t|
@@ -64,6 +64,27 @@ class MediaController < ApplicationController
       @media = avatars + sounds + backdrops
     end
     @media += others
+
+    if params[:year].present?
+      med = Array.new
+      @media.each do |m|
+        if m.created_at.year.to_s.match(params[:year])
+          med << m
+        end
+      end
+      @media = med
+    end
+
+    if params[:month].present?
+      med = Array.new
+      @media.each do |m|
+        if m.created_at.month == Date::MONTHNAMES.index(params[:month])
+          med << m
+        end
+      end
+      @media = med
+    end
+    
     @media.sort_by { |m| m.name }
   end
 end
