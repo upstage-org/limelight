@@ -72,18 +72,21 @@
     App.drawFrame();
   };
 
-  document.addEventListener('turbolinks:load', function(e) {
-    App.canvas = document.querySelector('#canvas');
-    if (App.canvas != null) {
-      App.context = App.canvas.getContext('2d');
-      App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
-      window.addEventListener('resize', App.resizeCanvas);
-      App.resizeCanvas();
-    }else if (App.state.avatars.length != 0 || App.state.backdrops.length != 0 || App.state.drawings.length != 0 ){
+  function clearState() {
+    if(App.avatar)
       App.avatar.drop();
-      App.state = { avatars: [], drawings: [], backdrops: [] };
-      window.holding = undefined;
-    }
+    App.avatar = undefined;
+    window.holding = undefined;
+    App.state = { avatars: [], drawings: [], backdrops: [] };
+  }
+
+  document.addEventListener('turbolinks:load', function(e) {
+    clearState();
+    App.canvas = document.querySelector('#canvas');
+    App.context = App.canvas.getContext('2d');
+    App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
+    window.addEventListener('resize', App.resizeCanvas);
+    App.resizeCanvas();
   });
 
 }).call(this);
