@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180403235530) do
+ActiveRecord::Schema.define(version: 20180425000622) do
 
   create_table "announcements", force: :cascade do |t|
     t.string "title", null: false
@@ -56,8 +56,10 @@ ActiveRecord::Schema.define(version: 20180403235530) do
     t.string "source_content_type"
     t.integer "source_file_size"
     t.datetime "source_updated_at"
+    t.integer "uploader_id"
     t.index ["deleted_at"], name: "index_avatars_on_deleted_at"
     t.index ["slug"], name: "index_avatars_on_slug"
+    t.index ["uploader_id"], name: "index_avatars_on_uploader_id"
   end
 
   create_table "backdrop_tags", force: :cascade do |t|
@@ -81,10 +83,12 @@ ActiveRecord::Schema.define(version: 20180403235530) do
     t.string "source_content_type"
     t.integer "source_file_size"
     t.datetime "source_updated_at"
+    t.integer "uploader_id"
     t.index ["deleted_at"], name: "index_backdrops_on_deleted_at"
     t.index ["medium_id"], name: "index_backdrops_on_medium_id"
     t.index ["slug", "deleted_at"], name: "index_backdrops_on_slug_and_deleted_at", unique: true
     t.index ["slug"], name: "index_backdrops_on_slug"
+    t.index ["uploader_id"], name: "index_backdrops_on_uploader_id"
   end
 
   create_table "media", force: :cascade do |t|
@@ -138,9 +142,11 @@ ActiveRecord::Schema.define(version: 20180403235530) do
     t.string "source_content_type"
     t.integer "source_file_size"
     t.datetime "source_updated_at"
+    t.integer "uploader_id"
     t.index ["deleted_at"], name: "index_sounds_on_deleted_at"
     t.index ["slug", "deleted_at"], name: "index_sounds_on_slug_and_deleted_at", unique: true
     t.index ["slug"], name: "index_sounds_on_slug"
+    t.index ["uploader_id"], name: "index_sounds_on_uploader_id"
   end
 
   create_table "stage_backdrops", force: :cascade do |t|

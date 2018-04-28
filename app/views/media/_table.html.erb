@@ -6,7 +6,8 @@
       <th onclick="sortTable(1, mediatable)" style="cursor:pointer">Type</th>
       <th onclick="sortTable(2, mediatable)" style="cursor:pointer">Stages</th>
       <th onclick="sortTable(3, mediatable)" style="cursor:pointer">Tags</th>
-      <th onclick="sortTable(4, mediatable)" style="cursor:pointer">Date</th>
+      <th onclick="sortTable(4, mediatable)" style="cursor:pointer">Uploader</th>
+      <th onclick="sortTable(5, mediatable)" style="cursor:pointer">Date</th>
       <th class="col-sm-1">Actions</th>
     </tr>
   </thead>
@@ -25,6 +26,7 @@
             <%= render t %>
           <% end %>
         </td>
+        <td><%= m.uploader.nickname if m.uploader.present? %></td>
         <td><%= m.created_at.strftime("%m/%d/%y @ %I:%M %p") %></td>
         <td class="col-sm-1">
           <span class="btn-group btn-group-sm">

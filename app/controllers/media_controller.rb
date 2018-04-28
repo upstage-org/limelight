@@ -7,6 +7,12 @@ class MediaController < ApplicationController
     backdrops = Backdrop.all
     others = Array.new
 
+    if params[:uploader].present?
+      avatars = avatars.where("uploader_id = ?", params[:uploader])
+      backdrops = backdrops.where("uploader_id = ?", params[:uploader])
+      sounds = sounds.where("uploader_id = ?", params[:uploader])
+    end
+
     if params[:stage].present?
       avatars = avatars.joins(:stages).where(stages: { id: params[:stage] })
       sounds = sounds.joins(:stages).where(stages: { id: params[:stage] })
@@ -84,7 +90,7 @@ class MediaController < ApplicationController
       end
       @media = med
     end
-    
+
     @media.sort_by { |m| m.name }
   end
 end
