@@ -82,19 +82,16 @@ jQuery(document).on 'turbolinks:load', ->
 
     canvas.on 'mouseover', (e) ->
       if $("#drawing").hasClass('active')
-        $("#canvas").css("cursor", "url(http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-10/24/Pencil-icon.png) 10 100, crosshair")
+        $("#canvas").css("cursor", "url(http://icons.iconarchive.com/icons/iconsmind/outline/24/Pencil-icon.png) -24 24, crosshair")
 
       if $("#avatar").hasClass('active')
-        $("#canvas").css("cursor","url(http://icons.iconarchive.com/icons/designcontest/vintage/24/Hand-icon.png), auto")
+        $("#canvas").css("cursor", "grab")
 
       if $("#audio").hasClass('active')
         $("#canvas").css("cursor","auto")
 
       if $("#backdrop").hasClass('active')
         $("#canvas").css("cursor", "auto")
-
-        ## http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-10/64/Pencil-icon.png
-        ## "url(http://icons.iconarchive.com/icons/iconsmind/outline/32/Pencil-icon.png), crosshair"
 
     canvas.on 'mousemove touchmove', (e) ->
       if(dragging)
