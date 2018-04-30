@@ -16,7 +16,7 @@ describe AvatarsController do
 		end
 
 		it "render 'index' template" do
-			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token
 			get :index
 			expect(response).to render_template('index')
@@ -41,12 +41,12 @@ describe AvatarsController do
 
 	describe "POST #create" do
 		before do
-			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token
 		end
 
 		context "when there is a valid avatar" do
-			subject { post :create, :params => { :avatar => { name: "Pass Type", source_name: "bg1", source_content_type: "image/png" } } }
+			subject { post :create, :params => { :avatar => { name: "Pass Type", source_name: "avat1", source_content_type: "image/png" } } }
 
 			it "redirects to edit backdrop path" do
 				expect(subject).to redirect_to(edit_avatar_path(Avatar.last))
@@ -76,7 +76,7 @@ describe AvatarsController do
 		subject { post :create, :params => { :avatar => { name: "Pass Type", source_name: "avat1", source_content_type: "image/png" } } }
 
 	 	it "redirect to edit avatar path" do
-	 		user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+	 		user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token
 			expect(subject).to redirect_to(edit_avatar_path(Avatar.last))
 	 	end
@@ -84,7 +84,7 @@ describe AvatarsController do
 
 	describe "#PATCH update" do
 		before do
-			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token
 		end
 
@@ -152,7 +152,7 @@ describe AvatarsController do
 
 	describe "DELETE destroy" do
 		before do
-			user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+			user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
 			cookies[:auth_token] = user.auth_token
 		end
 
