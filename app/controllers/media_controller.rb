@@ -30,6 +30,30 @@ class MediaController < ApplicationController
       backdrops = backdrops.joins(:tags).where("tags.name LIKE ? OR backdrops.name LIKE ?", "%#{params[:term]}%", "%#{params[:term]}%")
     end
 
+    if params[:year].present?
+      if Rails.env.production?
+        avatars = Avatar.where('extract(year from avatars.created_at) = ?', params[:year])
+        backdrops = Backdrop.where('extract(year from backdrops.created_at) = ?', params[:year])
+        sounds = Sound.where('extract(year from sounds.created_at) = ?', params[:year])
+      else
+        avatars = Avatar.where("cast(strftime('%Y', avatars.created_at) as int) = ?", params[:year])
+        backdrops = Backdrop.where("cast(strftime('%Y', backdrops.created_at) as int) = ?", params[:year])
+        sounds = Sound.where("cast(strftime('%Y', sounds.created_at) as int) = ?", params[:year])
+      end
+    end
+
+    if params[:month].present?
+      if Rails.env.production?
+        avatars = Avatar.where('extract(month from avatars.created_at) = ?', params[:month])
+        backdrops = Backdrop.where('extract(month from backdrops.created_at) = ?', params[:month])
+        sounds = Sound.where('extract(month from sounds.created_at) = ?', params[:month])
+      else
+        avatars = Avatar.where("cast(strftime('%m', avatars.created_at) as int) = ?", params[:month])
+        backdrops = Backdrop.where("cast(strftime('%m', backdrops.created_at) as int) = ?", params[:month])
+        sounds = Sound.where("cast(strftime('%m', sounds.created_at) as int) = ?", params[:month])
+      end
+    end
+
     if params[:type].present?
       case params[:type]
       when "Avatar"
@@ -41,26 +65,6 @@ class MediaController < ApplicationController
       end
     else
       @media = avatars + sounds + backdrops
-    end
-
-    if params[:year].present?
-      med = Array.new
-      @media.each do |m|
-        if m.created_at.year.to_s.match(params[:year])
-          med << m
-        end
-      end
-      @media = med
-    end
-
-    if params[:month].present?
-      med = Array.new
-      @media.each do |m|
-        if m.created_at.month == Date::MONTHNAMES.index(params[:month])
-          med << m
-        end
-      end
-      @media = med
     end
 
     @media.sort_by { |m| m.name }
