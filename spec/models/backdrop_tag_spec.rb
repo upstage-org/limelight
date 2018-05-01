@@ -11,7 +11,7 @@ describe BackdropTag do
     it { should validate_presence_of :tag }
 
     it 'validates backdrop uniqueness' do
-      user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+      user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
       b = Backdrop.create(:name => "bg1")
       t = Tag.create(:name => "tag1")
       BackdropTag.create(:backdrop => b, :tag => t)
@@ -19,7 +19,7 @@ describe BackdropTag do
     end
 
     it 'validates tag uniqueness' do
-      user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })  
+      user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })  
       b = Backdrop.create(:name => "bg1")
       t = Tag.create(:name => "tag1")
       BackdropTag.create(:backdrop => b, :tag => t)

@@ -17,7 +17,7 @@ describe Backdrop do
                  allowing('image/png', 'image/gif','image/jpg', 'image/jpeg')}
 
     it "should valdate image file type" do
-      user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+      user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
       b = Backdrop.create(name: "Pass Type", source_content_type: "image/png")
       expect(b).to be_valid
     end
@@ -29,7 +29,7 @@ describe Backdrop do
 
   describe ".not_assigned" do
     it "should return a list of backdrop that is not added to the stage" do
-      user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+      user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
       b = Backdrop.create(name: "backdrop1")
       s = Stage.create(name: "RSpecTestStage", owner_id: "1")
 
