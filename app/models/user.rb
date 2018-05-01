@@ -3,6 +3,7 @@ class User < ApplicationRecord
 
   before_create { generate_token(:auth_token) }
   before_create { generate_token(:confirmation_token) }
+  before_validation :downcase_credentials
 
   after_create :send_email_confirmation
   after_update :send_activation_email
@@ -18,10 +19,10 @@ class User < ApplicationRecord
   has_many :announcements
 
   validates :email, :email => true, :presence => true, :uniqueness => true
-  validates :nickname, :presence => true, :length => { minimum: 3 }, :uniqueness => true
+  validates :username, :presence => true, :length => { minimum: 3 }, :uniqueness => true
 
 
-  friendly_id :nickname, use: [ :slugged, :finders ]
+  friendly_id :username, use: [ :slugged, :finders ]
 
   def request_password_reset
     generate_token(:password_reset_token)
@@ -46,5 +47,10 @@ class User < ApplicationRecord
       if self.is_active_was == false && self.is_active
         UserMailer.account_activated(self).deliver_now
       end
+    end
+
+    def downcase_credentials
+      self.username = self.username.downcase
+      self.email = self.email.downcase
     end
 end

@@ -1,12 +1,16 @@
 class SessionsController < ApplicationController
   before_action :reject_anonymous, :except => [ :new, :create ]
+  before_action :force_lowercase_uid
   invisible_captcha :only => [ :create ], :honeypot => :bucket
 
   def new
   end
 
   def create
-    user = User.find_by_email(params[:email])
+    user = User.find_by_email(params[:uid])
+    unless EmailValidator.valid?(params[:uid])
+      user = User.find_by_username(params[:uid])
+    end
     if user && user.authenticate(params[:password])
       if user.is_active
         if user.email_confirmed.nil?
@@ -33,4 +37,9 @@ class SessionsController < ApplicationController
     flash[:success] = "Successfully logged out"
     redirect_to root_url
   end
+
+  private
+    def force_lowercase_uid
+      params[:uid] = params[:uid].downcase unless params[:uid].nil?
+    end
 end

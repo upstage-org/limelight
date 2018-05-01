@@ -40,10 +40,10 @@
 <% end %>
 
   <div class="form-group">
-    <%= f.text_field :nickname, :class => "form-control", :placeholder => 'Nickname' %>
-    <% unless @user.errors[:nickname].empty? %>
+    <%= f.text_field :username, :class => "form-control", :placeholder => 'Nickname' %>
+    <% unless @user.errors[:username].empty? %>
       <p class="text-danger">
-        <% @user.errors.full_messages_for(:nickname).each do |e| %>
+        <% @user.errors.full_messages_for(:username).each do |e| %>
           <%= e %><br>
         <% end %>
       </p>

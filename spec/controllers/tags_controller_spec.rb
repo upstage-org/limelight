@@ -4,7 +4,7 @@ RSpec.describe TagsController, type: :controller do
 
   describe "POST #create" do
     before do
-      user = User.create({ nickname: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
+      user = User.create({ username: 'Admin', email: 'admin@local.instance', password: 'admin', password_confirmation: 'admin', is_active: true, email_confirmed: Time.zone.now })
       cookies[:auth_token] = user.auth_token
     end
 

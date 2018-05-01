@@ -56,12 +56,13 @@ jQuery(document).on 'turbolinks:load', ->
           document.getElementById("brushSize").innerHTML = size
 
     canvas.on 'mousedown touchstart', (e) ->
-      if(window.holding != undefined)
-        avatar = App.state.avatars[window.holding]
-        if(avatar != undefined)
-          if(e.clientX >= avatar.x && e.clientX <= (avatar.width + avatar.x))
-            if(e.clientY >= avatar.y && e.clientY <= (avatar.height + avatar.y))
-              dragging = true
+      if $("#avatar").hasClass('active')
+        if(window.holding != undefined)
+          avatar = App.state.avatars[window.holding]
+          if(avatar != undefined)
+            if(e.clientX >= avatar.x && e.clientX <= (avatar.width + avatar.x))
+              if(e.clientY >= avatar.y && e.clientY <= (avatar.height + avatar.y))
+                dragging = true
 
       e.preventDefault()
       x = e.offsetX
@@ -72,7 +73,8 @@ jQuery(document).on 'turbolinks:load', ->
         x = e.offsetX
         y = e.offsetY
 
-      drawing = true
+      if $("#drawing").hasClass('active')
+        drawing = true
       prev.x = x
       prev.y = y
 

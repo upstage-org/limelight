@@ -209,7 +209,7 @@ ActiveRecord::Schema.define(version: 20180425000622) do
     t.string "email", null: false
     t.string "password_digest", null: false
     t.string "auth_token", null: false
-    t.string "nickname", null: false
+    t.string "username", null: false
     t.boolean "is_active", default: false, null: false
     t.string "slug", null: false
     t.datetime "deleted_at"
@@ -219,7 +219,7 @@ ActiveRecord::Schema.define(version: 20180425000622) do
     t.string "confirmation_token", default: "CONFIRMED", null: false
     t.string "password_reset_token"
     t.datetime "password_reset_sent_at"
-    t.index ["deleted_at", "nickname"], name: "index_users_on_deleted_at_and_nickname", unique: true
+    t.index ["deleted_at", "username"], name: "index_users_on_deleted_at_and_username", unique: true
     t.index ["deleted_at"], name: "index_users_on_deleted_at"
     t.index ["email"], name: "index_users_on_email"
     t.index ["is_active"], name: "index_users_on_is_active"
