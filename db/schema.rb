@@ -56,7 +56,7 @@ ActiveRecord::Schema.define(version: 20180425000622) do
     t.string "source_content_type"
     t.integer "source_file_size"
     t.datetime "source_updated_at"
-    t.integer "uploader_id"
+    t.integer "uploader_id", default: 1, null: false
     t.index ["deleted_at"], name: "index_avatars_on_deleted_at"
     t.index ["slug"], name: "index_avatars_on_slug"
     t.index ["uploader_id"], name: "index_avatars_on_uploader_id"
@@ -83,7 +83,7 @@ ActiveRecord::Schema.define(version: 20180425000622) do
     t.string "source_content_type"
     t.integer "source_file_size"
     t.datetime "source_updated_at"
-    t.integer "uploader_id"
+    t.integer "uploader_id", default: 1, null: false
     t.index ["deleted_at"], name: "index_backdrops_on_deleted_at"
     t.index ["medium_id"], name: "index_backdrops_on_medium_id"
     t.index ["slug", "deleted_at"], name: "index_backdrops_on_slug_and_deleted_at", unique: true
@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 20180425000622) do
     t.string "source_content_type"
     t.integer "source_file_size"
     t.datetime "source_updated_at"
-    t.integer "uploader_id"
+    t.integer "uploader_id", default: 1, null: false
     t.index ["deleted_at"], name: "index_sounds_on_deleted_at"
     t.index ["slug", "deleted_at"], name: "index_sounds_on_slug_and_deleted_at", unique: true
     t.index ["slug"], name: "index_sounds_on_slug"
