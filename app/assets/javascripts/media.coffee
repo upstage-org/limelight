@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 init = () ->
-	$('#reset_filters_btn').click ->
+  $('#reset_filters_btn').click ->
     $('#uploader').get(0).selectedIndex = 0;
     $('#type').get(0).selectedIndex = 0;
     $('#stage').get(0).selectedIndex = 0;

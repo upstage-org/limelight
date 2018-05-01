@@ -5,7 +5,6 @@ class MediaController < ApplicationController
     avatars = Avatar.all
     sounds = Sound.all
     backdrops = Backdrop.all
-    others = Array.new
 
     if params[:uploader].present?
       avatars = avatars.where("uploader_id = ?", params[:uploader])
@@ -26,35 +25,9 @@ class MediaController < ApplicationController
     end
 
     if params[:term].present?
-      avt = avatars.where("avatars.name NOT LIKE ?", "%#{params[:term]}%")
-      sd = sounds.where("sounds.name NOT LIKE ?", "%#{params[:term]}%")
-      bd = backdrops.where("backdrops.name NOT LIKE ?", "%#{params[:term]}%")
-
-      avatars = avatars.where("avatars.name LIKE ?", "%#{params[:term]}%")
-      sounds = sounds.where("sounds.name like ?", "%#{params[:term]}%")
-      backdrops = backdrops.where("backdrops.name like ?", "%#{params[:term]}%")
-
-      if params[:type].present?
-        case params[:type]
-        when "Avatar"
-          med = avt
-        when "Backdrop"
-          med = bd
-        when "Sound"
-          med = sd
-        end
-      else
-        med = avt + sd + bd
-      end
-      med.each do |m|
-          m.tags.each do |t|
-            if t.name.match(params[:term])
-              unless others.include? m
-                others << m
-              end
-            end
-          end
-      end
+      avatars = avatars.joins(:tags).where("tags.name LIKE ? OR avatars.name LIKE ?", "%#{params[:term]}%", "%#{params[:term]}%")
+      sounds = sounds.joins(:tags).where("tags.name LIKE ? OR sounds.name LIKE ?", "%#{params[:term]}%", "%#{params[:term]}%")
+      backdrops = backdrops.joins(:tags).where("tags.name LIKE ? OR backdrops.name LIKE ?", "%#{params[:term]}%", "%#{params[:term]}%")
     end
 
     if params[:type].present?
@@ -69,7 +42,6 @@ class MediaController < ApplicationController
     else
       @media = avatars + sounds + backdrops
     end
-    @media += others
 
     if params[:year].present?
       med = Array.new

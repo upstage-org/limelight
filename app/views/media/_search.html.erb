@@ -5,7 +5,7 @@
     <div class="row">
       <div class="field col-sm-2">
         <%= label_tag :uploader %>
-        <%= select_tag :uploader, options_for_select(User.all.map { |user| [ user.nickname, user.id ] }.sort, :selected => params[:uploader]) , :class => "form-control", :prompt => 'Choose Uploader', :onchange => "this.form.submit();" %>
+        <%= select_tag :uploader, options_for_select(User.all.map { |user| [ user.username, user.id ] }.sort, :selected => params[:uploader]) , :class => "form-control", :prompt => 'Choose Uploader', :onchange => "this.form.submit();" %>
       </div>
 
       <div class="field col-sm-2">

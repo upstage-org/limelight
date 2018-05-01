@@ -26,7 +26,7 @@
             <%= render t %>
           <% end %>
         </td>
-        <td><%= m.uploader.nickname if m.uploader.present? %></td>
+        <td><%= m.uploader.username if m.uploader.present? %></td>
         <td><%= m.created_at.strftime("%m/%d/%y @ %I:%M %p") %></td>
         <td class="col-sm-1">
           <span class="btn-group btn-group-sm">
