@@ -21,7 +21,7 @@
       <%= @announcement.subtitle unless @announcement.subtitle.blank? %>
     </small>
   </h1>
-  <p class="text-muted">by <%= @announcement.author.nickname %></p>
+  <p class="text-muted">by <%= @announcement.author.username %></p>
   <p class="text-muted">Last Modified: <%= localize(@announcement.updated_at, :format => :long) %></p>
 </div>
 
