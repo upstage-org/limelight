@@ -62,7 +62,7 @@
       App.context.moveTo(drawing.fromX, drawing.fromY);
       App.context.lineTo(drawing.toX, drawing.toY);
 
-      App.context.stroke()
+      App.context.stroke();
     });
   };
 
@@ -72,7 +72,16 @@
     App.drawFrame();
   };
 
+  function clearState() {
+    if(App.avatar)
+      App.avatar.drop();
+    App.avatar = undefined;
+    window.holding = undefined;
+    App.state = { avatars: [], drawings: [], backdrops: [] };
+  }
+
   document.addEventListener('turbolinks:load', function(e) {
+    clearState();
     App.canvas = document.querySelector('#canvas');
     App.context = App.canvas.getContext('2d');
     App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
