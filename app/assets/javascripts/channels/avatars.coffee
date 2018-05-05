@@ -142,6 +142,20 @@ editName = (data) ->
   }
   App.drawFrame()
 
+avatarShadow = () ->
+  avatar = App.state.avatars[window.holding]
+  img = new Image()
+  img.onload = ->
+    App.context.clearRect(0, 0, innerWidth, innerHeight);
+    App.drawFrame()
+    App.context.globalAlpha = 0.4
+    multiplier = document.querySelector('#avatarSlider').value/10
+    height = img.height*multiplier
+    width = img.width*multiplier
+    App.context.drawImage(img, avatar.x, avatar.y, width, height)
+    App.context.globalAlpha = 1.0
+  img.src = avatar.image.src
+
 document.addEventListener 'turbolinks:load', (e) ->
   if document.querySelector('#toolbox') != null
     document.querySelectorAll('.avatar-selection').forEach (elem) ->
@@ -159,8 +173,20 @@ document.addEventListener 'turbolinks:load', (e) ->
       mousedown = false
       App.avatar.size document.querySelector('#avatarSlider').value
 
+    document.querySelector('#resizeSpeed').addEventListener 'click', (e) ->
+      btn = document.querySelector('#resizeSpeed')
+      if btn.value == "1"
+        btn.innerHTML = "Slow"
+        btn.value = 0
+      else
+        btn.innerHTML = "Fast"
+        btn.value = 1
+
     document.querySelector('#avatarSlider').addEventListener 'mousemove', (e) ->
       if mousedown
+        if document.querySelector('#resizeSpeed').value == "1"
+          avatarShadow()
+        else
           App.avatar.size document.querySelector('#avatarSlider').value
 
     document.querySelector('#editNameBtn').addEventListener 'mouseup', (e) ->
