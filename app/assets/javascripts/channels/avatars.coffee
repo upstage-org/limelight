@@ -176,10 +176,10 @@ document.addEventListener 'turbolinks:load', (e) ->
     document.querySelector('#resizeSpeed').addEventListener 'click', (e) ->
       btn = document.querySelector('#resizeSpeed')
       if btn.value == "1"
-        btn.innerHTML = "Slow"
+        btn.innerHTML = "Gradual"
         btn.value = 0
       else
-        btn.innerHTML = "Fast"
+        btn.innerHTML = "Instant"
         btn.value = 1
 
     document.querySelector('#avatarSlider').addEventListener 'mousemove', (e) ->
