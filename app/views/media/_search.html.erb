@@ -23,14 +23,16 @@
     </div>
 
     <div class="field col-sm-4">
-      <div class="field col-sm-12">
+      <div class="field col-sm-12 row">
         <%= label_tag :date %>
       </div>
-      <div class="field col-sm-6">
-        <%= select_tag :month, options_for_select(Date::MONTHNAMES.compact, :selected => params[:month]), :class => "form-control", :prompt => 'Choose Month', :onchange => "this.form.submit();" %>
-      </div>
-      <div class="field col-sm-6">
-        <%= select_tag :year, options_for_select((2010..Date.today.year).to_a, :selected => params[:year]), :class => "form-control", :prompt => 'Choose Year', :onchange => "this.form.submit();" %>
+      <div class="row">
+        <div class="field col-sm-6">
+          <%= select_tag :month, options_for_select(Date::MONTHNAMES.compact, :selected => params[:month]), :class => "form-control", :prompt => 'Choose Month', :onchange => "this.form.submit();" %>
+        </div>
+        <div class="field col-sm-6">
+          <%= select_tag :year, options_for_select((2010..Date.today.year).to_a, :selected => params[:year]), :class => "form-control", :prompt => 'Choose Year', :onchange => "this.form.submit();" %>
+        </div>
       </div>
     </div>
   </div>
