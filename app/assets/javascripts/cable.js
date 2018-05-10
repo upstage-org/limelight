@@ -48,6 +48,7 @@
       App.context.textAlign = "center";
       App.context.textBaseline = "top";
       if(avatar.show == '1'){
+        App.context.font="18px sans-serif";
         App.context.fillText(avatar.nickname, avatar.text_x, avatar.text_y);
       }
     });
