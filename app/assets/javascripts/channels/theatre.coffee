@@ -144,9 +144,6 @@ jQuery(document).on 'turbolinks:load', ->
           filename = $("#" + name).data("backdrop-filename")
           document.body.style.backgroundImage = 'url("/uploads/' + filename + '")'
 
-
-
-
     ###################################### ACTIONCABLES##################################
     App.global_chat = App.cable.subscriptions.create { channel:"ChatChannel", stage: messages.data('stage-id') },
       connected: ->
@@ -215,6 +212,19 @@ utter = () ->
     avatarName: avatarName
   )
   if window.holding
+    m = $("input:radio[name ='chat-modifier']:checked").val()
+    if m == '!'
+      shoutBubble($('#chat-speak').val().toUpperCase())
+      setTimeout (->
+        App.drawFrame()
+        return
+      ), 3000
+    else if m == ''
+      speechBubble($('#chat-speak').val())
+      setTimeout (->
+        App.drawFrame()
+        return
+      ), 3000
     App.dialog.utter $('#chat-speak').val()
   $('#chat-speak').val('')
 
@@ -226,6 +236,108 @@ $(document).on 'keydown', '#chat-speak', (e) ->
     e.target.value = ''
     e.preventDefault()
     return false
+
+shoutBubble = (txt) ->
+  avatar = App.state.avatars[window.holding]
+  height = 60
+  width = 160
+  x = avatar.x + avatar.width/2 - width / 2
+  y = avatar.y - 30
+  spike = 20
+
+  App.context.beginPath()
+  App.context.strokeStyle = "red"
+  App.context.lineWidth = "4"
+  App.context.moveTo(x,y)
+
+  i = 0
+  while i < height/spike
+    App.context.lineTo(x-spike, y-i*spike-spike/2)
+    App.context.lineTo(x, y-i*spike-spike)
+    i++
+
+  i = 0
+  while i < width/spike
+    App.context.lineTo(x+i*spike+spike/2, y-height-spike)
+    App.context.lineTo(x+i*spike+spike, y-height)
+    i++
+
+  i = 0
+  while i < height/spike
+    App.context.lineTo(x+width+spike, y+i*spike-height+spike/2)
+    App.context.lineTo(x+width, y+i*spike-height+spike)
+    i++
+
+  i = 0
+  while i < width/spike
+    App.context.lineTo(x+width-i*spike-spike/2, y+spike)
+    App.context.lineTo(x+width-i*spike-spike, y)
+    i++
+
+  App.context.fillStyle = "white"
+  App.context.fill()
+  App.context.fillStyle = "black"
+  App.context.font = "20px sans-serif"
+  App.context.textAlign = "center"
+  App.context.fillText(txt, avatar.x + avatar.width/2 , y-45)
+  App.context.stroke()
+
+speechBubble = (txt) ->
+  avatar = App.state.avatars[window.holding]
+  x = avatar.x + avatar.width/2
+  y = avatar.y - 30
+  width = 100
+  height = 50
+  radius = 20
+  lines = []
+
+  if txt.length > 17
+    height = height + 25*(parseInt(txt.length / 17))
+    lines = txt.split(' ')
+
+  r = x + width
+  b = y - height
+  App.context.beginPath()
+  App.context.strokeStyle = "green"
+  App.context.lineWidth = "2"
+  App.context.moveTo(x, y + 20)
+  App.context.lineTo(x - 10, y)
+  App.context.lineTo(x - width - 10, y)
+  App.context.quadraticCurveTo(x - width - radius - 10, y, x - width - radius - 10, y - radius)
+  App.context.lineTo(x - width - 10 - radius, b)
+  App.context.quadraticCurveTo(x - width - 10 - radius, b - radius, x - width - 10, b - radius)
+  App.context.lineTo(r + 10, b - radius)
+  App.context.quadraticCurveTo(r + radius + 10, b - radius, r + radius + 10, b)
+  App.context.lineTo(r + radius + 10, y - radius)
+  App.context.quadraticCurveTo(r + radius + 10, y, r + 10, y)
+  App.context.lineTo(x + 10, y)
+  App.context.lineTo(x, y + 20)
+  App.context.fillStyle = "white"
+  App.context.fill()
+  App.context.fillStyle = "black"
+  App.context.font = "20px sans-serif"
+  App.context.textAlign = "center"
+
+  if lines.length > 0
+    i = 0
+    line = ""
+    count = 0
+    row = 0
+    while i < lines.length
+      if lines[i].length + count <= 17
+        count += lines[i].length
+        line = line + lines[i] + " "
+      else
+        App.context.fillText(line, x, y-height+row*25)
+        row++
+        count = lines[i].length
+        line = lines[i] + " "
+      if i == lines.length - 1
+        App.context.fillText(line, x, y-height+row*25)
+      i++
+  else
+    App.context.fillText(txt, x, y-height)
+  App.context.stroke()
 
 # When user clicks the 'Send' button in chat, call the utter function.
 $(document).on 'mouseup', '#sendChat', (e) ->
