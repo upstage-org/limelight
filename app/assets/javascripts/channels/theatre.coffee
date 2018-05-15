@@ -84,8 +84,8 @@ jQuery(document).on 'turbolinks:load', ->
 
     canvas.on 'mouseover', (e) ->
       if $("#drawing").hasClass('active')
-        $("#canvas").css("cursor", "crosshair")
-        $("#canvas").css("cursor", "url(http://icons.iconarchive.com/icons/iconsmind/outline/24/Pencil-icon.png) -24 24, auto")
+        $("#canvas").css("cursor", "url(/pencil.cur), auto")
+        $("#canvas").css("cursor", "url(http://icons.iconarchive.com/icons/iconsmind/outline/16/Pencil-icon.png) -24 24, auto")
 
       if $("#avatar").hasClass('active')
         $("#canvas").css("cursor", "-webkit-grab")
