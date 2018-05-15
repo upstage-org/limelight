@@ -2,9 +2,9 @@ class MediaController < ApplicationController
   before_action :reject_anonymous
   def index
     @media = Array.new
-    avatars = Avatar.all
-    sounds = Sound.all
-    backdrops = Backdrop.all
+    @avatars = Avatar.all
+    @sounds = Sound.all
+    @backdrops = Backdrop.all
 
     search(params[:term]) if params[:term].present?
     filter_by_uploader(params[:uploader]) if params[:uploader].present?
@@ -16,14 +16,14 @@ class MediaController < ApplicationController
     if params[:type].present?
       case params[:type]
       when "Avatar"
-        @media = avatars
+        @media = @avatars
       when "Backdrop"
-        @media = backdrops
+        @media = @backdrops
       when "Sound"
-        @media = sounds
+        @media = @sounds
       end
     else
-      @media = avatars + sounds + backdrops
+      @media = @avatars + @sounds + @backdrops
     end
 
     @media.sort_by { |m| m.name }
