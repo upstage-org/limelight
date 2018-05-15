@@ -52,7 +52,7 @@ gem 'bootstrap-wysihtml5-rails', '~> 0.3.3.8'
 gem 'data-confirm-modal'
 
 # Enables ActiveRecord query based on time
-gem 'by_star', git: "https://github.com/radar/by_star.git"
+gem 'by_star', '~> 3.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
