@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/radar/by_star.git
+  revision: 422c06ec1ea8ce633aca014a4403fbac92630057
+  specs:
+    by_star (3.0.0)
+      activesupport (> 3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -223,6 +230,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-sass (~> 3.3.7)
   bootstrap-wysihtml5-rails (~> 0.3.3.8)
+  by_star!
   byebug
   coffee-rails (~> 4.2)
   data-confirm-modal

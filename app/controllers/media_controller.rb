@@ -6,53 +6,12 @@ class MediaController < ApplicationController
     sounds = Sound.all
     backdrops = Backdrop.all
 
-    if params[:uploader].present?
-      avatars = avatars.where("uploader_id = ?", params[:uploader])
-      backdrops = backdrops.where("uploader_id = ?", params[:uploader])
-      sounds = sounds.where("uploader_id = ?", params[:uploader])
-    end
-
-    if params[:stage].present?
-      avatars = avatars.joins(:stages).where(stages: { id: params[:stage] })
-      sounds = sounds.joins(:stages).where(stages: { id: params[:stage] })
-      backdrops = backdrops.joins(:stages).where(stages: { id: params[:stage] })
-    end
-
-    if params[:tag].present?
-      avatars = avatars.joins(:tags).where(tags: { id: params[:tag] })
-      sounds = sounds.joins(:tags).where(tags: { id: params[:tag] })
-      backdrops = backdrops.joins(:tags).where(tags: { id: params[:tag] })
-    end
-
-    if params[:term].present?
-      avatars = avatars.joins(:tags).where("tags.name LIKE ? OR avatars.name LIKE ?", "%#{params[:term]}%", "%#{params[:term]}%")
-      sounds = sounds.joins(:tags).where("tags.name LIKE ? OR sounds.name LIKE ?", "%#{params[:term]}%", "%#{params[:term]}%")
-      backdrops = backdrops.joins(:tags).where("tags.name LIKE ? OR backdrops.name LIKE ?", "%#{params[:term]}%", "%#{params[:term]}%")
-    end
-
-    if params[:year].present?
-      if Rails.env.production?
-        avatars = Avatar.where('extract(year from avatars.created_at) = ?', params[:year])
-        backdrops = Backdrop.where('extract(year from backdrops.created_at) = ?', params[:year])
-        sounds = Sound.where('extract(year from sounds.created_at) = ?', params[:year])
-      else
-        avatars = Avatar.where("cast(strftime('%Y', avatars.created_at) as int) = ?", params[:year])
-        backdrops = Backdrop.where("cast(strftime('%Y', backdrops.created_at) as int) = ?", params[:year])
-        sounds = Sound.where("cast(strftime('%Y', sounds.created_at) as int) = ?", params[:year])
-      end
-    end
-
-    if params[:month].present?
-      if Rails.env.production?
-        avatars = Avatar.where('extract(month from avatars.created_at) = ?', params[:month])
-        backdrops = Backdrop.where('extract(month from backdrops.created_at) = ?', params[:month])
-        sounds = Sound.where('extract(month from sounds.created_at) = ?', params[:month])
-      else
-        avatars = Avatar.where("cast(strftime('%m', avatars.created_at) as int) = ?", params[:month])
-        backdrops = Backdrop.where("cast(strftime('%m', backdrops.created_at) as int) = ?", params[:month])
-        sounds = Sound.where("cast(strftime('%m', sounds.created_at) as int) = ?", params[:month])
-      end
-    end
+    search(params[:term]) if params[:term].present?
+    filter_by_uploader(params[:uploader]) if params[:uploader].present?
+    filter_by_stage(params[:stage]) if params[:stage].present?
+    filter_by_tag(params[:tag]) if params[:tag].present?
+    filter_by_year(params[:year]) if params[:year].present?
+    filter_by_month(params[:month]) if params[:month].present?
 
     if params[:type].present?
       case params[:type]
@@ -69,4 +28,41 @@ class MediaController < ApplicationController
 
     @media.sort_by { |m| m.name }
   end
+
+  private
+    def filter_by_stage(stage)
+      @avatars = @avatars.joins(:stages).where(stages: { id: stage })
+      @sounds = @sounds.joins(:stages).where(stages: { id: stage })
+      @backdrops = @backdrops.joins(:stages).where(stages: { id: stage })
+    end
+
+    def filter_by_year(year)
+      @avatars = Avatar.by_year(year)
+      @backdrops = Backdrop.by_year(year)
+      @sounds = Sound.by_year(year)
+    end
+
+    def filter_by_month(month)
+      @avatars = Avatar.by_month(month)
+      @backdrops = Backdrop.by_month(month)
+      @sounds = Sound.by_month(month)
+    end
+
+    def filter_by_uploader(uploader)
+      @avatars = @avatars.where("uploader_id = ?", uploader)
+      @backdrops = @backdrops.where("uploader_id = ?", uploader)
+      @sounds = @sounds.where("uploader_id = ?", uploader)
+    end
+
+    def filter_by_tag(tag)
+      @avatars = @avatars.joins(:tags).where(tags: { id: tag })
+      @sounds = @sounds.joins(:tags).where(tags: { id: tag })
+      @backdrops = @backdrops.joins(:tags).where(tags: { id: tag })
+    end
+
+    def search(term)
+      @avatars = @avatars.joins(:tags).where("tags.name LIKE ? OR avatars.name LIKE ?", "%#{term}%", "%#{term}%")
+      @sounds = @sounds.joins(:tags).where("tags.name LIKE ? OR sounds.name LIKE ?", "%#{term}%", "%#{term}%")
+      @backdrops = @backdrops.joins(:tags).where("tags.name LIKE ? OR backdrops.name LIKE ?", "%#{term}%", "%#{term}%")
+    end
 end
