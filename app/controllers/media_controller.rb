@@ -37,15 +37,15 @@ class MediaController < ApplicationController
     end
 
     def filter_by_year(year)
-      @avatars = Avatar.by_year(year)
-      @backdrops = Backdrop.by_year(year)
-      @sounds = Sound.by_year(year)
+      @avatars = @avatars.by_year(year)
+      @backdrops = @backdrops.by_year(year)
+      @sounds = @sounds.by_year(year)
     end
 
     def filter_by_month(month)
-      @avatars = Avatar.by_month(month)
-      @backdrops = Backdrop.by_month(month)
-      @sounds = Sound.by_month(month)
+      @avatars = @avatars.by_month(month)
+      @backdrops = @backdrops.by_month(month)
+      @sounds = @sounds.by_month(month)
     end
 
     def filter_by_uploader(uploader)
