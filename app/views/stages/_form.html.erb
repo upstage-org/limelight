@@ -17,6 +17,9 @@
 
 <div class="form-group">
   <%= f.submit ( @stage.new_record? ? 'Create' : 'Edit' ), :class => 'btn btn-primary' %>
+  <% unless @stage.new_record? %>
+    <%= link_to 'Delete', @stage, :method => :delete, :data => { confirm: "This stage will be deleted immediately and will no longer be available.", title: "Are you sure you want to delete the stage \"#{@stage.name}\"?" }, :class => "btn btn-danger" %>
+  <% end %>
 </div>
 
 <% end %>
