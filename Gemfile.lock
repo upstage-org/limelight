@@ -49,6 +49,8 @@ GEM
     bootstrap-wysihtml5-rails (0.3.3.8)
       railties (>= 3.0)
     builder (3.2.3)
+    by_star (3.0.0)
+      activesupport (> 3)
     byebug (10.0.2)
     climate_control (0.2.0)
     cocaine (0.5.8)
@@ -223,6 +225,7 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-sass (~> 3.3.7)
   bootstrap-wysihtml5-rails (~> 0.3.3.8)
+  by_star (~> 3.0)
   byebug
   coffee-rails (~> 4.2)
   data-confirm-modal

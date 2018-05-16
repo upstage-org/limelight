@@ -1,0 +1,53 @@
+<h4>Search and Filter:</h4>
+
+<%= form_tag(media_path, method: :get) do %>
+  <div class="row">
+    <div class="field col-sm-2">
+      <label>Uploaded by</label>
+      <%= select_tag :uploader, options_for_select(User.all.map { |user| [ user.username, user.id ] }.sort, :selected => params[:uploader]) , :class => "form-control", :prompt => 'Choose Uploader', :onchange => "this.form.submit();" %>
+    </div>
+
+    <div class="field col-sm-2">
+      <%= label_tag :type %>
+      <%= select_tag :type, options_for_select(["Avatar", "Backdrop", "Sound"], :selected => params[:type]), :class => "form-control", :prompt => 'Choose Type', :onchange => "this.form.submit();" %>
+    </div>
+
+    <div class="field col-sm-2">
+      <%= label_tag :stage %>
+      <%= select_tag :stage, options_for_select(Stage.all.map { |stage| [ stage.name, stage.id ] }.sort, :selected => params[:stage]), :class => "form-control", :prompt => 'Choose Stage', :onchange => "this.form.submit();" %>
+    </div>
+
+    <div class="field col-sm-2">
+      <%= label_tag :tag %>
+      <%= select_tag :tag, options_for_select(Tag.all.map { |tag| [ tag.name, tag.id ] }.sort, :selected => params[:tag]), :class => "form-control", :prompt => 'Choose Tag', :onchange => "this.form.submit();" %>
+    </div>
+
+    <div class="field col-sm-4">
+      <div class="field col-sm-12 row">
+        <%= label_tag :date %>
+      </div>
+      <div class="row">
+        <div class="field col-sm-6">
+          <%= select_tag :month, options_for_select(Date::MONTHNAMES.compact, :selected => params[:month]), :class => "form-control", :prompt => 'Choose Month', :onchange => "this.form.submit();" %>
+        </div>
+        <div class="field col-sm-6">
+          <%= select_tag :year, options_for_select((2010..Date.today.year).to_a, :selected => params[:year]), :class => "form-control", :prompt => 'Choose Year', :onchange => "this.form.submit();" %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+  <div class="row">
+    <div class="col-sm-2">
+    <label>Name or Tag:</label>
+    </div>
+    <div class="col-sm-2">
+    <%= text_field_tag :term, params[:term], :class => "form-control" %>
+    </div>
+    <div class="col-sm-8">
+    <%= submit_tag 'Search', :class => "btn btn-primary" %>
+    <button type="button" class="btn btn-primary" id="reset_filters_btn">Reset Filters</button>
+    </div>
+  </div>
+<% end %>

@@ -3,6 +3,8 @@ class Backdrop < ApplicationRecord
 
   acts_as_paranoid
 
+  belongs_to :uploader, :class_name => 'User'
+
   has_many :stage_backdrops, :dependent => :destroy
   has_many :stages, :through => :stage_backdrops
 
@@ -15,6 +17,7 @@ class Backdrop < ApplicationRecord
 
   validates :name, :presence => true
   validates_attachment_content_type :source, content_type: /\Aimage\/.*\z/
+  validates :uploader, :presence => true
 
   def self.not_assigned(stage)
     self.all.reject { |s| stage.backdrops.include? s }
