@@ -3,6 +3,8 @@ class Avatar < ApplicationRecord
 
   acts_as_paranoid
 
+  belongs_to :uploader, :class_name => 'User'
+
   has_many :avatar_stages, :dependent => :destroy
   has_many :stages, :through => :avatar_stages
 
@@ -15,6 +17,7 @@ class Avatar < ApplicationRecord
 
   validates :name, :presence => true
   validates_attachment_content_type :source, content_type: /\Aimage\/.*\z/
+  validates :uploader, :presence => true
 
   def self.not_assigned(stage)
     self.all.reject { |a| stage.avatars.include? a }
