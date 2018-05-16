@@ -6,12 +6,12 @@ class MediaController < ApplicationController
     @sounds = Sound.all
     @backdrops = Backdrop.all
 
-    search(params[:term]) if params[:term].present?
     filter_by_uploader(params[:uploader]) if params[:uploader].present?
     filter_by_stage(params[:stage]) if params[:stage].present?
     filter_by_tag(params[:tag]) if params[:tag].present?
     filter_by_year(params[:year]) if params[:year].present?
     filter_by_month(params[:month]) if params[:month].present?
+    search(params[:term]) if params[:term].present?
 
     if params[:type].present?
       case params[:type]
@@ -61,8 +61,8 @@ class MediaController < ApplicationController
     end
 
     def search(term)
-      @avatars = @avatars.joins(:tags).where("tags.name LIKE ? OR avatars.name LIKE ?", "%#{term}%", "%#{term}%")
-      @sounds = @sounds.joins(:tags).where("tags.name LIKE ? OR sounds.name LIKE ?", "%#{term}%", "%#{term}%")
-      @backdrops = @backdrops.joins(:tags).where("tags.name LIKE ? OR backdrops.name LIKE ?", "%#{term}%", "%#{term}%")
+      @avatars = @avatars.where("avatars.name LIKE ?", "%#{term}%") | Avatar.joins(:tags).where("tags.name LIKE ?", "%#{term}%").distinct
+      @sounds = @sounds.where("sounds.name LIKE ?", "%#{term}%") | Sound.joins(:tags).where("sounds.name LIKE ? OR tags.name LIKE ?", "%#{term}%", "%#{term}%").distinct
+      @backdrops = @backdrops.where("backdrops.name LIKE ?", "%#{term}%") | Backdrop.joins(:tags).where("tags.name LIKE ?", "%#{term}%").distinct
     end
 end
