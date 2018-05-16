@@ -3,6 +3,8 @@ class Sound < ApplicationRecord
 
   acts_as_paranoid
 
+  belongs_to :uploader, :class_name => 'User'
+
   has_many :sound_tags, :dependent => :destroy
   has_many :tags, :through => :sound_tags
 
@@ -15,6 +17,7 @@ class Sound < ApplicationRecord
 
   validates :name, :presence => true
   validates_attachment_content_type :source, content_type: /\Aaudio\/.*\z/
+  validates :uploader, :presence => true
 
   def self.not_assigned(stage)
     self.all.reject { |s| stage.sounds.include? s }
