@@ -8,11 +8,12 @@ class SoundsController < ApplicationController
   end
 
   def new
-    @sound = Sound.new
+    @sound = Sound.new({ uploader: current_user })
   end
 
   def create
     @sound = Sound.new(sound_params)
+    @sound.uploader = current_user
     if @sound.save
       flash[:success] = "#{@sound.name} created"
       redirect_to edit_sound_path(@sound)
