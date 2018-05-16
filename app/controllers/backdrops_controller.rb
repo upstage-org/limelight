@@ -28,6 +28,8 @@ class BackdropsController < ApplicationController
   end
 
   def edit
+    @backdrop_dimensions = backdrop_dimensions
+    @backdrop_url = backdrop_url
   end
 
   def update
@@ -73,5 +75,17 @@ class BackdropsController < ApplicationController
 
     def backdrop_params
       params.require(:backdrop).permit([ :name, :source ])
+    end
+    
+    def backdrop_url
+      return @backdrop.source
+    end
+
+    def backdrop_dimensions
+      if @backdrop.present?
+        image = @backdrop.source
+        geometry = Paperclip::Geometry.from_file(image)
+        return [geometry.width.to_i, geometry.height.to_i]
+      end
     end
 end

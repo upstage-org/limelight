@@ -12,9 +12,60 @@
     </small>
     <br>
     <small>Sound</small>
-    <%= render 'tags' %>
-    <%= render 'stages' %>
   </h1>
 </div>
 
-<%= render 'form' %>
+
+<div class="row">
+  <%= render 'form' %>
+  <div class="col-sm-2">
+    <% unless @sound.new_record? %>
+      <%= audio_tag @sound.source.url, :alt => "#{@sound.name}", :controls => true %>
+    <% end %>
+  </div>
+
+  <div class="col-sm-10">
+    <% unless @sound.new_record? %>
+      <table class="table table-striped">
+        <tr>
+          <td>File Name:</td>
+          <td><a href="<%= @sound_url %>" download><%= @sound.source_file_name %></a></td>
+        </tr>
+        <tr>
+          <td>Created on:</td>
+          <td><%= @sound.created_at.strftime("%d/%m/%y @ %I:%M %p") %></td>
+        </tr>
+        <tr>
+          <td>Uploaded By:</td>
+          <td>code for user who uploaded</td>
+        </tr>
+        <tr>
+          <td>File Size:</td>
+          <% if @sound.source_file_size >= 1048576 %>
+            <td><%= (Float(@sound.source_file_size) / 1048576).round(1) %> MB</td>
+          <% elsif @sound.source_file_size >= 1024 %>
+            <td><%= (Float(@sound.source_file_size) / 1024).round(1) %> kB</td>
+          <% else %>
+            <td><%= @sound.source_file_size %> B</td>
+          <% end %>
+        </tr>
+        <tr>
+          <td>File Type:</td>
+          <td><%= @sound.source_content_type %></td>
+        </tr>
+        <tr>
+          <td>Stages:</td>
+          <td>
+            <%= render 'stages' %>
+          </td>
+        </tr>
+        <tr>
+          <td>Tags:</td>
+          <td>
+            <%= render 'tags' %>
+          </td>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+</div>

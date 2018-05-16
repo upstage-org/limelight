@@ -12,9 +12,58 @@
     </small>
     <br>
     <small>Backdrop</small>
-    <%= render 'tags' %>
-    <%= render 'stages' %>
   </h1>
 </div>
 
-<%= render 'form' %>
+<div class="row">
+  <%= render 'form' %>
+  <div class="col-sm-10">
+    <% unless @backdrop.new_record? %>
+
+    <table class="table table-striped">
+      <tr>
+        <td>File Name:</td>
+        <td><a href="<%= @backdrop_url %>" download><%= @backdrop.source_file_name %></a></td>
+      </tr>
+      <tr>
+        <td>Created on:</td>
+        <td><%= @backdrop.created_at.strftime("%d/%m/%y @ %I:%M %p") %></td>
+      </tr>
+      <tr>
+        <td>Uploaded By:</td>
+        <td>code for user who uploaded</td>
+      </tr>
+      <tr>
+        <td>File Size:</td>
+        <% if @backdrop.source_file_size >= 1048576 %>
+          <td><%= (Float(@backdrop.source_file_size) / 1048576).round(1) %> MB</td>
+        <% elsif @backdrop.source_file_size >= 1024 %>
+          <td><%= (Float(@backdrop.source_file_size) / 1024).round(1) %> kB</td>
+        <% else %>
+          <td><%= @backdrop.source_file_size %> B</td>
+        <% end %>
+      </tr>
+      <tr>
+        <td>File Type:</td>
+        <td><%= @backdrop.source_content_type %></td>
+      </tr>
+      <tr>
+        <td>Dimensions:</td>
+        <td><%= "#{@backdrop_dimensions[0]} x #{@backdrop_dimensions[1]}" %></td>
+      </tr>
+      <tr>
+        <td>Stages:</td>
+        <td>
+          <%= render 'stages' %>
+        </td>
+      </tr>
+      <tr>
+        <td>Tags:</td>
+        <td>
+          <%= render 'tags' %>
+        </td>
+      </tr>
+    </table>
+    <% end %>
+  </div>
+</div>

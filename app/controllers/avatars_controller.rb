@@ -27,6 +27,8 @@ class AvatarsController < ApplicationController
   end
 
   def edit
+    @avatar_dimensions = avatar_dimensions
+    @avatar_url = avatar_url
   end
 
   def update
@@ -72,5 +74,17 @@ class AvatarsController < ApplicationController
 
     def avatar_params
       params.require(:avatar).permit([ :name, :source ])
+    end
+
+    def avatar_url
+      return @avatar.source
+    end
+
+    def avatar_dimensions
+      if @avatar.present?
+        image = @avatar.source
+        geometry = Paperclip::Geometry.from_file(image)
+        return [geometry.width.to_i, geometry.height.to_i]
+      end
     end
 end

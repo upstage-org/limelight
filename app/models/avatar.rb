@@ -19,5 +19,4 @@ class Avatar < ApplicationRecord
   def self.not_assigned(stage)
     self.all.reject { |a| stage.avatars.include? a }
   end
-
 end

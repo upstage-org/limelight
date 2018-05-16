@@ -11,25 +11,24 @@
   <% end %>
 </div>
 
-<% unless @sound.new_record? %>
-  <%= audio_tag @sound.source.url, :alt => "#{@sound.name}", :controls => true %>
-<% end %>
+<div class="row">
+  <div class="form-group col-lg-11">
+    <%= f.file_field :source, :class => 'form-control', :placeholder => 'Choose File' %>
+    <% unless @sound.errors[:source].empty? %>
+      <p class="text-danger">
+        <% @sound.errors.full_messages_for(:source).each do |e| %>
+          <%= e %><br>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
 
-<div class="form-group">
-  <%= f.file_field :source, :class => 'form-control', :placeholder => 'Choose File' %>
-  <% unless @sound.errors[:source].empty? %>
-    <p class="text-danger">
-      <% @sound.errors.full_messages_for(:source).each do |e| %>
-        <%= e %><br>
-      <% end %>
-    </p>
-  <% end %>
-</div>
 
-<div class="form-group">
-  <span class="btn-group">
-    <%= f.submit ( f.object.new_record? ? "Create" : "Update"), :class => "btn btn-primary" %>
-  </span>
+  <div class="form-group col-lg-1">
+    <span class="btn-group">
+      <%= f.submit ( f.object.new_record? ? "Create" : "Update"), :class => "btn btn-primary" %>
+    </span>
+  </div>
 </div>
 
 <% end %>

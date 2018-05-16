@@ -27,6 +27,7 @@ class SoundsController < ApplicationController
   end
 
   def edit
+    @sound_url = sound_url
   end
 
   def update
@@ -72,5 +73,9 @@ class SoundsController < ApplicationController
 
     def sound_params
       params.require(:sound).permit([ :name, :source ])
+    end
+
+    def sound_url
+      return @sound.source
     end
 end

@@ -11,25 +11,33 @@
   <% end %>
 </div>
 
-<% unless @backdrop.new_record? %>
-  <%= image_tag @backdrop.source.url(:medium), :alt => "#{@backdrop.name}", :class => 'col-lg-4 col-lg-offset-4 img-rounded img-responsive' %>
-<% end %>
+<div class="row">
+  <div class="form-group col-lg-11">
+    <%= f.file_field :source, :class => 'form-control', :placeholder => 'Choose File' %>
+    <% unless @backdrop.errors[:source].empty? %>
+      <p class="text-danger">
+        <% @backdrop.errors.full_messages_for(:source).each do |e| %>
+          <%= e %><br>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
 
-<div class="form-group">
-  <%= f.file_field :source, :class => 'form-control', :placeholder => 'Choose File' %>
-  <% unless @backdrop.errors[:source].empty? %>
-    <p class="text-danger">
-      <% @backdrop.errors.full_messages_for(:source).each do |e| %>
-        <%= e %><br>
-      <% end %>
-    </p>
+  <div class="form-group col-lg-1">
+    <span class="btn-group">
+      <%= f.submit ( f.object.new_record? ? "Create" : "Update"), :class => "btn btn-primary" %>
+    </span>
+  </div>
+</div>
+
+<hr>
+<br>
+
+<div class ="col-sm-2">
+  <% unless @backdrop.new_record? %>
+    <%= image_tag @backdrop.source.url(:medium), :alt => "#{@backdrop.name}", :class => 'col-lg-12 img-rounded img-responsive' %>
   <% end %>
 </div>
 
-<div class="form-group">
-  <span class="btn-group">
-    <%= f.submit ( f.object.new_record? ? "Create" : "Update"), :class => "btn btn-primary" %>
-  </span>
-</div>
 
 <% end %>
