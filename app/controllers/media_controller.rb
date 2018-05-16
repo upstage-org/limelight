@@ -61,8 +61,8 @@ class MediaController < ApplicationController
     end
 
     def search(term)
-      @avatars = @avatars.where("avatars.name LIKE ?", "%#{term}%") | Avatar.joins(:tags).where("tags.name LIKE ?", "%#{term}%").distinct
-      @sounds = @sounds.where("sounds.name LIKE ?", "%#{term}%") | Sound.joins(:tags).where("sounds.name LIKE ? OR tags.name LIKE ?", "%#{term}%", "%#{term}%").distinct
-      @backdrops = @backdrops.where("backdrops.name LIKE ?", "%#{term}%") | Backdrop.joins(:tags).where("tags.name LIKE ?", "%#{term}%").distinct
+      @avatars = @avatars.where("avatars.name LIKE ?", "%#{term}%") | @avatars.joins(:tags).where("tags.name LIKE ?", "%#{term}%").distinct
+      @sounds = @sounds.where("sounds.name LIKE ?", "%#{term}%") | @sounds.joins(:tags).where("sounds.name LIKE ? OR tags.name LIKE ?", "%#{term}%", "%#{term}%").distinct
+      @backdrops = @backdrops.where("backdrops.name LIKE ?", "%#{term}%") | @backdrops.joins(:tags).where("tags.name LIKE ?", "%#{term}%").distinct
     end
 end
