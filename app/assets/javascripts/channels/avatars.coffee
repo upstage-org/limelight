@@ -1,4 +1,5 @@
 avatarName = {}
+timer = ""
 
 place = (data) ->
   avatarName = data.names
@@ -142,6 +143,49 @@ editName = (data) ->
   }
   App.drawFrame()
 
+speechBubble = (data) ->
+  clearTimeout timer
+  maxChar = 17
+  message = []
+  row = 0
+
+  if data['type'] == "!"
+    maxChar = 13;
+    data['txt'] = data['txt'].toUpperCase()
+
+  if data['txt'].length > maxChar
+    lines = data['txt'].split(' ')
+    i = 0
+    count = 0
+    line = ""
+    while i < lines.length
+      if lines[i].length + count <= maxChar
+        count += lines[i].length
+        line = line + lines[i] + " "
+      else
+        message[row] = line
+        row++
+        count = lines[i].length
+        line = lines[i] + " "
+      if i == lines.length - 1
+        message[row] = line
+      i++
+  else
+    message[0] = data['txt']
+  App.state.bubbles[data.avatar_id] = {
+    txt: message,
+    avatar_id: data.avatar_id,
+    type: data['type'],
+    row: row
+  }
+  App.drawFrame()
+  time = 3000 + row * 1000
+  timer = setTimeout (->
+    delete App.state.bubbles[data.avatar_id]
+    App.drawFrame()
+    return
+  ), time
+
 avatarShadow = () ->
   avatar = App.state.avatars[window.holding]
   img = new Image()
@@ -208,6 +252,10 @@ document.addEventListener 'turbolinks:load', (e) ->
         when 'nameToggle' then nameToggle data
         when 'place' then place data
         when 'editName' then editName data
+        when 'speechBubble' then speechBubble data
+
+    speechBubble: (txt, type) ->
+      @perform 'speechBubble', txt: txt, avatar_id: window.holding, type: type
 
     hold: (avatarId, name) ->
       window.holdWait = avatarId
