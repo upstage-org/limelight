@@ -8,11 +8,12 @@ class AvatarsController < ApplicationController
   end
 
   def new
-    @avatar = Avatar.new
+    @avatar = Avatar.new({ uploader: current_user })
   end
 
   def create
     @avatar = Avatar.new(avatar_params)
+    @avatar.uploader = current_user
     if @avatar.save
       flash[:success] = "#{@avatar.name} created"
       redirect_to edit_avatar_path(@avatar)

@@ -82,6 +82,21 @@ jQuery(document).on 'turbolinks:load', ->
       drawing = false
       dragging = false
 
+    canvas.on 'mouseover', (e) ->
+      if $("#drawing").hasClass('active')
+        $("#canvas").css("cursor", "url(/pencil.cur), auto")
+
+      if $("#avatar").hasClass('active')
+        $("#canvas").css("cursor", "-webkit-grab")
+        $("#canvas").css("cursor", "-moz-grab")
+        $("#canvas").css("cursor", "grab")
+
+      if $("#audio").hasClass('active')
+        $("#canvas").css("cursor","auto")
+
+      if $("#backdrop").hasClass('active')
+        $("#canvas").css("cursor", "auto")
+
     canvas.on 'mousemove touchmove', (e) ->
       if(dragging)
         avatar = App.state.avatars[window.holding]

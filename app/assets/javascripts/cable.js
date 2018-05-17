@@ -156,10 +156,12 @@
   document.addEventListener('turbolinks:load', function(e) {
     clearState();
     App.canvas = document.querySelector('#canvas');
-    App.context = App.canvas.getContext('2d');
-    App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
-    window.addEventListener('resize', App.resizeCanvas);
-    App.resizeCanvas();
+    if(App.canvas){
+      App.context = App.canvas.getContext('2d');
+      App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
+      window.addEventListener('resize', App.resizeCanvas);
+      App.resizeCanvas();
+    }
   });
 
 }).call(this);
