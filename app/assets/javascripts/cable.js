@@ -55,16 +55,24 @@
 
     function drawBubble(x, y, width, height, radius, r, b, message, p){
       var padding = 10;
+      var left_curve_end = x - width - padding;
+      var left_curve_to = x - width - radius - padding;
+      var top_curve_y = b - radius * p;
+      var right_curve_to = r + radius + padding;
+      var right_curve_end = r + padding;
+      var y_curve_end = y - radius * p;
+
+
       App.context.moveTo(x, y + 20 * p);
       App.context.lineTo(x - padding, y);
-      App.context.lineTo(x - width - padding, y);
-      App.context.quadraticCurveTo(x - width - radius - padding, y, x - width - radius - padding, y - radius * p);
-      App.context.lineTo(x - width - padding - radius, b);
-      App.context.quadraticCurveTo(x - width - padding - radius, b - radius * p, x - width - padding, b - radius * p);
-      App.context.lineTo(r + padding, b - radius*p);
-      App.context.quadraticCurveTo(r + radius + padding, b - radius * p, r + radius + padding, b);
-      App.context.lineTo(r + radius + padding, y - radius * p);
-      App.context.quadraticCurveTo(r + radius + padding, y, r + padding, y);
+      App.context.lineTo(left_curve_end, y);
+      App.context.quadraticCurveTo(left_curve_to, y, left_curve_to, y_curve_end);
+      App.context.lineTo(left_curve_to, b);
+      App.context.quadraticCurveTo(left_curve_to, top_curve_y, left_curve_end, top_curve_y);
+      App.context.lineTo(right_curve_end, top_curve_y);
+      App.context.quadraticCurveTo(right_curve_to, top_curve_y, right_curve_to, b);
+      App.context.lineTo(right_curve_to, y_curve_end);
+      App.context.quadraticCurveTo(right_curve_to, y, right_curve_end, y);
       App.context.lineTo(x + padding, y);
       App.context.lineTo(x, y + 20 * p);
 
