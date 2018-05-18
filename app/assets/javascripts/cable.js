@@ -92,6 +92,46 @@
       App.context.stroke();
     }
 
+    function draw_thought(x, y, drawUp, row, txt) {
+      var y1 = y - 55 * drawUp;
+      var y2 = y + 5 * drawUp + 10 * row * drawUp;
+      var y3 = y + 20 * drawUp + 10 * row * drawUp;
+      var r = 50 + 10 * row;
+
+      drawOval(x, y1, r, row, drawUp);
+      drawOval(x, y2, 10, row, drawUp);
+      drawOval(x, y3, 5, row, drawUp);
+
+      App.context.fillStyle = 'black';
+      App.context.font = "20px sans-serif";
+      if (drawUp > 0) {
+        var i;
+        for (i = 0; i < txt.length; i++) {
+          App.context.fillText(txt[i], x, y - 70 - row * 30 + 30 * i);
+        }
+      }
+      else {
+        var i;
+        for (i = 0; i < txt.length; i++) {
+          App.context.fillText(txt[i], x, y + 45 + i * 30);
+        }
+      }
+    }
+
+    function draw_speech(x, y, width, height, r, b, txt, drawUp) {
+      App.context.strokeStyle = "green";
+      App.context.lineWidth = "2";
+      App.context.font = "20px sans-serif";
+      drawBubble(x, y, width, height, 20, r, b, txt, drawUp);
+    }
+
+    function draw_shout(x, y, width, height, r, b, txt, drawUp) {
+      App.context.strokeStyle = "red";
+      App.context.lineWidth = "4";
+      App.context.font = "bold 20px sans-serif";
+      drawBubble(x, y, width, height, 20, r, b, txt, drawUp);
+    }
+
     App.state.bubbles.forEach(function(bubble){
       avatar = App.state.avatars[bubble.avatar_id];
       var x = avatar.x + avatar.width / 2;
@@ -114,36 +154,13 @@
 
       App.context.beginPath();
       if(bubble.type == "!"){
-        App.context.strokeStyle = "red";
-        App.context.lineWidth = "4";
-        App.context.font = "bold 20px sans-serif";
-        drawBubble(x, y, width, height, 20, r, b, bubble.txt, drawUp);
-      }
-      else if (bubble.type == ""){
-        App.context.strokeStyle = "green";
-        App.context.lineWidth = "2";
-        App.context.font = "20px sans-serif";
-        drawBubble(x, y, width, height, 20, r, b, bubble.txt, drawUp);
+        draw_shout(x, y, width, height, r, b, bubble.txt, drawUp)
       }
       else if (bubble.type == ":") {
-        drawOval(x, y - 55 * drawUp, 50 + 10 * bubble.row, bubble.row, drawUp);
-        drawOval(x, y + 5 * drawUp + 10 * bubble.row * drawUp, 10, bubble.row, drawUp);
-        drawOval(x, y + 20 * drawUp + 10 * bubble.row * drawUp, 5, bubble.row, drawUp);
-
-        App.context.fillStyle = 'black';
-        App.context.font = "20px sans-serif";
-        if (drawUp > 0) {
-          var i;
-          for (i = 0; i < bubble.txt.length; i++) {
-            App.context.fillText(bubble.txt[i], x, y - 70 - bubble.row * 30 + 30 * i);
-          }
-        }
-        else {
-          var i;
-          for (i = 0; i < bubble.txt.length; i++) {
-            App.context.fillText(bubble.txt[i], x, y + 45 + i * 30);
-          }
-        }
+        draw_thought(x, y, drawUp, bubble.row, bubble.txt);
+      }
+      else
+        draw_speech(x, y, width, height, r, b, bubble.txt, drawUp);
       }
       App.context.stroke();
     });

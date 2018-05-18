@@ -143,18 +143,12 @@ editName = (data) ->
   }
   App.drawFrame()
 
-speechBubble = (data) ->
-  clearTimeout timer
-  maxChar = 17
+build_lines_from_text = (txt, maxChar) ->
   message = []
   row = 0
 
-  if data['type'] == "!"
-    maxChar = 13;
-    data['txt'] = data['txt'].toUpperCase()
-
-  if data['txt'].length > maxChar
-    lines = data['txt'].split(' ')
+  if txt.length > maxChar
+    lines = txt.split(' ')
     i = 0
     count = 0
     line = ""
@@ -171,15 +165,28 @@ speechBubble = (data) ->
         message[row] = line
       i++
   else
-    message[0] = data['txt']
+    message[0] = txt
+
+  [message, row]
+
+speechBubble = (data) ->
+  clearTimeout timer
+  maxChar = 17
+
+  if data['type'] == "!"
+    maxChar = 13;
+    data['txt'] = data['txt'].toUpperCase()
+
+  message_by_row = build_lines_from_text(data['txt'], maxChar)
+
   App.state.bubbles[data.avatar_id] = {
-    txt: message,
+    txt: message_by_row[0],
     avatar_id: data.avatar_id,
     type: data['type'],
-    row: row
+    row: message_by_row[1]
   }
   App.drawFrame()
-  time = 3000 + row * 1000
+  time = 3000 + message_by_row[1] * 1000
   timer = setTimeout (->
     delete App.state.bubbles[data.avatar_id]
     App.drawFrame()
