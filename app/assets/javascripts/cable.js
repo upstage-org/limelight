@@ -135,13 +135,13 @@
         if (drawUp > 0) {
           var i;
           for (i = 0; i < bubble.txt.length; i++) {
-            App.context.fillText(bubble.txt[i], x, y - 70 - i*30);
+            App.context.fillText(bubble.txt[i], x, y - 70 - bubble.row * 30 + 30 * i);
           }
         }
         else {
           var i;
           for (i = 0; i < bubble.txt.length; i++) {
-            App.context.fillText(bubble.txt[i], x, y + 45 + i*30);
+            App.context.fillText(bubble.txt[i], x, y + 45 + i * 30);
           }
         }
       }
