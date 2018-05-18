@@ -54,25 +54,29 @@
     });
 
     function drawBubble(x, y, width, height, radius, r, b, message, p){
+      var padding = 10;
       App.context.moveTo(x, y + 20 * p);
-      App.context.lineTo(x - 10, y);
-      App.context.lineTo(x - width - 10, y);
-      App.context.quadraticCurveTo(x - width - radius - 10, y, x - width - radius - 10, y - radius * p);
-      App.context.lineTo(x - width - 10 - radius, b);
-      App.context.quadraticCurveTo(x - width - 10 - radius, b - radius * p, x - width - 10, b - radius * p);
-      App.context.lineTo(r + 10, b - radius*p);
-      App.context.quadraticCurveTo(r + radius + 10, b - radius * p, r + radius + 10, b);
-      App.context.lineTo(r + radius + 10, y - radius * p);
-      App.context.quadraticCurveTo(r + radius + 10, y, r + 10, y);
-      App.context.lineTo(x + 10, y);
+      App.context.lineTo(x - padding, y);
+      App.context.lineTo(x - width - padding, y);
+      App.context.quadraticCurveTo(x - width - radius - padding, y, x - width - radius - padding, y - radius * p);
+      App.context.lineTo(x - width - padding - radius, b);
+      App.context.quadraticCurveTo(x - width - padding - radius, b - radius * p, x - width - padding, b - radius * p);
+      App.context.lineTo(r + padding, b - radius*p);
+      App.context.quadraticCurveTo(r + radius + padding, b - radius * p, r + radius + padding, b);
+      App.context.lineTo(r + radius + padding, y - radius * p);
+      App.context.quadraticCurveTo(r + radius + padding, y, r + padding, y);
+      App.context.lineTo(x + padding, y);
       App.context.lineTo(x, y + 20 * p);
+
       var i;
       for (i = 0; i < message.length; i++) {
         if(p < 0){
-          App.context.fillText(message[i], x, y + 20 + i * 25);
+          var txt_y = y + 20 + i * 25;
+          App.context.fillText(message[i], x, txt_y);
         }
         else {
-          App.context.fillText(message[i], x, y + 5 - height + i * 25);
+          var txt_y = y + 5 - height + i * 25;
+          App.context.fillText(message[i], x, txt_y);
         }
       }
     }
@@ -107,13 +111,15 @@
       if (drawUp > 0) {
         var i;
         for (i = 0; i < txt.length; i++) {
-          App.context.fillText(txt[i], x, y - 70 - row * 30 + 30 * i);
+          var txt_y = y - 70 - row * 30 + 30 * i;
+          App.context.fillText(txt[i], x, txt_y);
         }
       }
       else {
         var i;
         for (i = 0; i < txt.length; i++) {
-          App.context.fillText(txt[i], x, y + 45 + i * 30);
+          var txt_y = y + 45 + i * 30;
+          App.context.fillText(txt[i], x, txt_y);
         }
       }
     }
@@ -154,12 +160,12 @@
 
       App.context.beginPath();
       if(bubble.type == "!"){
-        draw_shout(x, y, width, height, r, b, bubble.txt, drawUp)
+        draw_shout(x, y, width, height, r, b, bubble.txt, drawUp);
       }
       else if (bubble.type == ":") {
         draw_thought(x, y, drawUp, bubble.row, bubble.txt);
       }
-      else
+      else {
         draw_speech(x, y, width, height, r, b, bubble.txt, drawUp);
       }
       App.context.stroke();
