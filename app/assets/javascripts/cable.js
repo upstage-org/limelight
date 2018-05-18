@@ -53,42 +53,43 @@
       }
     });
 
-    function bubbleDown(x, y, width, height, radius, r, b, message) {
-      App.context.moveTo(x, y - 20);
+    function drawBubble(x, y, width, height, radius, r, b, message,p){
+      App.context.moveTo(x, y + 20*p);
       App.context.lineTo(x - 10, y);
       App.context.lineTo(x - width - 10, y);
-      App.context.quadraticCurveTo(x - width - radius - 10, y, x - width - radius - 10, y + radius);
+      App.context.quadraticCurveTo(x - width - radius - 10, y, x - width - radius - 10, y - radius*p);
       App.context.lineTo(x - width - 10 - radius, b);
-      App.context.quadraticCurveTo(x - width - 10 - radius, b + radius, x - width - 10, b + radius);
-      App.context.lineTo(r + 10, b + radius);
-      App.context.quadraticCurveTo(r + radius + 10, b + radius, r + radius + 10, b);
-      App.context.lineTo(r + radius + 10, y + radius);
+      App.context.quadraticCurveTo(x - width - 10 - radius, b - radius*p, x - width - 10, b - radius*p);
+      App.context.lineTo(r + 10, b - radius*p);
+      App.context.quadraticCurveTo(r + radius + 10, b - radius*p, r + radius + 10, b);
+      App.context.lineTo(r + radius + 10, y - radius*p);
       App.context.quadraticCurveTo(r + radius + 10, y, r + 10, y);
       App.context.lineTo(x + 10, y);
-      App.context.lineTo(x, y - 20);
+      App.context.lineTo(x, y + 20*p);
       var i;
       for (i = 0; i < message.length; i++) {
-          App.context.fillText(message[i], x, y + 20 + i * 25)
+        if(p < 0){
+          App.context.fillText(message[i], x, y + 20 + i * 25);
+        }
+        else {
+          App.context.fillText(message[i], x, y + 5 - height + i * 25);
+        }
       }
     }
 
-    function bubbleUp(x, y, width, height, radius, r, b, message){
-      App.context.moveTo(x, y + 20);
-      App.context.lineTo(x - 10, y);
-      App.context.lineTo(x - width - 10, y);
-      App.context.quadraticCurveTo(x - width - radius - 10, y, x - width - radius - 10, y - radius);
-      App.context.lineTo(x - width - 10 - radius, b);
-      App.context.quadraticCurveTo(x - width - 10 - radius, b - radius, x - width - 10, b - radius);
-      App.context.lineTo(r + 10, b - radius);
-      App.context.quadraticCurveTo(r + radius + 10, b - radius, r + radius + 10, b);
-      App.context.lineTo(r + radius + 10, y - radius);
-      App.context.quadraticCurveTo(r + radius + 10, y, r + 10, y);
-      App.context.lineTo(x + 10, y);
-      App.context.lineTo(x, y + 20);
-      var i;
-      for (i = 0; i < message.length; i++) {
-          App.context.fillText(message[i], x, y + 5 - height + i * 25)
-      }
+    function drawOval(x, y, radius) {
+      App.context.save();
+      App.context.translate(x, y);
+      App.context.scale(2, 1);
+
+      App.context.beginPath();
+      App.context.arc(0, 0, radius, 0, 2 * Math.PI, false);
+      App.context.restore();
+      App.context.fillStyle = 'white';
+      App.context.fill();
+      App.context.lineWidth = 2;
+      App.context.strokeStyle = 'blue';
+      App.context.stroke();
     }
 
     App.state.bubbles.forEach(function(bubble){
@@ -98,29 +99,45 @@
       var width = 100;
       var height = 50;
       var r, b;
+      var drawUp = 1;
       height = height + 25 * bubble.row;
       r = x + width;
+
+      if(y - 10 - height < 0){
+        y = avatar.y + avatar.height + 50;
+        b = y + height;
+        drawUp = -1;
+      }
+      else{
+        b = y - height;
+      }
 
       App.context.beginPath();
       if(bubble.type == "!"){
         App.context.strokeStyle = "red";
         App.context.lineWidth = "4";
         App.context.font = "bold 20px sans-serif";
+        drawBubble(x, y, width, height, 20, r, b, bubble.txt, drawUp);
       }
-      else{
+      else if (bubble.type == ""){
         App.context.strokeStyle = "green";
         App.context.lineWidth = "2";
         App.context.font = "20px sans-serif";
+        drawBubble(x, y, width, height, 20, r, b, bubble.txt, drawUp);
       }
+      else if (bubble.type == ":") {
+        drawOval(x, y-55*drawUp, 50);
+        drawOval(x, y+5*drawUp, 10);
+        drawOval(x, y+20*drawUp, 5);
 
-      if(y - 10 - height < 0){
-        y = avatar.y + avatar.height + 50;
-        b = y + height;
-        bubbleDown(x, y, width, height, 20, r, b, bubble.txt);
-      }
-      else{
-        b = y - height;
-        bubbleUp(x, y, width, height, 20, r, b, bubble.txt);
+        App.context.fillStyle = 'black';
+        App.context.font = "20px sans-serif";
+        if (drawUp > 0) {
+          App.context.fillText(bubble.txt, x, y - 70);
+        }
+        else {
+          App.context.fillText(bubble.txt, x, y + 45);
+        }
       }
       App.context.stroke();
     });
