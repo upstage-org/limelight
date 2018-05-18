@@ -53,19 +53,19 @@
       }
     });
 
-    function drawBubble(x, y, width, height, radius, r, b, message,p){
-      App.context.moveTo(x, y + 20*p);
+    function drawBubble(x, y, width, height, radius, r, b, message, p){
+      App.context.moveTo(x, y + 20 * p);
       App.context.lineTo(x - 10, y);
       App.context.lineTo(x - width - 10, y);
-      App.context.quadraticCurveTo(x - width - radius - 10, y, x - width - radius - 10, y - radius*p);
+      App.context.quadraticCurveTo(x - width - radius - 10, y, x - width - radius - 10, y - radius * p);
       App.context.lineTo(x - width - 10 - radius, b);
-      App.context.quadraticCurveTo(x - width - 10 - radius, b - radius*p, x - width - 10, b - radius*p);
+      App.context.quadraticCurveTo(x - width - 10 - radius, b - radius * p, x - width - 10, b - radius * p);
       App.context.lineTo(r + 10, b - radius*p);
-      App.context.quadraticCurveTo(r + radius + 10, b - radius*p, r + radius + 10, b);
-      App.context.lineTo(r + radius + 10, y - radius*p);
+      App.context.quadraticCurveTo(r + radius + 10, b - radius * p, r + radius + 10, b);
+      App.context.lineTo(r + radius + 10, y - radius * p);
       App.context.quadraticCurveTo(r + radius + 10, y, r + 10, y);
       App.context.lineTo(x + 10, y);
-      App.context.lineTo(x, y + 20*p);
+      App.context.lineTo(x, y + 20 * p);
       var i;
       for (i = 0; i < message.length; i++) {
         if(p < 0){
@@ -77,9 +77,9 @@
       }
     }
 
-    function drawOval(x, y, radius) {
+    function drawOval(x, y, radius, row, p) {
       App.context.save();
-      App.context.translate(x, y);
+      App.context.translate(x, y - 14 * row * p);
       App.context.scale(2, 1);
 
       App.context.beginPath();
@@ -126,17 +126,23 @@
         drawBubble(x, y, width, height, 20, r, b, bubble.txt, drawUp);
       }
       else if (bubble.type == ":") {
-        drawOval(x, y-55*drawUp, 50);
-        drawOval(x, y+5*drawUp, 10);
-        drawOval(x, y+20*drawUp, 5);
+        drawOval(x, y - 55 * drawUp, 50 + 10 * bubble.row, bubble.row, drawUp);
+        drawOval(x, y + 5 * drawUp + 10 * bubble.row * drawUp, 10, bubble.row, drawUp);
+        drawOval(x, y + 20 * drawUp + 10 * bubble.row * drawUp, 5, bubble.row, drawUp);
 
         App.context.fillStyle = 'black';
         App.context.font = "20px sans-serif";
         if (drawUp > 0) {
-          App.context.fillText(bubble.txt, x, y - 70);
+          var i;
+          for (i = 0; i < bubble.txt.length; i++) {
+            App.context.fillText(bubble.txt[i], x, y - 70 - i*30);
+          }
         }
         else {
-          App.context.fillText(bubble.txt, x, y + 45);
+          var i;
+          for (i = 0; i < bubble.txt.length; i++) {
+            App.context.fillText(bubble.txt[i], x, y + 45 + i*30);
+          }
         }
       }
       App.context.stroke();
