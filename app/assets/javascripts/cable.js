@@ -62,7 +62,6 @@
       var right_curve_end = r + padding;
       var y_curve_end = y - radius * p;
 
-
       App.context.moveTo(x, y + 20 * p);
       App.context.lineTo(x - padding, y);
       App.context.lineTo(left_curve_end, y);
