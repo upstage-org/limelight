@@ -61,8 +61,9 @@
       var right_curve_to = r + radius + padding;
       var right_curve_end = r + padding;
       var y_curve_end = y - radius * p;
+      var tail_height = 20 * p;
 
-      App.context.moveTo(x, y + 20 * p);
+      App.context.moveTo(x, y + tail_height);
       App.context.lineTo(x - padding, y);
       App.context.lineTo(left_curve_end, y);
       App.context.quadraticCurveTo(left_curve_to, y, left_curve_to, y_curve_end);
@@ -73,24 +74,25 @@
       App.context.lineTo(right_curve_to, y_curve_end);
       App.context.quadraticCurveTo(right_curve_to, y, right_curve_end, y);
       App.context.lineTo(x + padding, y);
-      App.context.lineTo(x, y + 20 * p);
+      App.context.lineTo(x, y + tail_height);
 
-      var i;
-      for (i = 0; i < message.length; i++) {
+      var line_height = 25;
+      var line;
+      for (line = 0; line < message.length; line++) {
         if(p < 0){
-          var txt_y = y + 20 + i * 25;
-          App.context.fillText(message[i], x, txt_y);
+          var txt_y = y + 20 + line * line_height;
+          App.context.fillText(message[line], x, txt_y);
         }
         else {
-          var txt_y = y + 5 - height + i * 25;
-          App.context.fillText(message[i], x, txt_y);
+          var txt_y = y + 5 - height + line * line_height;
+          App.context.fillText(message[line], x, txt_y);
         }
       }
     }
 
-    function drawOval(x, y, radius, row, p) {
+    function drawOval(x, y, radius, row, drawUp) {
       App.context.save();
-      App.context.translate(x, y - 14 * row * p);
+      App.context.translate(x, y - 14 * row * drawUp);
       App.context.scale(2, 1);
 
       App.context.beginPath();
@@ -107,9 +109,10 @@
       var y1 = y - 55 * drawUp;
       var y2 = y + 5 * drawUp + 10 * row * drawUp;
       var y3 = y + 20 * drawUp + 10 * row * drawUp;
-      var r = 50 + 10 * row;
+      var radius = 50 + 10 * row;
+      var line_height = 30;
 
-      drawOval(x, y1, r, row, drawUp);
+      drawOval(x, y1, radius, row, drawUp);
       drawOval(x, y2, 10, row, drawUp);
       drawOval(x, y3, 5, row, drawUp);
 
@@ -117,32 +120,38 @@
       App.context.font = "20px sans-serif";
       if (drawUp > 0) {
         var i;
+        var offsetY = 70;
         for (i = 0; i < txt.length; i++) {
-          var txt_y = y - 70 - row * 30 + 30 * i;
+          var txt_y = y - offsetY - row * line_height + line_height * i;
           App.context.fillText(txt[i], x, txt_y);
         }
       }
       else {
-        var i;
-        for (i = 0; i < txt.length; i++) {
-          var txt_y = y + 45 + i * 30;
-          App.context.fillText(txt[i], x, txt_y);
+        var line;
+        var offsetY = 45;
+        for (line = 0; line < txt.length; line++) {
+          var txt_y = y + offsetY + line * line_height;
+          App.context.fillText(txt[line], x, txt_y);
         }
       }
     }
 
     function draw_speech(x, y, width, height, r, b, txt, drawUp) {
+      var radius = 20;
+
       App.context.strokeStyle = "green";
       App.context.lineWidth = "2";
       App.context.font = "20px sans-serif";
-      drawBubble(x, y, width, height, 20, r, b, txt, drawUp);
+      drawBubble(x, y, width, height, radius, r, b, txt, drawUp);
     }
 
     function draw_shout(x, y, width, height, r, b, txt, drawUp) {
+      var radius = 20;
+
       App.context.strokeStyle = "red";
       App.context.lineWidth = "4";
       App.context.font = "bold 20px sans-serif";
-      drawBubble(x, y, width, height, 20, r, b, txt, drawUp);
+      drawBubble(x, y, width, height, radius, r, b, txt, drawUp);
     }
 
     App.state.bubbles.forEach(function(bubble){
