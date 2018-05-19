@@ -53,15 +53,15 @@
       }
     });
 
-    function drawBubble(x, y, width, height, radius, r, b, message, p){
+    function drawBubble(x, y, width, height, radius, r, b, message, drawUp){
       var padding = 10;
       var left_curve_end = x - width - padding;
       var left_curve_to = x - width - radius - padding;
-      var top_curve_y = b - radius * p;
+      var top_curve_y = b - radius * drawUp;
       var right_curve_to = r + radius + padding;
       var right_curve_end = r + padding;
-      var y_curve_end = y - radius * p;
-      var tail_height = 20 * p;
+      var y_curve_end = y - radius * drawUp;
+      var tail_height = 20 * drawUp;
 
       App.context.moveTo(x, y + tail_height);
       App.context.lineTo(x - padding, y);
@@ -79,7 +79,7 @@
       var line_height = 25;
       var line;
       for (line = 0; line < message.length; line++) {
-        if(p < 0){
+        if(drawUp < 0){
           var txt_y = y + 20 + line * line_height;
           App.context.fillText(message[line], x, txt_y);
         }
