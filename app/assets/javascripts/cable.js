@@ -48,6 +48,7 @@
       App.context.textAlign = "center";
       App.context.textBaseline = "top";
       if(avatar.show == '1'){
+        App.context.font="18px sans-serif";
         App.context.fillText(avatar.nickname, avatar.text_x, avatar.text_y);
       }
     });
@@ -62,7 +63,7 @@
       App.context.moveTo(drawing.fromX, drawing.fromY);
       App.context.lineTo(drawing.toX, drawing.toY);
 
-      App.context.stroke()
+      App.context.stroke();
     });
   };
 
@@ -72,12 +73,23 @@
     App.drawFrame();
   };
 
+  function clearState() {
+    if(App.avatar)
+      App.avatar.drop();
+    App.avatar = undefined;
+    window.holding = undefined;
+    App.state = { avatars: [], drawings: [], backdrops: [] };
+  }
+
   document.addEventListener('turbolinks:load', function(e) {
+    clearState();
     App.canvas = document.querySelector('#canvas');
-    App.context = App.canvas.getContext('2d');
-    App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
-    window.addEventListener('resize', App.resizeCanvas);
-    App.resizeCanvas();
+    if(App.canvas){
+      App.context = App.canvas.getContext('2d');
+      App.slug = document.querySelector('meta[name="stage-slug"]').getAttribute('value');
+      window.addEventListener('resize', App.resizeCanvas);
+      App.resizeCanvas();
+    }
   });
 
 }).call(this);
