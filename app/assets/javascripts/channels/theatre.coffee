@@ -159,9 +159,6 @@ jQuery(document).on 'turbolinks:load', ->
           filename = $("#" + name).data("backdrop-filename")
           document.body.style.backgroundImage = 'url("/uploads/' + filename + '")'
 
-
-
-
     ###################################### ACTIONCABLES##################################
     App.global_chat = App.cable.subscriptions.create { channel:"ChatChannel", stage: messages.data('stage-id') },
       connected: ->
@@ -230,13 +227,15 @@ utter = () ->
     avatarName: avatarName
   )
   if window.holding
+    m = $("input:radio[name ='chat-modifier']:checked").val()
+    App.avatar.speechBubble $('#chat-speak').val(), m
     App.dialog.utter $('#chat-speak').val()
   $('#chat-speak').val('')
 
 
 # When the user presses enter button while the chat input is focused, call the utter function
 $(document).on 'keydown', '#chat-speak', (e) ->
-  if e.keyCode == 13
+  if e.keyCode == 13 && $('#chat-speak').val() != ""
     utter()
     e.target.value = ''
     e.preventDefault()
@@ -244,4 +243,5 @@ $(document).on 'keydown', '#chat-speak', (e) ->
 
 # When user clicks the 'Send' button in chat, call the utter function.
 $(document).on 'mouseup', '#sendChat', (e) ->
-  utter()
+  if $('#chat-speak').val() != ""
+    utter()
