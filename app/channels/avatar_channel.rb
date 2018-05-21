@@ -21,6 +21,16 @@ class AvatarChannel < ApplicationCable::Channel
     end
   end
 
+  def speechBubble(data)
+    AvatarChannel.broadcast_to @stage, {
+      action: 'speechBubble',
+      txt: data['txt'],
+      avatar_id: data['avatar_id'],
+      type: data['type'],
+      row: data['row']
+    }
+  end
+
   def drop(data)
     unless current_user.nil? || @avatar_allocation[data['avatar_id']] != current_user
       @avatar_allocation[data['avatar_id']] = nil
