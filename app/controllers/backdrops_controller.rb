@@ -8,11 +8,12 @@ class BackdropsController < ApplicationController
   end
 
   def new
-    @backdrop = Backdrop.new
+    @backdrop = Backdrop.new({ uploader: current_user })
   end
 
   def create
     @backdrop = Backdrop.new(backdrop_params)
+    @backdrop.uploader = current_user
     if @backdrop.save
       flash[:success] = "#{@backdrop.name} created"
       redirect_to edit_backdrop_path(@backdrop)

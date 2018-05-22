@@ -4,13 +4,11 @@
   <h1>
     <%= @stage.name %>
     <small class="pull-right">
-      <span class="btn-group">
-        <%= link_to 'Edit', edit_stage_path(@stage), :class => "btn btn-default" %>
-          <a class="btn btn-default" href="#" data-toggle="modal" data-target="#cloneStageModal">
-            Clone
-          </a>
-        <%= link_to 'Delete', @stage, :method => :delete, :data => { confirm: "This stage will be deleted immediately and no longer be available.", title: "Are you sure you want to delete the stage \"#{@stage.name}\"?" }, :class => "btn btn-danger" %>
-      </span>
+      <%= link_to 'Edit', edit_stage_path(@stage), :class => "btn btn-default" %>
+        <a class="btn btn-default" href="#" data-toggle="modal" data-target="#cloneStageModal">
+          Clone
+        </a>
+      <%= link_to 'Delete', @stage, :method => :delete, :data => { confirm: "This stage will be deleted immediately and no longer be available.", title: "Are you sure you want to delete the stage \"#{@stage.name}\"?" }, :class => "btn btn-danger" %>
     </small>
     <br>
     <small>Stage</small>

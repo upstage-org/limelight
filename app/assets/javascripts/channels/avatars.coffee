@@ -1,4 +1,5 @@
 avatarName = {}
+timer = ""
 
 place = (data) ->
   avatarName = data.names
@@ -142,6 +143,70 @@ editName = (data) ->
   }
   App.drawFrame()
 
+build_lines_from_text = (txt, maxChar) ->
+  message = []
+  row = 0
+
+  if txt.length > maxChar
+    lines = txt.split(' ')
+    i = 0
+    count = 0
+    line = ""
+    while i < lines.length
+      if lines[i].length + count <= maxChar
+        count += lines[i].length
+        line = line + lines[i] + " "
+      else
+        message[row] = line
+        row++
+        count = lines[i].length
+        line = lines[i] + " "
+      if i == lines.length - 1
+        message[row] = line
+      i++
+  else
+    message[0] = txt
+
+  [message, row]
+
+speechBubble = (data) ->
+  clearTimeout timer
+  maxChar = 17
+
+  if data['type'] == "!"
+    maxChar = 13;
+    data['txt'] = data['txt'].toUpperCase()
+
+  message_by_row = build_lines_from_text(data['txt'], maxChar)
+
+  App.state.bubbles[data.avatar_id] = {
+    txt: message_by_row[0],
+    avatar_id: data.avatar_id,
+    type: data['type'],
+    row: message_by_row[1]
+  }
+  App.drawFrame()
+  time = 3000 + message_by_row[1] * 1000
+  timer = setTimeout (->
+    delete App.state.bubbles[data.avatar_id]
+    App.drawFrame()
+    return
+  ), time
+
+avatarShadow = () ->
+  avatar = App.state.avatars[window.holding]
+  img = new Image()
+  img.onload = ->
+    App.context.clearRect(0, 0, innerWidth, innerHeight);
+    App.drawFrame()
+    App.context.globalAlpha = 0.4
+    multiplier = document.querySelector('#avatarSlider').value/10
+    height = img.height*multiplier
+    width = img.width*multiplier
+    App.context.drawImage(img, avatar.x, avatar.y, width, height)
+    App.context.globalAlpha = 1.0
+  img.src = avatar.image.src
+
 document.addEventListener 'turbolinks:load', (e) ->
   if document.querySelector('#toolbox') != null
     document.querySelectorAll('.avatar-selection').forEach (elem) ->
@@ -159,8 +224,20 @@ document.addEventListener 'turbolinks:load', (e) ->
       mousedown = false
       App.avatar.size document.querySelector('#avatarSlider').value
 
+    document.querySelector('#resizeSpeed').addEventListener 'click', (e) ->
+      btn = document.querySelector('#resizeSpeed')
+      if btn.value == "1"
+        btn.innerHTML = "Gradual"
+        btn.value = 0
+      else
+        btn.innerHTML = "Instant"
+        btn.value = 1
+
     document.querySelector('#avatarSlider').addEventListener 'mousemove', (e) ->
       if mousedown
+        if document.querySelector('#resizeSpeed').value == "1"
+          avatarShadow()
+        else
           App.avatar.size document.querySelector('#avatarSlider').value
 
     document.querySelector('#editNameBtn').addEventListener 'mouseup', (e) ->
@@ -182,6 +259,10 @@ document.addEventListener 'turbolinks:load', (e) ->
         when 'nameToggle' then nameToggle data
         when 'place' then place data
         when 'editName' then editName data
+        when 'speechBubble' then speechBubble data
+
+    speechBubble: (txt, type) ->
+      @perform 'speechBubble', txt: txt, avatar_id: window.holding, type: type
 
     hold: (avatarId, name) ->
       window.holdWait = avatarId
