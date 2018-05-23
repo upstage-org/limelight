@@ -197,7 +197,7 @@
       App.context.moveTo(drawing.fromX, drawing.fromY);
       App.context.lineTo(drawing.toX, drawing.toY);
 
-      App.context.stroke()
+      App.context.stroke();
     });
   };
 
