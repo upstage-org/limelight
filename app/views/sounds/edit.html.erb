@@ -33,7 +33,7 @@
         </tr>
         <tr>
           <td>Created on:</td>
-          <td><%= @sound.created_at.strftime("%d/%m/%y @ %I:%M %p") %></td>
+          <td><%= @sound.created_at.localtime.strftime("%d/%m/%y @ %I:%M %p") %></td>
         </tr>
         <tr>
           <td>Uploaded By:</td>

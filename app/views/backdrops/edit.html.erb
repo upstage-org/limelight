@@ -27,7 +27,7 @@
       </tr>
       <tr>
         <td>Created on:</td>
-        <td><%= @backdrop.created_at.strftime("%d/%m/%y @ %I:%M %p") %></td>
+        <td><%= @backdrop.created_at.localtime.strftime("%d/%m/%y @ %I:%M %p") %></td>
       </tr>
       <tr>
         <td>Uploaded By:</td>
