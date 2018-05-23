@@ -1,18 +1,17 @@
 <%= form_for @sound do |f| %>
+<div id="updateField">
+  <div class="form-group">
+    <%= f.text_field :name, :class => "form-control", :placeholder => 'Name' %>
+    <% unless @sound.errors[:name].empty? %>
+      <p class="text-danger">
+        <% @sound.errors.full_messages_for(:name).each do |e| %>
+          <%= e %><br>
+        <% end %>
+      </p>
+    <% end %>
+  </div>
 
-<div class="form-group">
-  <%= f.text_field :name, :class => "form-control", :placeholder => 'Name' %>
-  <% unless @sound.errors[:name].empty? %>
-    <p class="text-danger">
-      <% @sound.errors.full_messages_for(:name).each do |e| %>
-        <%= e %><br>
-      <% end %>
-    </p>
-  <% end %>
-</div>
-
-<div class="row">
-  <div class="form-group col-lg-11">
+  <div class="form-group input-group">
     <%= f.file_field :source, :class => 'form-control', :placeholder => 'Choose File' %>
     <% unless @sound.errors[:source].empty? %>
       <p class="text-danger">
@@ -21,11 +20,8 @@
         <% end %>
       </p>
     <% end %>
-  </div>
 
-
-  <div class="form-group col-lg-1">
-    <span class="btn-group">
+    <span class="input-group-btn">
       <%= f.submit ( f.object.new_record? ? "Create" : "Update"), :class => "btn btn-primary" %>
     </span>
   </div>
