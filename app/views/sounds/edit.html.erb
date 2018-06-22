@@ -41,12 +41,14 @@
         </tr>
         <tr>
           <td>File Size:</td>
-          <% if @sound.source_file_size >= 1048576 %>
-            <td><%= (Float(@sound.source_file_size) / 1048576).round(1) %> MB</td>
-          <% elsif @sound.source_file_size >= 1024 %>
-            <td><%= (Float(@sound.source_file_size) / 1024).round(1) %> kB</td>
-          <% else %>
-            <td><%= @sound.source_file_size %> B</td>
+          <% if @sound.source_file_size.present? %>
+            <% if @sound.source_file_size >= 1048576 %>
+              <td><%= (Float(@sound.source_file_size) / 1048576).round(1) %> MB</td>
+            <% elsif @sound.source_file_size >= 1024 %>
+              <td><%= (Float(@sound.source_file_size) / 1024).round(1) %> kB</td>
+            <% else %>
+              <td><%= @sound.source_file_size %> B</td>
+            <% end %>
           <% end %>
         </tr>
         <tr>

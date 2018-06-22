@@ -84,8 +84,11 @@ class AvatarsController < ApplicationController
     def avatar_dimensions
       if @avatar.present?
         image = @avatar.source
-        geometry = Paperclip::Geometry.from_file(image)
-        return [geometry.width.to_i, geometry.height.to_i]
+
+        if image.present?
+          geometry = Paperclip::Geometry.from_file(image)
+          return [geometry.width.to_i, geometry.height.to_i]
+        end
       end
     end
 end

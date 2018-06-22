@@ -35,12 +35,14 @@
         </tr>
         <tr>
           <td>File Size:</td>
-          <% if @avatar.source_file_size >= 1048576 %>
-            <td><%= (Float(@avatar.source_file_size) / 1048576).round(1) %> MB</td>
-          <% elsif @avatar.source_file_size >= 1024 %>
-            <td><%= (Float(@avatar.source_file_size) / 1024).round(1) %> kB</td>
-          <% else %>
-            <td><%= @avatar.source_file_size %> B</td>
+          <% if @avatar.source_file_size.present? %>
+            <% if @avatar.source_file_size >= 1048576 %>
+              <td><%= (Float(@avatar.source_file_size) / 1048576).round(1) %> MB</td>
+            <% elsif @avatar.source_file_size >= 1024 %>
+              <td><%= (Float(@avatar.source_file_size) / 1024).round(1) %> kB</td>
+            <% else %>
+              <td><%= @avatar.source_file_size %> B</td>
+            <% end %>
           <% end %>
         </tr>
         <tr>
@@ -49,7 +51,9 @@
         </tr>
         <tr>
           <td>Dimensions:</td>
-          <td><%= "#{@avatar_dimensions[0]} x #{@avatar_dimensions[1]}" %></td>
+          <% if @avatar_dimensions.present? %>
+            <td><%= "#{@avatar_dimensions[0]} x #{@avatar_dimensions[1]}" %></td>
+          <% end %>
         </tr>
         <tr>
           <td>Stages:</td>
