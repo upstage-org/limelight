@@ -19,13 +19,13 @@
 
     <div id="toolbox">
       <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#drawing">Drawing</a></li>
+        <li class="active"><a data-toggle="tab" href="#avatar">Avatars</a></li>
         <li><a data-toggle="tab" href="#audio">Audio</a></li>
-        <li><a data-toggle="tab" href="#avatar">Avatars</a></li>
         <li><a data-toggle="tab" href="#backdrop">Backdrops</a></li>
+        <li><a data-toggle="tab" href="#drawing">Drawing</a></li>
       </ul>
       <div class="tab-content">
-        <div id="drawing" class="tab-pane fade in active">
+        <div id="drawing" class="tab-pane fade">
           Colour Picker:
           <button class="color-option" data-color="blue">
             <span class="glyphicon glyphicon-pencil blue"></span>
@@ -58,7 +58,7 @@
           </button>
         </div>
 
-        <div id="avatar" class="tab-pane fade">
+        <div id="avatar" class="tab-pane fade in active">
           <div class="panel-footer">
             <div class="scroller">
               <% @stage.avatars.each do |a| %>
@@ -73,6 +73,9 @@
               <input placeholder="name" disabled id="editAvatarName">
               <button class="btn btn-default" id="editNameBtn" disabled="disabled">
                 Save
+              </button>
+              <button class="btn btn-default" id="clearUnheldBtn">
+                Clear
               </button>
             </div>
             <div class="buttons">

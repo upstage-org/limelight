@@ -52,7 +52,7 @@ drop = (data) ->
   if document.querySelector('#toolbox') != null
     btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
     btn.removeAttribute 'disabled'
-    btn.setAttribute 'title', "#{btn.dataset.name}"
+    btn.setAttribute 'title', "#{btn.dataset.avatarName}"
     if `data.avatar_id == window.holding`
       nameInput = document.querySelector '#editAvatarName'
       nameInput.removeAttribute 'value'
@@ -124,6 +124,14 @@ nameToggle = (data) ->
     show: nameShow,
     nickname: avatarName[data.avatar_id]
   }
+  App.drawFrame()
+
+clearUnheld = (data) ->
+  for index in [0..App.state.avatars.length - 1]
+    if App.state.avatars[index]
+      btn = document.querySelector(".avatar-selection[data-avatar-id='#{index}']")
+      if btn.getAttribute('title') == btn.getAttribute('data-avatar-name')
+         delete App.state.avatars[index]
   App.drawFrame()
 
 editName = (data) ->
@@ -240,6 +248,9 @@ document.addEventListener 'turbolinks:load', (e) ->
         else
           App.avatar.size document.querySelector('#avatarSlider').value
 
+    document.querySelector('#clearUnheldBtn').addEventListener 'click', (e) ->
+      App.avatar.clearUnheld()
+
     document.querySelector('#editNameBtn').addEventListener 'mouseup', (e) ->
       App.avatar.editName(document.querySelector('#editAvatarName').value)
 
@@ -259,6 +270,7 @@ document.addEventListener 'turbolinks:load', (e) ->
         when 'nameToggle' then nameToggle data
         when 'place' then place data
         when 'editName' then editName data
+        when 'clearUnheld' then clearUnheld data
         when 'speechBubble' then speechBubble data
 
     speechBubble: (txt, type) ->
@@ -283,3 +295,6 @@ document.addEventListener 'turbolinks:load', (e) ->
 
     editName: (nickname) ->
       @perform 'editName', avatar_id: window.holding, names: avatarName, nickname: nickname
+
+    clearUnheld: () ->
+      @perform 'clearUnheld', avatar_id: window.holding
