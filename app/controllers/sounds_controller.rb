@@ -75,8 +75,4 @@ class SoundsController < ApplicationController
     def sound_params
       params.require(:sound).permit([ :name, :source ])
     end
-
-    def sound_url
-      return @sound.source
-    end
 end

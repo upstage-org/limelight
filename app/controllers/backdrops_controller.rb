@@ -78,10 +78,6 @@ class BackdropsController < ApplicationController
       params.require(:backdrop).permit([ :name, :source ])
     end
 
-    def backdrop_url
-      return @backdrop.source
-    end
-
     def backdrop_dimensions
       if @backdrop.present?
         image = @backdrop.source

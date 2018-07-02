@@ -77,10 +77,6 @@ class AvatarsController < ApplicationController
       params.require(:avatar).permit([ :name, :source ])
     end
 
-    def avatar_url
-      return @avatar.source
-    end
-
     def avatar_dimensions
       if @avatar.present?
         image = @avatar.source
