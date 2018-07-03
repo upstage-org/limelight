@@ -27,10 +27,6 @@ class SoundsController < ApplicationController
     redirect_to edit_sound_path(@sound)
   end
 
-  def edit
-    @sound_url = sound_url
-  end
-
   def update
     if @stage.present?
       @stage.sounds << @sound

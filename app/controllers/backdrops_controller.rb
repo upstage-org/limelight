@@ -30,7 +30,6 @@ class BackdropsController < ApplicationController
 
   def edit
     @backdrop_dimensions = backdrop_dimensions
-    @backdrop_url = backdrop_url
   end
 
   def update

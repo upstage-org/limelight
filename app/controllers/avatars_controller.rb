@@ -29,7 +29,6 @@ class AvatarsController < ApplicationController
 
   def edit
     @avatar_dimensions = avatar_dimensions
-    @avatar_url = avatar_url
   end
 
   def update
