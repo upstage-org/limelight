@@ -3,6 +3,8 @@ class AvatarsController < ApplicationController
   before_action :set_avatar, :except => [ :index, :new, :create ]
   before_action :set_stage, :only => [ :update, :destroy ]
 
+  include image
+
   def index
     @avatars = Avatar.all
   end
@@ -28,7 +30,7 @@ class AvatarsController < ApplicationController
   end
 
   def edit
-    @avatar_dimensions = avatar_dimensions
+    @avatar_dimensions = image_dimensions
   end
 
   def update
@@ -77,13 +79,14 @@ class AvatarsController < ApplicationController
     end
 
     def avatar_dimensions
-      if @avatar.present?
-        image = @avatar.source
-
-        if image.present?
-          geometry = Paperclip::Geometry.from_file(image)
-          return [geometry.width.to_i, geometry.height.to_i]
-        end
-      end
+      return get_dimensions
+      # if @avatar.present?
+      #   image = @avatar.source
+      #
+      #   if image.present?
+      #     geometry = Paperclip::Geometry.from_file(image)
+      #     return [geometry.width.to_i, geometry.height.to_i]
+      #   end
+      # end
     end
 end
