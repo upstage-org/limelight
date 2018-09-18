@@ -1,4 +1,5 @@
 avatarName = {}
+timer = ""
 
 place = (data) ->
   avatarName = data.names
@@ -51,7 +52,7 @@ drop = (data) ->
   if document.querySelector('#toolbox') != null
     btn = document.querySelector ".avatar-selection[data-avatar-id='#{data.avatar_id}']"
     btn.removeAttribute 'disabled'
-    btn.setAttribute 'title', "#{btn.dataset.name}"
+    btn.setAttribute 'title', "#{btn.dataset.avatarName}"
     if `data.avatar_id == window.holding`
       nameInput = document.querySelector '#editAvatarName'
       nameInput.removeAttribute 'value'
@@ -125,6 +126,14 @@ nameToggle = (data) ->
   }
   App.drawFrame()
 
+clearUnheld = (data) ->
+  for index in [0..App.state.avatars.length - 1]
+    if App.state.avatars[index]
+      btn = document.querySelector(".avatar-selection[data-avatar-id='#{index}']")
+      if btn.getAttribute('title') == btn.getAttribute('data-avatar-name')
+         delete App.state.avatars[index]
+  App.drawFrame()
+
 editName = (data) ->
   avatarName = data.names
   avatarName[data.avatar_id] = data.nickname
@@ -141,6 +150,56 @@ editName = (data) ->
     nickname: data.nickname
   }
   App.drawFrame()
+
+build_lines_from_text = (txt, maxChar) ->
+  message = []
+  row = 0
+
+  if txt.length > maxChar
+    lines = txt.split(' ')
+    i = 0
+    count = 0
+    line = ""
+    while i < lines.length
+      if lines[i].length + count <= maxChar
+        count += lines[i].length
+        line = line + lines[i] + " "
+      else
+        message[row] = line
+        row++
+        count = lines[i].length
+        line = lines[i] + " "
+      if i == lines.length - 1
+        message[row] = line
+      i++
+  else
+    message[0] = txt
+
+  [message, row]
+
+speechBubble = (data) ->
+  clearTimeout timer
+  maxChar = 17
+
+  if data['type'] == "!"
+    maxChar = 13;
+    data['txt'] = data['txt'].toUpperCase()
+
+  message_by_row = build_lines_from_text(data['txt'], maxChar)
+
+  App.state.bubbles[data.avatar_id] = {
+    txt: message_by_row[0],
+    avatar_id: data.avatar_id,
+    type: data['type'],
+    row: message_by_row[1]
+  }
+  App.drawFrame()
+  time = 3000 + message_by_row[1] * 1000
+  timer = setTimeout (->
+    delete App.state.bubbles[data.avatar_id]
+    App.drawFrame()
+    return
+  ), time
 
 avatarShadow = () ->
   avatar = App.state.avatars[window.holding]
@@ -189,6 +248,9 @@ document.addEventListener 'turbolinks:load', (e) ->
         else
           App.avatar.size document.querySelector('#avatarSlider').value
 
+    document.querySelector('#clearUnheldBtn').addEventListener 'click', (e) ->
+      App.avatar.clearUnheld()
+
     document.querySelector('#editNameBtn').addEventListener 'mouseup', (e) ->
       App.avatar.editName(document.querySelector('#editAvatarName').value)
 
@@ -208,6 +270,11 @@ document.addEventListener 'turbolinks:load', (e) ->
         when 'nameToggle' then nameToggle data
         when 'place' then place data
         when 'editName' then editName data
+        when 'clearUnheld' then clearUnheld data
+        when 'speechBubble' then speechBubble data
+
+    speechBubble: (txt, type) ->
+      @perform 'speechBubble', txt: txt, avatar_id: window.holding, type: type
 
     hold: (avatarId, name) ->
       window.holdWait = avatarId
@@ -228,3 +295,6 @@ document.addEventListener 'turbolinks:load', (e) ->
 
     editName: (nickname) ->
       @perform 'editName', avatar_id: window.holding, names: avatarName, nickname: nickname
+
+    clearUnheld: () ->
+      @perform 'clearUnheld', avatar_id: window.holding
