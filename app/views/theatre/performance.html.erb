@@ -112,13 +112,7 @@
 
         <div id="backdrop" class="tab-pane fade">
           <div class="panel-footer">
-            <div class="scroller">
-              <% @stage.backdrops.each do |b| %>
-                <div class="backdropImages">
-                    <%= image_tag b.source.url(:thumb), :class => 'backdrop-selection', :'data-backdrop-id' => b.id, :alt => b.name, :title => b.name %>
-                </div>
-              <% end %>
-            </div>
+          
           </div>
         </div>
       </div>
