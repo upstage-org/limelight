@@ -100,14 +100,7 @@
         </div>
 
         <div id="audio" class="tab-pane fade">
-          <div class="panel-footer">
-            <% @stage.sounds.each do |au| %>
-              <button class="btn btn-default audio-selection" title="<%= au.name %>" data-audio-name="<%= au.name %>" data-audio-id="<%= au.source%>">
-                <%=au.name%>
-              </button>
-            <% end %>
-            </br>
-          </div>
+
         </div>
 
         <div id="backdrop" class="tab-pane fade">
