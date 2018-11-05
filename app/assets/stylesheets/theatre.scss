@@ -169,7 +169,6 @@ div.message > div.content.shout {
 }
 
 #backdrop{
-  overflow-y: scroll;
   height: 25vh;
   float: centre;
 }
@@ -220,8 +219,4 @@ div.message > div.content.shout {
 .edit-name {
   float:left;
   margin-left: 18px;
-}
-
-.btn-default {
-  font-size: 8px;
 }
