@@ -104,12 +104,12 @@
     <!-- Chat -->
 
       <div id="chat" style="height: <%= current_user.nil? ? '100%' : '70%' %>;">
-        <div id="chat-body" style="height: <%= current_user.nil? ? '70%' : '80%' %>;">
+        <div id="chat-body" style="height: <%= current_user.nil? ? '70%' : '77%' %>;">
           <div id="messages" data-stage-id ="<%= @stage.id %>">
             <%= render @stage.messages %>
           </div>
         </div>
-        <div id="chatInput" style="height: <%= current_user.nil? ? '30%' : '20%' %>;">
+        <div id="chatInput" style="height: <%= current_user.nil? ? '30%' : '23%' %>;">
           <% unless current_user.nil? %>
             <div class="input-group">
               <%= label_tag nil, :class => 'radio-inline' do %>
