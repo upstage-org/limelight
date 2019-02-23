@@ -43,7 +43,7 @@ GEM
       execjs
     bcrypt (3.1.12)
     bindex (0.5.0)
-    bootstrap-sass (3.3.7)
+    bootstrap-sass (3.4.1)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
     bootstrap-wysihtml5-rails (0.3.3.8)
@@ -94,7 +94,7 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.7)
     loofah (2.2.3)
       crass (~> 1.0.2)
-      nokogiri (>= 1.5.9)
+      nokogiri (>= 1.8.5)
     mail (2.7.0)
       mini_mime (>= 0.1.1)
     method_source (0.9.0)
@@ -108,7 +108,7 @@ GEM
     multi_json (1.13.1)
     mysql2 (0.5.1)
     nio4r (2.3.1)
-    nokogiri (1.8.2)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     paperclip (5.2.1)
       activemodel (>= 4.2.0)
@@ -140,7 +140,7 @@ GEM
       activesupport (~> 5.x)
     rails-dom-testing (2.0.3)
       activesupport (>= 4.2.0)
-      nokogiri (>= 1.6)
+      nokogiri (>= 1.8.5)
     rails-html-sanitizer (1.0.4)
       loofah (~> 2.2, >= 2.2.2)
     rails_autolink (1.1.6)
@@ -223,7 +223,7 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt (~> 3.1.7)
-  bootstrap-sass (~> 3.3.7)
+  bootstrap-sass (~> 3.4.1)
   bootstrap-wysihtml5-rails (~> 0.3.3.8)
   by_star (~> 3.0)
   byebug
