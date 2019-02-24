@@ -31,7 +31,7 @@ gem 'email_validator', '~> 1.6.0'
 gem 'friendly_id', '~> 5.2.1'
 
 # Design library
-gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootstrap-sass', '~> 3.4.1'
 
 # For soft deletion
 gem 'paranoia', '~> 2.3.1'
