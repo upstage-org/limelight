@@ -63,7 +63,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.6'
   # Use sqlite3 as the database for Active Record
   gem 'sqlite3'
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers', '~> 3.1.3'
   gem 'rails-controller-testing'
 end
 
