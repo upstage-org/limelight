@@ -1,3 +1,7 @@
+**NO LONGER UNDER ACTIVE DEVELOPMENT**
+
+Please see: [mobilise](https://github.com/upstage-org/mobilise)
+
 # UpStage Limelight
 ![Ruby](https://github.com/upstage-org/limelight/workflows/Ruby/badge.svg)
 
